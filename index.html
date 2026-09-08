@@ -3,310 +3,745 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Study With Abhi - Workspace</title>
+  <title>SYSTUM - UNIVERSE | Study Hub</title>
+  
+  <!-- Fonts & Icons -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com">
+  <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@600;800;900&family=Rajdhani:wght@500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+
   <style>
     :root {
-      --bg-color: #0c0b0a;
-      --card-bg: #151311;
-      --card-border: #26211c;
-      --accent: #ff6a00;
-      --accent-glow: rgba(255, 106, 0, 0.15);
-      --text-main: #f3eee6;
-      --text-muted: #8d8579;
-      --green: #2ecc71;
+      --primary: #FF0000;
+      --primary-glow: rgba(255, 0, 0, 0.65);
+      --primary-dim: rgba(255, 0, 0, 0.15);
+      --bg-dark: #070709;
+      --bg-card: rgba(18, 18, 24, 0.85);
+      --text-main: #FFFFFF;
+      --text-muted: #a2a2b5;
+      --border-glass: rgba(255, 255, 255, 0.12);
+      --liquid-glass: rgba(14, 14, 20, 0.85);
+      --transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
     }
 
-    * { box-sizing: border-box; margin: 0; padding: 0; font-family: system-ui, -apple-system, sans-serif; }
-    body { background: var(--bg-color); color: var(--text-main); padding-bottom: 90px; }
-
-    /* Top Bar */
-    header {
-      position: sticky; top: 0; z-index: 100;
-      background: rgba(12, 11, 10, 0.95);
-      backdrop-filter: blur(8px);
-      border-bottom: 1px solid var(--card-border);
-      padding: 12px 20px;
-      display: flex; align-items: center; justify-content: space-between; gap: 16px;
-    }
-    .brand { font-size: 1rem; font-weight: 800; letter-spacing: 0.5px; }
-    .brand span { color: var(--accent); }
-    .brand-sub { font-size: 0.65rem; color: var(--text-muted); display: block; font-weight: 400; }
-
-    .search-bar { flex: 1; max-width: 480px; }
-    .search-bar input {
-      width: 100%; background: #1a1714; border: 1px solid var(--card-border);
-      color: var(--text-main); padding: 8px 14px; border-radius: 20px; outline: none; font-size: 0.85rem;
-    }
-    .search-bar input:focus { border-color: var(--accent); }
-
-    .header-right { display: flex; align-items: center; gap: 10px; }
-    .timer-pill {
-      background: #1e1b17; border: 1px solid var(--card-border);
-      padding: 6px 12px; border-radius: 20px; font-size: 0.75rem; color: var(--text-muted);
-    }
-    .btn-tg {
-      background: var(--accent); color: #fff; text-decoration: none;
-      padding: 7px 14px; border-radius: 20px; font-size: 0.8rem; font-weight: 600;
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      scroll-behavior: smooth;
     }
 
-    .container { max-width: 1100px; margin: 0 auto; padding: 24px 16px; }
+    body {
+      background-color: var(--bg-dark);
+      color: var(--text-main);
+      font-family: 'Rajdhani', sans-serif;
+      font-size: 18px;
+      line-height: 1.6;
+      overflow-x: hidden;
+    }
 
-    /* Hero Banner */
+    h1, h2, h3, h4 {
+      font-family: 'Orbitron', sans-serif;
+      text-transform: uppercase;
+      letter-spacing: 2px;
+    }
+
+    /* ================= 1. FIXED LIQUID GLASS NAVBAR ================= */
+    .navbar {
+      position: fixed;
+      top: 15px;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 92%;
+      max-width: 1200px;
+      height: 70px;
+      background: var(--liquid-glass);
+      backdrop-filter: blur(20px);
+      -webkit-backdrop-filter: blur(20px);
+      border: 1px solid var(--border-glass);
+      border-radius: 18px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0 25px;
+      z-index: 9999;
+      box-shadow: 0 8px 32px rgba(0, 0, 0, 0.6);
+    }
+
+    .nav-logo {
+      font-size: 1.3rem;
+      font-weight: 900;
+      color: #fff;
+      text-decoration: none;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .nav-logo span {
+      color: var(--primary);
+      text-shadow: 0 0 15px var(--primary-glow);
+    }
+
+    .nav-menu {
+      display: flex;
+      list-style: none;
+      gap: 25px;
+      align-items: center;
+    }
+
+    .nav-link {
+      color: var(--text-muted);
+      text-decoration: none;
+      font-weight: 600;
+      font-size: 0.95rem;
+      transition: var(--transition);
+      position: relative;
+    }
+
+    .nav-link:hover {
+      color: #fff;
+    }
+
+    .nav-link::after {
+      content: '';
+      position: absolute;
+      bottom: -4px;
+      left: 0;
+      width: 0%;
+      height: 2px;
+      background: var(--primary);
+      transition: var(--transition);
+      box-shadow: 0 0 10px var(--primary);
+    }
+
+    .nav-link:hover::after {
+      width: 100%;
+    }
+
+    .nav-actions {
+      display: flex;
+      align-items: center;
+      gap: 15px;
+    }
+
+    /* 3-DOTS BUTTON */
+    .dots-btn {
+      background: rgba(255, 255, 255, 0.08);
+      border: 1px solid var(--border-glass);
+      color: #fff;
+      font-size: 1.3rem;
+      width: 44px;
+      height: 44px;
+      border-radius: 50%;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: var(--transition);
+      user-select: none;
+      -webkit-tap-highlight-color: transparent;
+    }
+
+    .dots-btn:hover, .dots-btn:active {
+      background: var(--primary);
+      border-color: var(--primary);
+      box-shadow: 0 0 20px var(--primary-glow);
+    }
+
+    .hamburger {
+      display: none;
+      background: transparent;
+      border: none;
+      color: #fff;
+      font-size: 1.4rem;
+      cursor: pointer;
+    }
+
+    /* ================= INDEPENDENT FLOATING 3-DOT DROPDOWN ================= */
+    .dots-backdrop {
+      position: fixed;
+      inset: 0;
+      background: rgba(0, 0, 0, 0.6);
+      backdrop-filter: blur(4px);
+      -webkit-backdrop-filter: blur(4px);
+      z-index: 100000;
+      display: none;
+      opacity: 0;
+      transition: opacity 0.25s ease;
+    }
+
+    .dots-backdrop.show {
+      display: block;
+      opacity: 1;
+    }
+
+    .dots-dropdown {
+      position: fixed;
+      top: 85px;
+      right: max(4%, calc((100vw - 1200px) / 2 + 25px));
+      width: 235px;
+      background: #111116;
+      border: 1px solid rgba(255, 0, 0, 0.45);
+      border-radius: 16px;
+      box-shadow: 0 15px 45px rgba(0, 0, 0, 0.95), 0 0 20px rgba(255, 0, 0, 0.25);
+      display: none;
+      flex-direction: column;
+      overflow: hidden;
+      z-index: 100001;
+      animation: dropFadeIn 0.22s cubic-bezier(0.2, 0.8, 0.2, 1);
+    }
+
+    .dots-dropdown.show {
+      display: flex !important;
+    }
+
+    @keyframes dropFadeIn {
+      from {
+        opacity: 0;
+        transform: translateY(-8px) scale(0.96);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0) scale(1);
+      }
+    }
+
+    .dropdown-header {
+      padding: 12px 18px 4px;
+      font-size: 0.75rem;
+      text-transform: uppercase;
+      letter-spacing: 1.5px;
+      color: var(--text-muted);
+      font-weight: 700;
+    }
+
+    .dropdown-item {
+      padding: 12px 18px;
+      color: #fff;
+      font-size: 0.95rem;
+      font-weight: 600;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      background: transparent;
+      border: none;
+      cursor: pointer;
+      text-align: left;
+      text-decoration: none;
+      transition: var(--transition);
+      font-family: 'Rajdhani', sans-serif;
+    }
+
+    .dropdown-item:hover, .dropdown-item:active {
+      background: var(--primary);
+      color: #fff;
+      padding-left: 22px;
+      box-shadow: 0 0 15px var(--primary-glow);
+    }
+
+    .dropdown-divider {
+      height: 1px;
+      background: var(--border-glass);
+      margin: 4px 0;
+    }
+
+    /* ================= 2. HERO SECTION ================= */
     .hero {
-      background: linear-gradient(135deg, #24190e 0%, var(--card-bg) 60%);
-      border: 1px solid var(--card-border);
-      border-radius: 16px; padding: 28px; margin-bottom: 30px;
+      min-height: 92vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      padding: 130px 20px 40px;
+      position: relative;
+      overflow: hidden;
+      background: radial-gradient(circle at center, #240000 0%, #070709 85%);
     }
-    .badge {
-      display: inline-block; font-size: 0.7rem; color: var(--accent);
-      background: var(--accent-glow); padding: 3px 10px; border-radius: 10px; margin-bottom: 12px;
-    }
-    .hero h1 { font-size: 1.8rem; margin-bottom: 8px; }
-    .hero h1 span { color: var(--accent); }
-    .hero p { color: var(--text-muted); font-size: 0.9rem; line-height: 1.5; max-width: 600px; margin-bottom: 18px; }
-    .hero-btns { display: flex; gap: 10px; }
-    .btn-solid { background: var(--accent); color: #fff; border: none; padding: 9px 18px; border-radius: 8px; font-weight: 600; cursor: pointer; }
-    .btn-outline { background: transparent; color: var(--text-main); border: 1px solid var(--card-border); padding: 9px 18px; border-radius: 8px; cursor: pointer; }
 
-    /* Section Styling */
-    .section-head { margin: 24px 0 14px; }
-    .section-head small { color: var(--accent); font-size: 0.7rem; font-weight: 700; text-transform: uppercase; }
-    .section-head h2 { font-size: 1.2rem; }
-
-    /* Cards Grid */
-    .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 14px; }
-    .card {
-      background: var(--card-bg); border: 1px solid var(--card-border);
-      border-radius: 12px; padding: 16px; display: flex; flex-direction: column; justify-content: space-between;
+    #hero-canvas {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      z-index: 1;
+      opacity: 0.85;
+      pointer-events: none;
     }
-    .card:hover { border-color: var(--accent); }
-    .card-title { font-size: 0.95rem; font-weight: 600; }
-    .card-tag { font-size: 0.75rem; color: var(--text-muted); margin-top: 2px; }
-    .card-stats { display: flex; gap: 12px; font-size: 0.75rem; color: var(--text-muted); margin: 12px 0; }
-    .card-bottom { display: flex; justify-content: space-between; align-items: center; padding-top: 10px; border-top: 1px solid #201c18; }
-    .status { font-size: 0.75rem; color: var(--green); }
-    .btn-resume { background: var(--accent); color: #fff; border: none; padding: 6px 14px; border-radius: 6px; font-size: 0.8rem; font-weight: 600; cursor: pointer; }
 
-    /* Hub Links */
-    .hub-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap: 12px; }
-    .hub-box { background: #110f0d; border: 1px solid var(--card-border); padding: 14px; border-radius: 10px; cursor: pointer; }
-    .hub-box:hover { border-color: var(--accent); }
-    .hub-box h4 { font-size: 0.9rem; margin-bottom: 4px; }
-    .hub-box p { font-size: 0.75rem; color: var(--text-muted); }
+    .hero-container {
+      position: relative;
+      z-index: 2;
+      max-width: 900px;
+    }
 
-    /* Built-in Reader Modal */
-    .modal {
-      display: none; position: fixed; inset: 0; background: rgba(0,0,0,0.85);
-      z-index: 200; justify-content: center; align-items: center; padding: 16px;
+    .universe-badge {
+      display: inline-block;
+      padding: 6px 18px;
+      background: var(--primary-dim);
+      border: 1px solid var(--primary);
+      color: var(--primary);
+      border-radius: 30px;
+      font-size: 0.8rem;
+      font-weight: 700;
+      letter-spacing: 3px;
+      margin-bottom: 18px;
+      box-shadow: 0 0 15px var(--primary-glow);
+      animation: neonPulse 2s infinite alternate;
     }
-    .modal.active { display: flex; }
-    .modal-box {
-      background: var(--card-bg); border: 1px solid var(--card-border);
-      width: 100%; max-width: 800px; height: 80vh; border-radius: 12px; display: flex; flex-direction: column;
-    }
-    .modal-bar { padding: 12px 16px; border-bottom: 1px solid var(--card-border); display: flex; justify-content: space-between; align-items: center; }
-    .modal-bar button { background: none; border: none; color: #fff; font-size: 1.2rem; cursor: pointer; }
-    .modal-body { padding: 20px; overflow-y: auto; line-height: 1.6; color: #d6cfc5; }
 
-    /* Bottom Navigation */
-    .nav-bar {
-      position: fixed; bottom: 0; left: 0; right: 0; height: 60px;
-      background: rgba(12, 11, 10, 0.98); border-top: 1px solid var(--card-border);
-      display: flex; justify-content: space-around; align-items: center;
+    .hero-title {
+      font-size: clamp(2.4rem, 6.5vw, 4.8rem);
+      margin-bottom: 18px;
+      font-weight: 900;
+      line-height: 1.2;
     }
-    .nav-item { background: none; border: none; color: var(--text-muted); font-size: 0.75rem; cursor: pointer; }
-    .nav-item.active { color: var(--accent); font-weight: 600; }
+
+    .hero-title span {
+      color: var(--primary);
+      text-shadow: 0 0 25px var(--primary), 0 0 50px var(--primary-glow);
+    }
+
+    .hero-subtitle {
+      color: var(--text-muted);
+      font-size: clamp(1rem, 2vw, 1.25rem);
+      margin-bottom: 35px;
+      max-width: 680px;
+      margin-inline: auto;
+    }
+
+    .btn-group {
+      display: flex;
+      justify-content: center;
+      gap: 18px;
+      flex-wrap: wrap;
+    }
+
+    .btn {
+      padding: 14px 32px;
+      border-radius: 10px;
+      font-family: 'Orbitron', sans-serif;
+      font-size: 0.85rem;
+      font-weight: 700;
+      text-decoration: none;
+      letter-spacing: 1px;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      transition: var(--transition);
+      border: none;
+    }
+
+    .btn-primary {
+      background: var(--primary);
+      color: #fff;
+      box-shadow: 0 0 25px var(--primary-glow);
+    }
+
+    .btn-primary:hover {
+      transform: translateY(-3px) scale(1.03);
+      box-shadow: 0 0 35px rgba(255, 0, 0, 0.9);
+    }
+
+    .btn-glass {
+      background: rgba(255, 255, 255, 0.05);
+      color: #fff;
+      border: 1px solid var(--border-glass);
+      backdrop-filter: blur(12px);
+    }
+
+    .btn-glass:hover {
+      border-color: #fff;
+      background: rgba(255, 255, 255, 0.12);
+    }
+
+    @keyframes neonPulse {
+      0% {
+        box-shadow: 0 0 10px var(--primary-glow);
+        text-shadow: 0 0 10px var(--primary-glow);
+      }
+      100% {
+        box-shadow: 0 0 25px var(--primary);
+        text-shadow: 0 0 20px var(--primary);
+      }
+    }
+
+    /* ================= 3. STUDY CARDS ================= */
+    .section-wrap {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 85px 20px;
+    }
+
+    .section-title {
+      text-align: center;
+      margin-bottom: 50px;
+    }
+
+    .section-title h2 {
+      font-size: clamp(1.8rem, 3.5vw, 2.4rem);
+      margin-bottom: 8px;
+    }
+
+    .section-title span {
+      color: var(--primary);
+      text-shadow: 0 0 20px var(--primary-glow);
+    }
+
+    .materials-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 25px;
+    }
+
+    .material-card {
+      background: var(--bg-card);
+      border: 1px solid var(--border-glass);
+      border-radius: 18px;
+      padding: 32px;
+      backdrop-filter: blur(16px);
+      transition: var(--transition);
+      position: relative;
+    }
+
+    .material-card:hover {
+      transform: translateY(-8px);
+      border-color: var(--primary);
+      box-shadow: 0 10px 30px rgba(255, 0, 0, 0.25);
+    }
+
+    .card-badge {
+      display: inline-block;
+      padding: 4px 12px;
+      background: var(--primary-dim);
+      border: 1px solid rgba(255, 0, 0, 0.4);
+      color: #ff6666;
+      font-size: 0.75rem;
+      border-radius: 12px;
+      font-weight: 700;
+      margin-bottom: 15px;
+    }
+
+    .card-icon {
+      font-size: 2.2rem;
+      margin-bottom: 18px;
+      display: block;
+      color: var(--primary);
+      text-shadow: 0 0 15px var(--primary-glow);
+    }
+
+    .material-card h3 {
+      font-size: 1.25rem;
+      margin-bottom: 12px;
+    }
+
+    .material-card p {
+      color: var(--text-muted);
+      font-size: 0.95rem;
+      margin-bottom: 22px;
+    }
+
+    /* ================= 4. ADMIN BIO (WITH PHOTO) ================= */
+    .bio-container {
+      background: var(--bg-card);
+      border: 1px solid var(--border-glass);
+      border-radius: 20px;
+      padding: 45px;
+      display: grid;
+      grid-template-columns: 1fr 2fr;
+      gap: 40px;
+      align-items: center;
+      backdrop-filter: blur(16px);
+    }
+
+    .bio-profile {
+      text-align: center;
+      border-right: 1px solid var(--border-glass);
+      padding-right: 30px;
+    }
+
+    .bio-avatar {
+      width: 140px;
+      height: 140px;
+      border-radius: 50%;
+      border: 3px solid var(--primary);
+      box-shadow: 0 0 25px var(--primary-glow);
+      object-fit: cover;
+      margin-bottom: 15px;
+      transition: var(--transition);
+    }
+
+    .bio-avatar:hover {
+      box-shadow: 0 0 35px var(--primary);
+      transform: scale(1.03);
+    }
+
+    .bio-profile h3 {
+      font-size: 1.3rem;
+      margin-bottom: 6px;
+    }
+
+    .insta-link {
+      color: var(--primary);
+      text-decoration: none;
+      font-weight: 700;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      font-size: 1rem;
+      transition: var(--transition);
+    }
+
+    .insta-link:hover {
+      text-shadow: 0 0 12px var(--primary);
+    }
+
+    .systum-tagline {
+      font-size: 1.3rem;
+      color: #fff;
+      font-weight: 700;
+      margin-bottom: 15px;
+      background: var(--primary-dim);
+      display: inline-block;
+      padding: 10px 20px;
+      border-radius: 8px;
+      border-left: 4px solid var(--primary);
+      box-shadow: 0 0 15px rgba(255, 0, 0, 0.1);
+    }
+
+    /* ================= 5. CONTACT SECTION ================= */
+    .contact-card {
+      max-width: 650px;
+      margin: 0 auto;
+      background: var(--bg-card);
+      border: 1px solid var(--border-glass);
+      padding: 35px;
+      border-radius: 20px;
+      backdrop-filter: blur(16px);
+    }
+
+    .direct-email-badge {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+      background: rgba(255, 255, 255, 0.04);
+      border: 1px solid var(--border-glass);
+      padding: 14px;
+      border-radius: 12px;
+      margin-bottom: 25px;
+      text-decoration: none;
+      color: #fff;
+      font-weight: 600;
+      transition: var(--transition);
+    }
+
+    .direct-email-badge:hover {
+      border-color: var(--primary);
+      box-shadow: 0 0 20px var(--primary-glow);
+      color: var(--primary);
+    }
+
+    .form-group {
+      margin-bottom: 20px;
+    }
+
+    .form-group label {
+      display: block;
+      margin-bottom: 8px;
+      font-size: 0.85rem;
+      color: var(--text-muted);
+      text-transform: uppercase;
+      letter-spacing: 1px;
+    }
+
+    .form-group input,
+    .form-group textarea {
+      width: 100%;
+      padding: 14px 16px;
+      background: rgba(10, 10, 14, 0.85);
+      border: 1px solid var(--border-glass);
+      border-radius: 10px;
+      color: #fff;
+      font-family: 'Rajdhani', sans-serif;
+      font-size: 1rem;
+      outline: none;
+      transition: var(--transition);
+    }
+
+    .form-group input:focus,
+    .form-group textarea:focus {
+      border-color: var(--primary);
+      box-shadow: 0 0 15px var(--primary-glow);
+    }
+
+    /* ================= 6. FOOTER ================= */
+    footer {
+      border-top: 1px solid var(--border-glass);
+      background: rgba(8, 8, 12, 0.95);
+      padding: 40px 20px;
+      text-align: center;
+    }
+
+    .social-row {
+      display: flex;
+      justify-content: center;
+      gap: 20px;
+      margin-bottom: 20px;
+    }
+
+    .social-btn {
+      width: 44px;
+      height: 44px;
+      border-radius: 50%;
+      background: rgba(255, 255, 255, 0.05);
+      border: 1px solid var(--border-glass);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: #fff;
+      text-decoration: none;
+      transition: var(--transition);
+    }
+
+    .social-btn:hover {
+      background: var(--primary);
+      box-shadow: 0 0 20px var(--primary-glow);
+      transform: translateY(-4px);
+    }
+
+    @media (max-width: 900px) {
+      .bio-container {
+        grid-template-columns: 1fr;
+        padding: 30px;
+      }
+      .bio-profile {
+        border-right: none;
+        border-bottom: 1px solid var(--border-glass);
+        padding-right: 0;
+        padding-bottom: 25px;
+      }
+    }
+
+    @media (max-width: 768px) {
+      .hamburger {
+        display: block;
+      }
+      .nav-menu {
+        position: absolute;
+        top: 85px;
+        left: 0;
+        width: 100%;
+        background: rgba(14, 14, 20, 0.98);
+        border: 1px solid var(--border-glass);
+        border-radius: 16px;
+        flex-direction: column;
+        padding: 25px;
+        display: none;
+      }
+      .nav-menu.active {
+        display: flex;
+      }
+    }
   </style>
 </head>
 <body>
 
+  <!-- 1. FIXED NAVBAR -->
   <header>
-    <div class="brand">
-      STUDY WITH <span>ABHI</span>
-      <span class="brand-sub">Official Educational Portal</span>
-    </div>
-    <div class="search-bar">
-      <input type="text" id="searchInput" placeholder="Search batches, subjects, notes..." />
-    </div>
-    <div class="header-right">
-      <div class="timer-pill" id="sessionTimer">⏱ 0s studied</div>
-      <a href="https://study-with-abhi.ai.studio/" class="btn-tg" target="_blank">View Site</a>
-    </div>
+    <nav class="navbar">
+      <a href="#home" class="nav-logo">
+        <i class="fa-solid fa-atom" style="color:var(--primary)"></i> SYSTUM<span>.</span>
+      </a>
+
+      <ul class="nav-menu" id="nav-menu">
+        <li><a href="#home" class="nav-link">Home</a></li>
+        <li><a href="#materials" class="nav-link">Study Material</a></li>
+        <li><a href="#about" class="nav-link">Admin Bio</a></li>
+        <li><a href="#contact" class="nav-link">Contact</a></li>
+      </ul>
+
+      <div class="nav-actions">
+        <!-- 3-DOTS BUTTON (DIRECT ONCLICK) -->
+        <button type="button" class="dots-btn" id="dotsToggle" onclick="toggleDotsMenu(event)" aria-label="Open menu">
+          <i class="fa-solid fa-ellipsis-vertical"></i>
+        </button>
+
+        <button class="hamburger" id="hamburgerToggle" aria-label="Menu">
+          <i class="fa-solid fa-bars"></i>
+        </button>
+      </div>
+    </nav>
   </header>
 
-  <main class="container">
-    <section class="hero">
-      <div class="badge">One Platform • Every Student • Every Exam</div>
-      <h1>Welcome to <span>Study With Abhi</span></h1>
-      <p>Curated study materials, handwritten revision notes, and solved PYQ papers for government and competitive exams.</p>
-      <div class="hero-btns">
-        <button class="btn-solid" onclick="filterItems('All')">Explore Materials</button>
-        <button class="btn-outline" onclick="alert('Join the Telegram group for daily PDFs!')">Telegram Hub</button>
-      </div>
-    </section>
+  <!-- 2. GUARANTEED WORKING 3-DOTS DROPDOWN + BACKDROP -->
+  <div id="dotsBackdrop" class="dots-backdrop" onclick="closeDotsMenu()"></div>
+  <div id="dotsDropdown" class="dots-dropdown">
+    <div class="dropdown-header">Social Media</div>
+    <a href="https://www.instagram.com/_avinash_meena1?stkn=bm1rZWxmeWdsam43" target="_blank" rel="noopener noreferrer" class="dropdown-item" onclick="closeDotsMenu()">
+      <i class="fa-brands fa-instagram" style="color:#E1306C; font-size: 1.15rem;"></i> Instagram
+    </a>
+    <a href="https://youtube.com/@xnaviff" target="_blank" rel="noopener noreferrer" class="dropdown-item" onclick="closeDotsMenu()">
+      <i class="fa-brands fa-youtube" style="color:#FF0000; font-size: 1.15rem;"></i> xn avi ff
+    </a>
 
-    <div class="section-head">
-      <small>Workspace</small>
-      <h2>Continue Learning</h2>
-    </div>
-    <section class="grid" id="cardsContainer"></section>
-
-    <div class="section-head">
-      <small>Navigation</small>
-      <h2>Quick Access Hub</h2>
-    </div>
-    <section class="hub-grid">
-      <div class="hub-box" onclick="filterItems('Government')">
-        <h4>Government Exams</h4>
-        <p>SSC, UP Police, State PSC</p>
-      </div>
-      <div class="hub-box" onclick="filterItems('Competitive')">
-        <h4>Competitive Prep</h4>
-        <p>JEE, NEET, Foundation</p>
-      </div>
-      <div class="hub-box" onclick="filterItems('Notes')">
-        <h4>Handwritten Notes</h4>
-        <p>Class 01 Full Form, History</p>
-      </div>
-      <div class="hub-box" onclick="filterItems('All')">
-        <h4>All Materials</h4>
-        <p>Reset and view everything</p>
-      </div>
-    </section>
-  </main>
-
-  <!-- Reader Modal -->
-  <div class="modal" id="readerModal">
-    <div class="modal-box">
-      <div class="modal-bar">
-        <h3 id="modalTitle">Notes Viewer</h3>
-        <button onclick="closeReader()">&times;</button>
-      </div>
-      <div class="modal-body" id="modalContent"></div>
-    </div>
+    <div class="dropdown-divider"></div>
+    <div class="dropdown-header">Account</div>
+    <button type="button" class="dropdown-item" onclick="closeDotsMenu(); alert('Login portal opening...');">
+      <i class="fa-solid fa-right-to-bracket" style="color:var(--primary); font-size: 1.1rem;"></i> Login
+    </button>
+    <button type="button" class="dropdown-item" onclick="closeDotsMenu(); alert('Logged Out Successfully.');">
+      <i class="fa-solid fa-right-from-bracket" style="color:var(--primary); font-size: 1.1rem;"></i> Logout
+    </button>
   </div>
 
-  <nav class="nav-bar">
-    <button class="nav-item active" onclick="filterItems('All')">Home</button>
-    <button class="nav-item" onclick="filterItems('Government')">Govt Exams</button>
-    <button class="nav-item" onclick="filterItems('Notes')">Notes</button>
-    <button class="nav-item" onclick="filterItems('Competitive')">Competitive</button>
-  </nav>
+  <!-- 3. HERO SECTION -->
+  <main>
+    <section class="hero" id="home">
+      <canvas id="hero-canvas"></canvas>
 
-  <script>
-    // 1. Initial items list
-    const defaultData = [
-      {
-        id: "1",
-        title: "Rojgar With Ankit",
-        category: "Government Exams",
-        type: "Government",
-        timeStudied: 20,
-        content: "<h3>Rojgar With Ankit - Study Notes</h3><br><p>Key Topics Covered:</p><ul><li>General Knowledge & Hindi</li><li>Maths & Reasoning Revision Sheets</li><li>Daily Practice Problems</li></ul>"
-      },
-      {
-        id: "2",
-        title: "SSC CGL / CHSL Parivartan Target Batch",
-        category: "Government Exams",
-        type: "Government",
-        timeStudied: 0,
-        content: "<h3>SSC Target Batch</h3><br><p>Modules:</p><ul><li>Quantitative Aptitude (Arithmetic & Advanced)</li><li>General English Grammatical Rules</li><li>Tier 1 Mock Papers</li></ul>"
-      },
-      {
-        id: "3",
-        title: "Class 01 full form COMPUTER",
-        category: "Handwritten Notes › General",
-        type: "Notes",
-        timeStudied: 15,
-        content: "<h3>Computer Abbreviations & Full Forms</h3><br><p><b>CPU:</b> Central Processing Unit</p><p><b>ALU:</b> Arithmetic Logic Unit</p><p><b>RAM:</b> Random Access Memory</p><p><b>ROM:</b> Read Only Memory</p><p><b>HTTP:</b> HyperText Transfer Protocol</p>"
-      },
-      {
-        id: "4",
-        title: "Physics Wallah (PW) Modules",
-        category: "Competitive & Board Prep",
-        type: "Competitive",
-        timeStudied: 5,
-        content: "<h3>Competitive Exam Notes</h3><br><p>Includes fundamental formulas, quick derivation sheets, and short revision modules.</p>"
-      }
-    ];
+      <div class="hero-container">
+        <span class="universe-badge">SYSTEM INITIALIZED</span>
+        <h1 class="hero-title">SYSTUM - <span>UNIVERSE</span></h1>
+        <p class="hero-subtitle">
+          Next-gen engineering hub, curated technical roadmaps, and cheat-sheets maintained by Avinash Meena.
+        </p>
+        <div class="btn-group">
+          <a href="#materials" class="btn btn-primary"><i class="fa-solid fa-book-bookmark"></i> Explore Notes</a>
+          <a href="https://www.instagram.com/_avinash_meena1?stkn=bm1rZWxmeWdsam43" target="_blank" rel="noopener noreferrer" class="btn btn-glass"><i class="fa-brands fa-instagram"></i> Follow Insta</a>
+        </div>
+      </div>
+    </section>
 
-    // Load or initialize localStorage
-    let materials = JSON.parse(localStorage.getItem("study_materials")) || defaultData;
-    let totalSeconds = parseInt(localStorage.getItem("study_time")) || 0;
-
-    // 2. Study Session Timer (Updates live & saves to storage)
-    setInterval(() => {
-      totalSeconds++;
-      localStorage.setItem("study_time", totalSeconds);
-      const mins = Math.floor(totalSeconds / 60);
-      const secs = totalSeconds % 60;
-      document.getElementById("sessionTimer").innerText = `⏱ ${mins > 0 ? mins + "m " : ""}${secs}s studied`;
-    }, 1000);
-
-    // 3. Render function
-    function render(list) {
-      const container = document.getElementById("cardsContainer");
-      container.innerHTML = "";
-
-      list.forEach(item => {
-        const card = document.createElement("div");
-        card.className = "card";
-        card.innerHTML = `
-          <div>
-            <div class="card-title">${item.title}</div>
-            <div class="card-tag">${item.category}</div>
-            <div class="card-stats">
-              <span>⏱ ${item.timeStudied}s logged</span>
-              <span>● Active Module</span>
-            </div>
-          </div>
-          <div class="card-bottom">
-            <span class="status">● Ready</span>
-            <button class="btn-resume" onclick="openItem('${item.id}')">Resume ▶</button>
-          </div>
-        `;
-        container.appendChild(card);
-      });
-    }
-
-    // 4. Open Reader & Increase Course Study Time
-    function openItem(id) {
-      const item = materials.find(m => m.id === id);
-      if (!item) return;
-
-      item.timeStudied += 30; // logs 30 seconds to the card
-      localStorage.setItem("study_materials", JSON.stringify(materials));
-      render(materials);
-
-      document.getElementById("modalTitle").innerText = item.title;
-      document.getElementById("modalContent").innerHTML = item.content;
-      document.getElementById("readerModal").classList.add("active");
-    }
-
-    function closeReader() {
-      document.getElementById("readerModal").classList.remove("active");
-    }
-
-    // 5. Filters & Search
-    function filterItems(type) {
-      if (type === "All") {
-        render(materials);
-      } else {
-        const filtered = materials.filter(m => m.type === type);
-        render(filtered);
-      }
-    }
-
-    document.getElementById("searchInput").addEventListener("input", (e) => {
-      const q = e.target.value.toLowerCase();
-      const filtered = materials.filter(m => 
-        m.title.toLowerCase().includes(q) || m.category.toLowerCase().includes(q)
-      );
-      render(filtered);
-    });
-
-    // Initial draw
-    render(materials);
-  </script>
-</body>
-</html>
+    <!-- 4. STUDY MATERIAL CARDS -->
+    <section class="section-wrap" id="materials">
+      <div class="section-title">
+        <h2>Study <span>Vault</span></h2>
+        <p style="color:var(--text-muted);">Hand-picked developer modules & notes ready to use.</p>
+      </div>
+      <div class="materials-grid">
+        <div class="material-card">
+          <span class="card-badge">MODULE 01</span>
+          <i class="fa-solid fa-code card-icon"></i>
+          <h3>Data Structures & Algorithms</h3>
+          <p>Trees, Graphs, DP Patterns, recursion templates, and interview cheat-sheets.</p>
+          <a href="#contact" class="btn btn-glass" style="font-size:0.75rem; padding: 10px 20px;">Access Notes</a>
+        </div>
+        <div class="material-card">
+          <span class="card-badge">MODULE 02</span>
+          <i class="fa-solid fa-laptop-code card-icon"></i>
+          <h3>Full-Stack Web Dev</h3>
+          <p>HTML, Advanced Glassmorphism CSS, JavaScript engines, APIs, and React projects.</p>
+          <a href="#contact" class="btn btn-glass" style="font-size:0.75rem; padding: 10px 20px;">Access Notes</a>
+        </div>
+        <div class="material-card">
+          <span class="card-badge">MODULE 03</span>
+          <i class="fa-solid fa-microchip card-icon"></i>
+          <h3>Core CS & Operating Systems</h3>
+          <p>Important interview notes on OS Scheduling, Computer Networks, and DBMS queries.</p>
+          <a href="#contact" class="btn btn-glass" style="font-size:0.75rem; padding: 10px 20px;">Access Notes</a>
+        </div>
+      </div>
+    <
