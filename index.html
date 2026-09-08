@@ -5,10 +5,9 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>SYSTUM - UNIVERSE | Study Hub</title>
   
-  <!-- Fonts & Icons -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com">
-  <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@600;800;900&family=Rajdhani:wght@500;600;700&display=swap" rel="stylesheet">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@700;900&family=Rajdhani:wght@600;700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
 
   <style>
@@ -17,12 +16,10 @@
       --primary-glow: rgba(255, 0, 0, 0.7);
       --primary-dim: rgba(255, 0, 0, 0.15);
       --bg-dark: #08080a;
-      --bg-card: rgba(20, 20, 26, 0.9);
+      --bg-card: #121218;
       --text-main: #FFFFFF;
-      --text-muted: #b0b0c2;
-      --border-glass: rgba(255, 0, 0, 0.25);
-      --liquid-glass: rgba(16, 16, 22, 0.88);
-      --transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+      --text-muted: #a2a2b5;
+      --border-glass: rgba(255, 0, 0, 0.35);
     }
 
     * {
@@ -39,17 +36,9 @@
       font-size: 18px;
       line-height: 1.6;
       overflow-x: hidden;
-      position: relative;
-    }
-
-    #bg-canvas {
-      position: fixed;
-      top: 0;
-      left: 0;
-      width: 100vw;
-      height: 100vh;
-      z-index: -1;
-      pointer-events: none;
+      min-height: 100vh;
+      background-image: radial-gradient(circle at 50% 10%, #200000 0%, #08080a 70%);
+      background-attachment: fixed;
     }
 
     h1, h2, h3, h4 {
@@ -58,7 +47,7 @@
       letter-spacing: 2px;
     }
 
-    /* ================= 1. FIXED NAVBAR ================= */
+    /* ================= NAVBAR ================= */
     .navbar {
       position: fixed;
       top: 15px;
@@ -67,17 +56,15 @@
       width: 92%;
       max-width: 1200px;
       height: 70px;
-      background: var(--liquid-glass);
-      backdrop-filter: blur(15px);
-      -webkit-backdrop-filter: blur(15px);
+      background: rgba(18, 18, 24, 0.95);
       border: 1px solid var(--border-glass);
-      border-radius: 18px;
+      border-radius: 16px;
       display: flex;
       align-items: center;
       justify-content: space-between;
-      padding: 0 25px;
+      padding: 0 24px;
       z-index: 9999;
-      box-shadow: 0 8px 30px rgba(0, 0, 0, 0.8), 0 0 15px rgba(255, 0, 0, 0.2);
+      box-shadow: 0 8px 30px rgba(0, 0, 0, 0.9), 0 0 15px rgba(255, 0, 0, 0.2);
     }
 
     .nav-logo {
@@ -105,9 +92,9 @@
     .nav-link {
       color: var(--text-muted);
       text-decoration: none;
-      font-weight: 600;
-      font-size: 0.95rem;
-      transition: var(--transition);
+      font-weight: 700;
+      font-size: 1rem;
+      transition: color 0.2s ease;
     }
 
     .nav-link:hover {
@@ -133,7 +120,7 @@
       display: flex;
       align-items: center;
       justify-content: center;
-      transition: var(--transition);
+      transition: all 0.2s ease;
     }
 
     .dots-btn:hover, .dots-btn:active {
@@ -153,9 +140,12 @@
     /* ================= 3-DOTS MODAL ================= */
     .dots-overlay {
       position: fixed;
-      inset: 0;
-      background: rgba(0,0,0,0.7);
-      z-index: 100000;
+      top: 0;
+      left: 0;
+      width: 100vw;
+      height: 100vh;
+      background: rgba(0, 0, 0, 0.7);
+      z-index: 99998;
       display: none;
     }
 
@@ -171,8 +161,8 @@
       background: #121218;
       border: 2px solid var(--primary);
       border-radius: 16px;
-      box-shadow: 0 10px 40px rgba(0, 0, 0, 0.9), 0 0 25px var(--primary-glow);
-      z-index: 100001;
+      box-shadow: 0 10px 40px rgba(0, 0, 0, 0.95), 0 0 25px var(--primary-glow);
+      z-index: 99999;
       display: none;
       flex-direction: column;
       overflow: hidden;
@@ -195,7 +185,7 @@
       padding: 12px 18px;
       color: #fff;
       font-size: 1rem;
-      font-weight: 600;
+      font-weight: 700;
       display: flex;
       align-items: center;
       gap: 12px;
@@ -203,11 +193,12 @@
       border: none;
       cursor: pointer;
       text-decoration: none;
-      transition: var(--transition);
+      text-align: left;
       font-family: 'Rajdhani', sans-serif;
+      transition: all 0.2s ease;
     }
 
-    .menu-item:hover {
+    .menu-item:hover, .menu-item:active {
       background: var(--primary);
       color: #fff;
       padding-left: 24px;
@@ -215,26 +206,22 @@
 
     .menu-divider {
       height: 1px;
-      background: rgba(255, 255, 255, 0.1);
+      background: rgba(255, 255, 255, 0.12);
       margin: 4px 0;
     }
 
-    /* ================= 2. HERO SECTION ================= */
+    /* ================= HERO SECTION ================= */
     .hero {
-      min-height: 85vh;
+      min-height: 80vh;
       display: flex;
       align-items: center;
       justify-content: center;
       text-align: center;
-      padding: 130px 20px 60px;
-      position: relative;
+      padding: 130px 20px 50px;
     }
 
     .hero-container {
       max-width: 900px;
-      background: radial-gradient(circle, rgba(255, 0, 0, 0.15) 0%, transparent 70%);
-      padding: 40px 20px;
-      border-radius: 30px;
     }
 
     .badge {
@@ -290,7 +277,7 @@
       display: inline-flex;
       align-items: center;
       gap: 10px;
-      transition: var(--transition);
+      transition: all 0.2s ease;
       border: none;
     }
 
@@ -309,7 +296,6 @@
       background: rgba(255, 255, 255, 0.08);
       color: #fff;
       border: 1px solid var(--border-glass);
-      backdrop-filter: blur(10px);
     }
 
     .btn-glass:hover {
@@ -318,7 +304,7 @@
       transform: translateY(-3px);
     }
 
-    /* ================= 3. STUDY CARDS ================= */
+    /* ================= STUDY CARDS ================= */
     .section-wrap {
       max-width: 1200px;
       margin: 0 auto;
@@ -352,7 +338,7 @@
       border-radius: 20px;
       padding: 32px;
       box-shadow: 0 10px 30px rgba(0,0,0,0.6);
-      transition: var(--transition);
+      transition: all 0.25s ease;
     }
 
     .material-card:hover {
@@ -392,78 +378,76 @@
       margin-bottom: 22px;
     }
 
-    /* ================= 4. ADMIN BIO & PHOTO ================= */
+    /* ================= OWNER & ADMIN BIO ================= */
     .bio-container {
       background: var(--bg-card);
-      border: 2px solid var(--border-glass);
+      border: 2px solid var(--primary);
       border-radius: 24px;
       padding: 45px;
       display: grid;
       grid-template-columns: 200px 1fr;
       gap: 40px;
       align-items: center;
-      box-shadow: 0 10px 35px rgba(0, 0, 0, 0.7), 0 0 20px rgba(255, 0, 0, 0.15);
+      box-shadow: 0 10px 35px rgba(0, 0, 0, 0.8), 0 0 25px var(--primary-glow);
     }
 
     .bio-profile {
       text-align: center;
-      border-right: 2px solid rgba(255, 255, 255, 0.1);
+      border-right: 2px solid rgba(255, 255, 255, 0.12);
       padding-right: 30px;
     }
 
     .avatar-wrapper {
-      position: relative;
       width: 150px;
       height: 150px;
       margin: 0 auto 15px;
-    }
-
-    .bio-avatar {
-      width: 100%;
-      height: 100%;
       border-radius: 50%;
       border: 4px solid var(--primary);
       box-shadow: 0 0 30px var(--primary-glow);
-      object-fit: cover;
-      display: block;
-    }
-
-    /* Upload Photo Button */
-    .upload-btn {
-      display: inline-flex;
+      overflow: hidden;
+      background: #000;
+      display: flex;
       align-items: center;
-      gap: 5px;
-      background: rgba(255, 0, 0, 0.15);
-      border: 1px solid var(--primary);
-      color: #fff;
-      font-size: 0.75rem;
-      padding: 5px 12px;
-      border-radius: 20px;
-      cursor: pointer;
-      margin-bottom: 10px;
-      transition: var(--transition);
-      font-family: 'Rajdhani', sans-serif;
-      font-weight: 600;
+      justify-content: center;
     }
 
-    .upload-btn:hover {
-      background: var(--primary);
-      box-shadow: 0 0 10px var(--primary);
+    .avatar-svg {
+      width: 100%;
+      height: 100%;
+      display: block;
     }
 
     .bio-profile h3 {
       font-size: 1.4rem;
-      margin-bottom: 6px;
+      margin-bottom: 8px;
+    }
+
+    .owner-tag {
+      display: inline-block;
+      background: var(--primary);
+      color: #fff;
+      font-size: 0.8rem;
+      font-weight: 900;
+      padding: 3px 12px;
+      border-radius: 20px;
+      letter-spacing: 1px;
+      margin-bottom: 10px;
     }
 
     .insta-link {
-      color: var(--primary);
+      color: #fff;
       text-decoration: none;
       font-weight: 700;
       display: inline-flex;
       align-items: center;
       gap: 6px;
       font-size: 1.05rem;
+      transition: color 0.2s ease;
+    }
+
+    .insta-link:hover {
+      color: var(--primary);
+      text-shadow: 0 0 10px var(--primary-glow);
     }
 
     .systum-tagline {
@@ -479,7 +463,7 @@
       box-shadow: 0 0 15px rgba(255, 0, 0, 0.2);
     }
 
-    /* ================= 5. CONTACT SECTION ================= */
+    /* ================= CONTACT SECTION ================= */
     .contact-card {
       max-width: 680px;
       margin: 0 auto;
@@ -504,7 +488,7 @@
       color: #fff;
       font-weight: 700;
       font-size: 1.1rem;
-      transition: var(--transition);
+      transition: all 0.2s ease;
     }
 
     .direct-email-badge:hover {
@@ -545,7 +529,7 @@
       box-shadow: 0 0 15px var(--primary-glow);
     }
 
-    /* ================= 6. FOOTER ================= */
+    /* ================= FOOTER ================= */
     footer {
       border-top: 1px solid rgba(255, 255, 255, 0.1);
       background: #060608;
@@ -573,7 +557,7 @@
       color: #fff;
       font-size: 1.2rem;
       text-decoration: none;
-      transition: var(--transition);
+      transition: all 0.2s ease;
     }
 
     .social-btn:hover {
@@ -589,7 +573,7 @@
       }
       .bio-profile {
         border-right: none;
-        border-bottom: 2px solid rgba(255, 255, 255, 0.1);
+        border-bottom: 2px solid rgba(255, 255, 255, 0.12);
         padding-right: 0;
         padding-bottom: 25px;
       }
@@ -619,10 +603,7 @@
 </head>
 <body>
 
-  <!-- BACKGROUND NEON STARFIELD -->
-  <canvas id="bg-canvas"></canvas>
-
-  <!-- NAVBAR -->
+  <!-- FIXED NAVBAR -->
   <header>
     <nav class="navbar">
       <a href="#home" class="nav-logo">
@@ -632,11 +613,12 @@
       <ul class="nav-menu" id="navMenu">
         <li><a href="#home" class="nav-link">Home</a></li>
         <li><a href="#materials" class="nav-link">Study Material</a></li>
-        <li><a href="#about" class="nav-link">Admin Bio</a></li>
+        <li><a href="#about" class="nav-link">Owner & Bio</a></li>
         <li><a href="#contact" class="nav-link">Contact</a></li>
       </ul>
 
       <div class="nav-actions">
+        <!-- 3-DOTS BUTTON -->
         <button type="button" class="dots-btn" id="openDotsBtn" aria-label="Open menu">
           <i class="fa-solid fa-ellipsis-vertical"></i>
         </button>
@@ -651,29 +633,29 @@
   <!-- 3-DOTS MODAL -->
   <div class="dots-overlay" id="dotsOverlay"></div>
   <div class="dots-menu" id="dotsMenu">
-    <div class="menu-heading">Social Channels</div>
-    <a href="https://www.instagram.com/_avinash_meena1?stkn=bm1rZWxmeWdsam43" target="_blank" rel="noopener noreferrer" class="menu-item">
-      <i class="fa-brands fa-instagram" style="color:#E1306C; font-size:1.2rem;"></i> Instagram
-    </a>
-    <a href="https://youtube.com/@xnaviff" target="_blank" rel="noopener noreferrer" class="menu-item">
-      <i class="fa-brands fa-youtube" style="color:#FF0000; font-size:1.2rem;"></i> xn avi ff
-    </a>
-
-    <div class="menu-divider"></div>
-    <div class="menu-heading">Portal Access</div>
+    <div class="menu-heading">Account</div>
     <button type="button" class="menu-item" onclick="alert('Login portal triggered.'); closeMenu();">
       <i class="fa-solid fa-right-to-bracket" style="color:var(--primary)"></i> Login
     </button>
     <button type="button" class="menu-item" onclick="alert('Logged Out.'); closeMenu();">
       <i class="fa-solid fa-right-from-bracket" style="color:var(--primary)"></i> Logout
     </button>
+
+    <div class="menu-divider"></div>
+    <div class="menu-heading">Social Media</div>
+    <a href="https://www.instagram.com/_avinash_meena1?stkn=bm1rZWxmeWdsam43" target="_blank" rel="noopener noreferrer" class="menu-item">
+      <i class="fa-brands fa-instagram" style="color:#E1306C; font-size:1.2rem;"></i> Instagram
+    </a>
+    <a href="https://youtube.com/@xnaviff" target="_blank" rel="noopener noreferrer" class="menu-item">
+      <i class="fa-brands fa-youtube" style="color:#FF0000; font-size:1.2rem;"></i> YouTube
+    </a>
   </div>
 
   <!-- HERO SECTION -->
   <main>
     <section class="hero" id="home">
       <div class="hero-container">
-        <span class="badge">SYSTEM READY</span>
+        <span class="badge">SYSTEM INITIALIZED</span>
         <h1 class="hero-title">SYSTUM - <span>UNIVERSE</span></h1>
         <p class="hero-subtitle">
           Next-gen study vault, curated technical roadmaps, and cheat-sheets maintained by Avinash Meena.
@@ -716,26 +698,34 @@
       </div>
     </section>
 
-    <!-- ADMIN BIO SECTION (IMAGE FIX APPLIED) -->
+    <!-- OWNER & BIO SECTION -->
     <section class="section-wrap" id="about">
       <div class="section-title">
-        <h2>Admin <span>Profile</span></h2>
+        <h2>Owner & <span>Bio</span></h2>
       </div>
       <div class="bio-container">
         <div class="bio-profile">
           <div class="avatar-wrapper">
-            <!-- Guaranteed Active Online Avatar + Local file fallback -->
-            <img 
-              id="adminAvatar"
-              src="https://images.unsplash.com/photo-1579783902614-a3fb3927b675?w=500&auto=format&fit=crop&q=80" 
-              onerror="this.src='https://images.unsplash.com/photo-1535713875002-d1d0cf377fde?w=400';"
-              alt="Avinash Meena" 
-              class="bio-avatar" 
-            />
-          </div>
-
-          <!-- Direct Upload Option: Agar apni photo file select karni ho -->
-          <label class="upload-btn">
-            <i class="fa-solid fa-camera"></i> Change Photo
-            <input type="file" id="imageUploader" accept="image/*" style="display:none;" onchange="previewUserImage(event)">
-       
+            <!-- Guaranteed Vector Rendering of Red Glowing Teddy with Glasses -->
+            <svg class="avatar-svg" viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg">
+              <defs>
+                <radialGradient id="redFur" cx="50%" cy="45%" r="55%">
+                  <stop offset="0%" stop-color="#ff3333"/>
+                  <stop offset="60%" stop-color="#b30000"/>
+                  <stop offset="100%" stop-color="#330000"/>
+                </radialGradient>
+                <linearGradient id="lensGlow" x1="0%" y1="0%" x2="100%" y2="100%">
+                  <stop offset="0%" stop-color="#00ffff" stop-opacity="0.8"/>
+                  <stop offset="50%" stop-color="#8a2be2" stop-opacity="0.85"/>
+                  <stop offset="100%" stop-color="#ff0055" stop-opacity="0.9"/>
+                </linearGradient>
+              </defs>
+              <rect width="200" height="200" fill="#070709"/>
+              <!-- Ears -->
+              <circle cx="50" cy="55" r="28" fill="#800000"/>
+              <circle cx="50" cy="55" r="17" fill="#4d0000"/>
+              <circle cx="150" cy="55" r="28" fill="#800000"/>
+              <circle cx="150" cy="55" r="17" fill="#4d0000"/>
+              <!-- Head -->
+              <circle cx="100" cy="100" r="62" fill="url(#redFur)"/>
+              <!-- Snout --
