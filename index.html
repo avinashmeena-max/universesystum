@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>SYSTUM - UNIVERSE | Study Hub</title>
   
   <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -36,9 +36,9 @@
       font-size: 18px;
       line-height: 1.6;
       min-height: 100vh;
-      background-image: radial-gradient(circle at 50% 15%, #250000 0%, #08080a 75%);
+      background-image: radial-gradient(circle at 50% 10%, #2a0000 0%, #08080a 75%);
       background-attachment: fixed;
-      padding-top: 90px;
+      padding-top: 85px;
     }
 
     h1, h2, h3, h4 {
@@ -47,7 +47,7 @@
       letter-spacing: 1.5px;
     }
 
-    /* ================= FIXED NAVBAR ================= */
+    /* ================= NAVBAR ================= */
     .navbar {
       position: fixed;
       top: 10px;
@@ -63,12 +63,12 @@
       align-items: center;
       justify-content: space-between;
       padding: 0 20px;
-      z-index: 9999;
+      z-index: 999;
       box-shadow: 0 5px 25px rgba(0, 0, 0, 0.8), 0 0 10px rgba(255, 0, 0, 0.2);
     }
 
     .nav-logo {
-      font-size: 1.25rem;
+      font-size: 1.3rem;
       font-weight: 900;
       color: #fff;
       text-decoration: none;
@@ -101,13 +101,8 @@
       color: var(--primary);
     }
 
-    .nav-actions {
-      display: flex;
-      align-items: center;
-      gap: 12px;
-    }
-
-    .dots-btn {
+    /* 3-DOTS BUTTON (LABEL FOR CHECKBOX) */
+    .dots-toggle-btn {
       background: rgba(255, 255, 255, 0.1);
       border: 1px solid var(--border-red);
       color: #fff;
@@ -119,104 +114,124 @@
       display: flex;
       align-items: center;
       justify-content: center;
+      user-select: none;
+      transition: all 0.2s ease;
     }
 
-    .dots-btn:hover {
+    .dots-toggle-btn:hover {
       background: var(--primary);
       box-shadow: 0 0 15px var(--primary-glow);
     }
 
-    .hamburger {
+    /* ================= 100% WORKING CSS DRAWER ================= */
+    #menu-switch {
       display: none;
-      background: transparent;
-      border: none;
+    }
+
+    .drawer-overlay {
+      position: fixed;
+      inset: 0;
+      background: rgba(0, 0, 0, 0.8);
+      backdrop-filter: blur(5px);
+      z-index: 10000;
+      opacity: 0;
+      visibility: hidden;
+      transition: all 0.3s ease;
+    }
+
+    .side-drawer {
+      position: fixed;
+      top: 0;
+      right: -320px;
+      width: 300px;
+      height: 100vh;
+      background: #121218;
+      border-left: 2px solid var(--primary);
+      box-shadow: -10px 0 35px rgba(0, 0, 0, 0.9), 0 0 25px var(--primary-glow);
+      z-index: 10001;
+      display: flex;
+      flex-direction: column;
+      padding: 25px 20px;
+      transition: right 0.3s cubic-bezier(0.1, 0.9, 0.2, 1);
+    }
+
+    /* Jab 3-Dot par tap karenge tab open hoga */
+    #menu-switch:checked ~ .drawer-overlay {
+      opacity: 1;
+      visibility: visible;
+    }
+
+    #menu-switch:checked ~ .side-drawer {
+      right: 0;
+    }
+
+    .drawer-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 25px;
+      padding-bottom: 12px;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.12);
+    }
+
+    .drawer-header h3 {
+      font-size: 1.1rem;
+      color: var(--primary);
+      letter-spacing: 1px;
+    }
+
+    .close-btn {
       color: #fff;
       font-size: 1.4rem;
       cursor: pointer;
+      background: none;
+      border: none;
     }
 
-    /* ================= 3-DOTS MODAL ================= */
-    .dots-overlay {
-      position: fixed;
-      top: 0;
-      left: 0;
-      width: 100vw;
-      height: 100vh;
-      background: rgba(0, 0, 0, 0.75);
-      z-index: 100000;
-      display: none;
-    }
-
-    .dots-overlay.active {
-      display: block;
-    }
-
-    .dots-menu {
-      position: fixed;
-      top: 80px;
-      right: max(3%, calc((100vw - 1200px) / 2 + 15px));
-      width: 250px;
-      background: #14141c;
-      border: 2px solid var(--primary);
-      border-radius: 14px;
-      box-shadow: 0 10px 40px rgba(0, 0, 0, 0.95), 0 0 25px var(--primary-glow);
-      z-index: 100001;
-      display: none;
-      flex-direction: column;
-      overflow: hidden;
-    }
-
-    .dots-menu.active {
-      display: flex;
-    }
-
-    .menu-heading {
-      padding: 12px 18px 4px;
-      font-size: 0.75rem;
+    .drawer-section-title {
+      font-size: 0.8rem;
+      color: var(--text-muted);
       text-transform: uppercase;
-      letter-spacing: 2px;
-      color: var(--primary);
+      letter-spacing: 1.5px;
+      margin-bottom: 10px;
       font-weight: 700;
     }
 
-    .menu-item {
-      padding: 12px 18px;
-      color: #fff;
-      font-size: 1rem;
-      font-weight: 700;
+    .drawer-link {
       display: flex;
       align-items: center;
       gap: 12px;
-      background: transparent;
-      border: none;
-      cursor: pointer;
-      text-decoration: none;
-      text-align: left;
-      font-family: 'Rajdhani', sans-serif;
-    }
-
-    .menu-item:hover {
-      background: var(--primary);
       color: #fff;
+      text-decoration: none;
+      font-size: 1.05rem;
+      font-weight: 700;
+      padding: 12px 14px;
+      border-radius: 8px;
+      background: rgba(255, 255, 255, 0.04);
+      margin-bottom: 10px;
+      border: 1px solid transparent;
+      transition: all 0.2s ease;
+      font-family: 'Rajdhani', sans-serif;
+      cursor: pointer;
     }
 
-    .menu-divider {
-      height: 1px;
-      background: rgba(255, 255, 255, 0.12);
-      margin: 4px 0;
+    .drawer-link:hover {
+      background: var(--primary);
+      box-shadow: 0 0 15px var(--primary-glow);
+      transform: translateX(4px);
     }
 
     /* ================= MAIN CONTAINER ================= */
     .wrapper {
       max-width: 1150px;
       margin: 0 auto;
-      padding: 20px;
+      padding: 15px;
     }
 
     /* ================= HERO ================= */
     .hero {
       text-align: center;
-      padding: 40px 10px 50px;
+      padding: 30px 10px 40px;
     }
 
     .badge {
@@ -248,7 +263,7 @@
     .hero p {
       color: var(--text-muted);
       font-size: clamp(1.05rem, 2vw, 1.25rem);
-      margin-bottom: 30px;
+      margin-bottom: 25px;
       max-width: 700px;
       margin-inline: auto;
     }
@@ -267,11 +282,11 @@
       font-size: 0.85rem;
       font-weight: 700;
       text-decoration: none;
-      cursor: pointer;
       display: inline-flex;
       align-items: center;
       gap: 8px;
       border: none;
+      cursor: pointer;
     }
 
     .btn-primary {
@@ -287,14 +302,13 @@
     }
 
     /* ================= GUARANTEED VISIBLE BIO SECTION ================= */
-    .bio-section {
+    .bio-card {
       background: var(--bg-card);
       border: 2px solid var(--primary);
       border-radius: 20px;
-      padding: 35px 25px;
-      margin: 40px 0;
-      box-shadow: 0 10px 35px rgba(0, 0, 0, 0.9), 0 0 20px rgba(255, 0, 0, 0.25);
-      display: block; /* Guaranteed display */
+      padding: 30px 20px;
+      margin: 30px 0;
+      box-shadow: 0 10px 35px rgba(0, 0, 0, 0.9), 0 0 25px rgba(255, 0, 0, 0.25);
     }
 
     .bio-flex {
@@ -313,7 +327,7 @@
       }
     }
 
-    .avatar-wrapper {
+    .avatar-box {
       width: 145px;
       height: 145px;
       min-width: 145px;
@@ -322,12 +336,14 @@
       box-shadow: 0 0 25px var(--primary-glow);
       overflow: hidden;
       background: #000;
+      display: flex;
+      align-items: center;
+      justify-content: center;
     }
 
-    .avatar-wrapper img {
+    .avatar-box svg {
       width: 100%;
       height: 100%;
-      object-fit: cover;
       display: block;
     }
 
@@ -349,7 +365,7 @@
       color: #fff;
     }
 
-    .insta-link {
+    .insta-direct {
       color: #fff;
       text-decoration: none;
       font-weight: 700;
@@ -360,7 +376,7 @@
       margin-bottom: 15px;
     }
 
-    .insta-link:hover {
+    .insta-direct:hover {
       color: var(--primary);
       text-shadow: 0 0 8px var(--primary-glow);
     }
@@ -381,13 +397,12 @@
     .bio-description {
       color: var(--text-muted);
       font-size: 1.1rem;
-      margin-bottom: 10px;
     }
 
     /* ================= STUDY CARDS ================= */
     .section-title {
       text-align: center;
-      margin: 50px 0 35px;
+      margin: 45px 0 25px;
     }
 
     .section-title h2 {
@@ -411,8 +426,9 @@
       background: var(--bg-card);
       border: 1px solid var(--border-red);
       border-radius: 16px;
-      padding: 28px;
+      padding: 26px;
       box-shadow: 0 8px 25px rgba(0,0,0,0.6);
+      transition: all 0.2s;
     }
 
     .material-card:hover {
@@ -455,10 +471,10 @@
     .contact-card {
       background: var(--bg-card);
       border: 1px solid var(--border-red);
-      padding: 30px;
+      padding: 30px 20px;
       border-radius: 18px;
       max-width: 650px;
-      margin: 0 auto 50px;
+      margin: 0 auto 40px;
     }
 
     .direct-email-badge {
@@ -514,6 +530,7 @@
       background: #050507;
       padding: 35px 20px;
       text-align: center;
+      margin-top: 40px;
     }
 
     .social-row {
@@ -543,73 +560,63 @@
     }
 
     @media (max-width: 768px) {
-      .hamburger {
-        display: block;
-      }
       .nav-menu {
-        position: absolute;
-        top: 75px;
-        left: 0;
-        width: 100%;
-        background: #101016;
-        border: 1px solid var(--border-red);
-        border-radius: 12px;
-        flex-direction: column;
-        padding: 20px;
         display: none;
-      }
-      .nav-menu.active {
-        display: flex;
       }
     }
   </style>
 </head>
 <body>
 
-  <!-- FIXED TOP NAVBAR -->
-  <nav class="navbar">
-    <a href="#home" class="nav-logo">
-      <i class="fa-solid fa-atom" style="color:var(--primary)"></i> SYSTUM<span>.</span>
-    </a>
+  <!-- 0% BUG PURE CSS CHECKBOX STATE -->
+  <input type="checkbox" id="menu-switch">
 
-    <ul class="nav-menu" id="navMenu">
-      <li><a href="#home" class="nav-link">Home</a></li>
-      <li><a href="#about" class="nav-link">Owner Bio</a></li>
-      <li><a href="#materials" class="nav-link">Study Notes</a></li>
-      <li><a href="#contact" class="nav-link">Contact</a></li>
-    </ul>
+  <!-- FIXED NAVBAR -->
+  <header>
+    <nav class="navbar">
+      <a href="#home" class="nav-logo">
+        <i class="fa-solid fa-atom" style="color:var(--primary)"></i> SYSTUM<span>.</span>
+      </a>
 
-    <div class="nav-actions">
-      <!-- 3-DOTS BUTTON -->
-      <button type="button" class="dots-btn" id="openDotsBtn" aria-label="Open menu">
+      <ul class="nav-menu">
+        <li><a href="#home" class="nav-link">Home</a></li>
+        <li><a href="#about" class="nav-link">Owner Bio</a></li>
+        <li><a href="#materials" class="nav-link">Study Notes</a></li>
+        <li><a href="#contact" class="nav-link">Contact</a></li>
+      </ul>
+
+      <!-- 3-DOTS BUTTON (DIRECT TARGETS CHECKBOX) -->
+      <label for="menu-switch" class="dots-toggle-btn" title="Options">
         <i class="fa-solid fa-ellipsis-vertical"></i>
-      </button>
+      </label>
+    </nav>
+  </header>
 
-      <button class="hamburger" id="hamburgerBtn" aria-label="Menu">
-        <i class="fa-solid fa-bars"></i>
-      </button>
+  <!-- POPUP OVERLAY & SLIDE-OUT DRAWER -->
+  <label for="menu-switch" class="drawer-overlay"></label>
+  <div class="side-drawer">
+    <div class="drawer-header">
+      <h3>OPTIONS MENU</h3>
+      <label for="menu-switch" class="close-btn"><i class="fa-solid fa-xmark"></i></label>
     </div>
-  </nav>
 
-  <!-- 3-DOTS MODAL DIALOG -->
-  <div class="dots-overlay" id="dotsOverlay"></div>
-  <div class="dots-menu" id="dotsMenu">
-    <div class="menu-heading">Account</div>
-    <button type="button" class="menu-item" onclick="alert('Login portal triggered.'); closeMenu();">
-      <i class="fa-solid fa-right-to-bracket" style="color:var(--primary)"></i> Login
-    </button>
-    <button type="button" class="menu-item" onclick="alert('Logged Out.'); closeMenu();">
-      <i class="fa-solid fa-right-from-bracket" style="color:var(--primary)"></i> Logout
-    </button>
+    <!-- Direct Instagram Link -->
+    <div class="drawer-section-title">Social Links</div>
+    <a href="https://www.instagram.com/_avinash_meena1?stkn=bm1rZWxmeWdsam43" target="_blank" rel="noopener noreferrer" class="drawer-link">
+      <i class="fa-brands fa-instagram" style="color:#E1306C; font-size:1.3rem;"></i> Instagram
+    </a>
+    <a href="https://youtube.com/@xnaviff" target="_blank" rel="noopener noreferrer" class="drawer-link">
+      <i class="fa-brands fa-youtube" style="color:#FF0000; font-size:1.3rem;"></i> YouTube
+    </a>
 
-    <div class="menu-divider"></div>
-    <div class="menu-heading">Social Media</div>
-    <a href="https://www.instagram.com/_avinash_meena1?stkn=bm1rZWxmeWdsam43" target="_blank" rel="noopener noreferrer" class="menu-item">
-      <i class="fa-brands fa-instagram" style="color:#E1306C; font-size:1.2rem;"></i> Instagram
-    </a>
-    <a href="https://youtube.com/@xnaviff" target="_blank" rel="noopener noreferrer" class="menu-item">
-      <i class="fa-brands fa-youtube" style="color:#FF0000; font-size:1.2rem;"></i> xn avi ff
-    </a>
+    <!-- Account Actions -->
+    <div class="drawer-section-title" style="margin-top:20px;">Account</div>
+    <button type="button" class="drawer-link" onclick="alert('Login portal requested.');">
+      <i class="fa-solid fa-right-to-bracket" style="color:var(--primary); font-size:1.2rem;"></i> Login
+    </button>
+    <button type="button" class="drawer-link" onclick="alert('Session ended. Logged out.');">
+      <i class="fa-solid fa-right-from-bracket" style="color:var(--primary); font-size:1.2rem;"></i> Logout
+    </button>
   </div>
 
   <div class="wrapper">
@@ -625,21 +632,49 @@
       </div>
     </section>
 
-    <!-- GUARANTEED VISIBLE OWNER & BIO SECTION -->
-    <section class="bio-section" id="about">
+    <!-- OWNER & BIO SECTION (GUARANTEED VISIBLE) -->
+    <section class="bio-card" id="about">
       <div class="bio-flex">
-        <div class="avatar-wrapper">
-          <!-- Guaranteed Teddy Picture Embedded with reliable backup -->
-          <img 
-            src="11930.png" 
-            onerror="this.onerror=null; this.src='https://images.unsplash.com/photo-1579783902614-a3fb3927b675?w=500&auto=format&fit=crop&q=80';" 
-            alt="Avinash Meena" 
-          />
+        <div class="avatar-box">
+          <!-- Guaranteed Teddy SVG Graphic -->
+          <svg viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg">
+            <defs>
+              <radialGradient id="redFur" cx="50%" cy="45%" r="55%">
+                <stop offset="0%" stop-color="#ff3333"/>
+                <stop offset="60%" stop-color="#b30000"/>
+                <stop offset="100%" stop-color="#330000"/>
+              </radialGradient>
+              <linearGradient id="lensGlow" x1="0%" y1="0%" x2="100%" y2="100%">
+                <stop offset="0%" stop-color="#00ffff" stop-opacity="0.85"/>
+                <stop offset="50%" stop-color="#8a2be2" stop-opacity="0.85"/>
+                <stop offset="100%" stop-color="#ff0055" stop-opacity="0.9"/>
+              </linearGradient>
+            </defs>
+            <rect width="200" height="200" fill="#070709"/>
+            <!-- Ears -->
+            <circle cx="50" cy="55" r="28" fill="#800000"/>
+            <circle cx="50" cy="55" r="17" fill="#4d0000"/>
+            <circle cx="150" cy="55" r="28" fill="#800000"/>
+            <circle cx="150" cy="55" r="17" fill="#4d0000"/>
+            <!-- Head -->
+            <circle cx="100" cy="100" r="62" fill="url(#redFur)"/>
+            <!-- Snout -->
+            <ellipse cx="100" cy="116" rx="26" ry="20" fill="#ff4d4d"/>
+            <polygon points="100,108 90,118 110,118" fill="#200000"/>
+            <!-- Glasses Frame -->
+            <rect x="36" y="80" width="56" height="38" rx="8" fill="none" stroke="#150000" stroke-width="7"/>
+            <rect x="108" y="80" width="56" height="38" rx="8" fill="none" stroke="#150000" stroke-width="7"/>
+            <line x1="92" y1="96" x2="108" y2="96" stroke="#150000" stroke-width="7"/>
+            <!-- Neon Lenses -->
+            <rect x="40" y="84" width="48" height="30" rx="5" fill="url(#lensGlow)"/>
+            <rect x="112" y="84" width="48" height="30" rx="5" fill="url(#lensGlow)"/>
+          </svg>
         </div>
+
         <div>
           <span class="owner-tag">OWNER : SYSTUM</span>
           <h2 class="bio-name">Avinash Meena</h2>
-          <a href="https://www.instagram.com/_avinash_meena1?stkn=bm1rZWxmeWdsam43" target="_blank" rel="noopener noreferrer" class="insta-link">
+          <a href="https://www.instagram.com/_avinash_meena1?stkn=bm1rZWxmeWdsam43" target="_blank" rel="noopener noreferrer" class="insta-direct">
             <i class="fa-brands fa-instagram" style="color:#E1306C;"></i> @_avinash_meena1
           </a>
           
@@ -650,9 +685,6 @@
 
           <p class="bio-description">
             Welcome to the command hub! I am <strong>Avinash Meena</strong>, owner of <strong>SYSTUM - UNIVERSE</strong>. This portal provides direct access to high-yield engineering notes, coding roadmaps, and computer science revision files.
-          </p>
-          <p class="bio-description">
-            For study material guidance, roadmap inquiries, or collaborations, feel free to connect directly on Instagram.
           </p>
         </div>
       </div>
@@ -670,60 +702,11 @@
           <i class="fa-solid fa-code card-icon"></i>
           <h3>Data Structures & Algorithms</h3>
           <p>Trees, Graphs, DP Patterns, recursion templates, and interview cheat-sheets.</p>
-          <a href="#contact" class="btn btn-glass" style="font-size:0.75rem; padding: 10px 18px;">Access Notes</a>
+          <a href="#contact" class="btn btn-glass" style="font-size:0.75rem; padding: 8px 16px;">Access Notes</a>
         </div>
         <div class="material-card">
           <span class="card-badge">MODULE 02</span>
           <i class="fa-solid fa-laptop-code card-icon"></i>
           <h3>Full-Stack Web Dev</h3>
           <p>HTML, Advanced Glassmorphism CSS, JavaScript engines, APIs, and React projects.</p>
-          <a href="#contact" class="btn btn-glass" style="font-size:0.75rem; padding: 10px 18px;">Access Notes</a>
-        </div>
-        <div class="material-card">
-          <span class="card-badge">MODULE 03</span>
-          <i class="fa-solid fa-microchip card-icon"></i>
-          <h3>Core CS & Operating Systems</h3>
-          <p>Important interview notes on OS Scheduling, Computer Networks, and DBMS queries.</p>
-          <a href="#contact" class="btn btn-glass" style="font-size:0.75rem; padding: 10px 18px;">Access Notes</a>
-        </div>
-      </div>
-    </section>
-
-    <!-- CONTACT SECTION -->
-    <section id="contact">
-      <div class="section-title">
-        <h2>Direct <span>Transmission</span></h2>
-        <p style="color: var(--text-muted);">Need material or have doubts? Reach out directly.</p>
-      </div>
-      <div class="contact-card">
-        <a href="mailto:avinashmeena00007@gmail.com" class="direct-email-badge">
-          <i class="fa-solid fa-envelope" style="color:var(--primary); font-size: 1.2rem;"></i>
-          <span>avinashmeena00007@gmail.com</span>
-        </a>
-
-        <form onsubmit="alert('Message Sent to Admin!'); return false;">
-          <div class="form-group">
-            <label>Name</label>
-            <input type="text" placeholder="Your full name" required />
-          </div>
-          <div class="form-group">
-            <label>Your Email</label>
-            <input type="email" placeholder="Your email address" required />
-          </div>
-          <div class="form-group">
-            <label>Subject / Topic Request</label>
-            <textarea rows="4" placeholder="Mention the topics or notes you need..." required></textarea>
-          </div>
-          <button type="submit" class="btn btn-primary" style="width: 100%;">
-            <i class="fa-solid fa-paper-plane"></i> Send Request
-          </button>
-        </form>
-      </div>
-    </section>
-
-  </div>
-
-  <!-- FOOTER -->
-  <footer>
-    <div class="social-row">
-      <a href="https://www.inst
+          <a href="#contact" class="btn btn-glass" style="font-size:0.75rem; padding: 8px 
