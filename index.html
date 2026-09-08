@@ -42,7 +42,6 @@
       position: relative;
     }
 
-    /* Fixed Background Animation Canvas (Doesn't block anything) */
     #bg-canvas {
       position: fixed;
       top: 0;
@@ -59,7 +58,7 @@
       letter-spacing: 2px;
     }
 
-    /* ================= 1. FIXED GLASS NAVBAR ================= */
+    /* ================= 1. FIXED NAVBAR ================= */
     .navbar {
       position: fixed;
       top: 15px;
@@ -122,7 +121,6 @@
       gap: 15px;
     }
 
-    /* 3-DOTS BUTTON */
     .dots-btn {
       background: rgba(255, 255, 255, 0.1);
       border: 1px solid var(--border-glass);
@@ -152,7 +150,7 @@
       cursor: pointer;
     }
 
-    /* ================= 3-DOTS POPUP MODAL ================= */
+    /* ================= 3-DOTS MODAL ================= */
     .dots-overlay {
       position: fixed;
       inset: 0;
@@ -394,7 +392,7 @@
       margin-bottom: 22px;
     }
 
-    /* ================= 4. ADMIN BIO (ALWAYS VISIBLE) ================= */
+    /* ================= 4. ADMIN BIO & PHOTO ================= */
     .bio-container {
       background: var(--bg-card);
       border: 2px solid var(--border-glass);
@@ -413,21 +411,49 @@
       padding-right: 30px;
     }
 
-    .bio-avatar {
+    .avatar-wrapper {
+      position: relative;
       width: 150px;
       height: 150px;
+      margin: 0 auto 15px;
+    }
+
+    .bio-avatar {
+      width: 100%;
+      height: 100%;
       border-radius: 50%;
       border: 4px solid var(--primary);
       box-shadow: 0 0 30px var(--primary-glow);
       object-fit: cover;
-      margin-bottom: 15px;
       display: block;
-      margin-inline: auto;
+    }
+
+    /* Upload Photo Button */
+    .upload-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 5px;
+      background: rgba(255, 0, 0, 0.15);
+      border: 1px solid var(--primary);
+      color: #fff;
+      font-size: 0.75rem;
+      padding: 5px 12px;
+      border-radius: 20px;
+      cursor: pointer;
+      margin-bottom: 10px;
+      transition: var(--transition);
+      font-family: 'Rajdhani', sans-serif;
+      font-weight: 600;
+    }
+
+    .upload-btn:hover {
+      background: var(--primary);
+      box-shadow: 0 0 10px var(--primary);
     }
 
     .bio-profile h3 {
       font-size: 1.4rem;
-      margin-bottom: 8px;
+      margin-bottom: 6px;
     }
 
     .insta-link {
@@ -611,7 +637,6 @@
       </ul>
 
       <div class="nav-actions">
-        <!-- 3-DOTS BUTTON -->
         <button type="button" class="dots-btn" id="openDotsBtn" aria-label="Open menu">
           <i class="fa-solid fa-ellipsis-vertical"></i>
         </button>
@@ -623,15 +648,13 @@
     </nav>
   </header>
 
-  <!-- 3-DOTS POPUP MODAL (100% WORKING) -->
+  <!-- 3-DOTS MODAL -->
   <div class="dots-overlay" id="dotsOverlay"></div>
   <div class="dots-menu" id="dotsMenu">
     <div class="menu-heading">Social Channels</div>
-    <!-- Direct Instagram Link -->
     <a href="https://www.instagram.com/_avinash_meena1?stkn=bm1rZWxmeWdsam43" target="_blank" rel="noopener noreferrer" class="menu-item">
       <i class="fa-brands fa-instagram" style="color:#E1306C; font-size:1.2rem;"></i> Instagram
     </a>
-    <!-- Direct YouTube Link -->
     <a href="https://youtube.com/@xnaviff" target="_blank" rel="noopener noreferrer" class="menu-item">
       <i class="fa-brands fa-youtube" style="color:#FF0000; font-size:1.2rem;"></i> xn avi ff
     </a>
@@ -693,29 +716,26 @@
       </div>
     </section>
 
-    <!-- ADMIN BIO SECTION (GUARANTEED VISIBLE) -->
+    <!-- ADMIN BIO SECTION (IMAGE FIX APPLIED) -->
     <section class="section-wrap" id="about">
       <div class="section-title">
         <h2>Admin <span>Profile</span></h2>
       </div>
       <div class="bio-container">
         <div class="bio-profile">
-          <!-- Teddy Image with fallback link -->
-          <img src="11930.png" onerror="this.onerror=null; this.src='https://images.unsplash.com/photo-1579783902614-a3fb3927b675?w=500';" alt="Avinash Meena" class="bio-avatar" />
-          <h3>Avinash Meena</h3>
-          <a href="https://www.instagram.com/_avinash_meena1?stkn=bm1rZWxmeWdsam43" target="_blank" rel="noopener noreferrer" class="insta-link">
-            <i class="fa-brands fa-instagram" style="color:#E1306C;"></i> @_avinash_meena1
-          </a>
-        </div>
-        <div>
-          <!-- Tagline -->
-          <div class="systum-tagline">
-            meenaji ka systum hai ladle ❤️🌝
+          <div class="avatar-wrapper">
+            <!-- Guaranteed Active Online Avatar + Local file fallback -->
+            <img 
+              id="adminAvatar"
+              src="https://images.unsplash.com/photo-1579783902614-a3fb3927b675?w=500&auto=format&fit=crop&q=80" 
+              onerror="this.src='https://images.unsplash.com/photo-1535713875002-d1d0cf377fde?w=400';"
+              alt="Avinash Meena" 
+              class="bio-avatar" 
+            />
           </div>
-          <p style="color: var(--text-muted); margin-bottom: 14px; font-size:1.1rem;">
-            Welcome to the command hub! I am Avinash Meena, creator of <strong>SYSTUM - UNIVERSE</strong>. This portal provides direct access to high-yield engineering notes, coding sheets, and regular study updates.
-          </p>
-          <p style="color: var(--text-muted); font-size:1.1rem;">
-            Connect directly on Instagram for personal doubts, cheat-sheet PDFs, or study collaborations.
-          </p>
-        
+
+          <!-- Direct Upload Option: Agar apni photo file select karni ho -->
+          <label class="upload-btn">
+            <i class="fa-solid fa-camera"></i> Change Photo
+            <input type="file" id="imageUploader" accept="image/*" style="display:none;" onchange="previewUserImage(event)">
+       
