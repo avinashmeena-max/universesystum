@@ -5,11 +5,9 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>SYSTUM - UNIVERSE | Study Hub</title>
   
-  <!-- Orbitron & Rajdhani Fonts -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@600;800;900&family=Rajdhani:wght@500;600;700&display=swap" rel="stylesheet">
-  <!-- FontAwesome Icons -->
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
 
   <style>
@@ -17,11 +15,11 @@
       --primary: #FF0000;
       --primary-glow: rgba(255, 0, 0, 0.6);
       --bg-dark: #08080a;
-      --bg-card: rgba(18, 18, 24, 0.78);
+      --bg-card: rgba(18, 18, 24, 0.85);
       --text-main: #FFFFFF;
       --text-muted: #a5a5b8;
       --border-glass: rgba(255, 255, 255, 0.12);
-      --liquid-glass: rgba(14, 14, 20, 0.68);
+      --liquid-glass: rgba(14, 14, 20, 0.75);
       --transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
     }
 
@@ -47,78 +45,44 @@
       letter-spacing: 2px;
     }
 
-    /* ========================================================
-       1. AUTO-CLOSING INTRO OVERLAY (SYSTUM - UNIVERSE)
-       ======================================================== */
+    /* ================= INTRO (AB STUCK NAHI HOGA) ================= */
     #intro-screen {
       position: fixed;
-      inset: 0;
+      top: 0;
+      left: 0;
       width: 100vw;
       height: 100vh;
-      background: radial-gradient(circle at center, #260000 0%, #050508 85%);
+      background: #08080a;
       display: flex;
       flex-direction: column;
       align-items: center;
       justify-content: center;
-      z-index: 9999999;
-      animation: autoDismissIntro 0.8s 2.3s forwards ease-in-out;
-    }
-
-    @keyframes autoDismissIntro {
-      0% {
-        opacity: 1;
-        visibility: visible;
-        transform: scale(1);
-      }
-      99% {
-        opacity: 0;
-        visibility: visible;
-        transform: scale(1.08);
-      }
-      100% {
-        opacity: 0;
-        visibility: hidden;
-        display: none !important;
-        pointer-events: none !important;
-      }
-    }
-
-    .intro-content {
-      text-align: center;
-      padding: 0 20px;
+      z-index: 999999;
+      transition: opacity 0.5s ease;
     }
 
     .intro-title {
-      font-size: clamp(2.2rem, 7vw, 5.2rem);
+      font-size: clamp(2.2rem, 6.5vw, 4.8rem);
       font-weight: 900;
       color: #ffffff;
-      letter-spacing: 6px;
-      margin-bottom: 12px;
-      animation: pulseTitle 1.5s infinite alternate ease-in-out;
-      filter: drop-shadow(0 0 25px rgba(255, 0, 0, 0.4));
+      letter-spacing: 5px;
+      margin-bottom: 15px;
+      text-align: center;
+      padding: 0 15px;
     }
 
     .intro-title span {
       color: var(--primary);
-      text-shadow: 0 0 25px var(--primary), 0 0 50px var(--primary-glow);
-    }
-
-    .intro-subtitle {
-      font-size: clamp(0.85rem, 2vw, 1.2rem);
-      letter-spacing: 4px;
-      color: var(--text-muted);
-      margin-bottom: 25px;
-      font-weight: 600;
+      text-shadow: 0 0 25px var(--primary);
     }
 
     .cyber-loader {
-      width: 260px;
+      width: 250px;
       height: 4px;
       background: rgba(255, 255, 255, 0.1);
-      margin: 0 auto;
-      position: relative;
-      overflow: hidden;
       border-radius: 4px;
+      overflow: hidden;
+      position: relative;
     }
 
     .cyber-loader-bar {
@@ -127,14 +91,9 @@
       top: 0;
       height: 100%;
       width: 0%;
-      background: linear-gradient(90deg, #990000, #FF0000, #ff6666);
+      background: var(--primary);
       box-shadow: 0 0 15px var(--primary);
-      animation: loadBar 2.1s forwards cubic-bezier(0.65, 0, 0.35, 1);
-    }
-
-    @keyframes pulseTitle {
-      0% { transform: scale(0.97); filter: drop-shadow(0 0 15px rgba(255,0,0,0.3)); }
-      100% { transform: scale(1.02); filter: drop-shadow(0 0 35px rgba(255,0,0,0.8)); }
+      animation: loadBar 1.8s forwards linear;
     }
 
     @keyframes loadBar {
@@ -142,9 +101,7 @@
       100% { width: 100%; }
     }
 
-    /* ========================================================
-       2. LIQUID GLASS NAVBAR + 3-DOT MENU
-       ======================================================== */
+    /* ================= NAVBAR & 3-DOT MENU ================= */
     .navbar {
       position: fixed;
       top: 15px;
@@ -152,10 +109,10 @@
       transform: translateX(-50%);
       width: 92%;
       max-width: 1200px;
-      height: 72px;
+      height: 70px;
       background: var(--liquid-glass);
-      backdrop-filter: blur(20px) saturate(180%);
-      -webkit-backdrop-filter: blur(20px) saturate(180%);
+      backdrop-filter: blur(20px);
+      -webkit-backdrop-filter: blur(20px);
       border: 1px solid var(--border-glass);
       border-radius: 20px;
       display: flex;
@@ -163,7 +120,7 @@
       justify-content: space-between;
       padding: 0 25px;
       z-index: 1000;
-      box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.5);
+      box-shadow: 0 8px 32px rgba(0, 0, 0, 0.5);
     }
 
     .nav-logo {
@@ -178,7 +135,6 @@
 
     .nav-logo span {
       color: var(--primary);
-      text-shadow: 0 0 12px var(--primary);
     }
 
     .nav-menu {
@@ -194,27 +150,10 @@
       font-weight: 600;
       font-size: 0.95rem;
       transition: var(--transition);
-      position: relative;
     }
 
     .nav-link:hover {
-      color: #fff;
-    }
-
-    .nav-link::after {
-      content: '';
-      position: absolute;
-      bottom: -4px;
-      left: 0;
-      width: 0%;
-      height: 2px;
-      background: var(--primary);
-      transition: var(--transition);
-      box-shadow: 0 0 10px var(--primary);
-    }
-
-    .nav-link:hover::after {
-      width: 100%;
+      color: var(--primary);
     }
 
     .nav-actions {
@@ -223,18 +162,17 @@
       gap: 15px;
     }
 
-    /* 3-DOTS ACTION MENU WITH SOCIALS & AUTH */
     .dots-wrapper {
       position: relative;
     }
 
     .dots-btn {
-      background: rgba(255, 255, 255, 0.05);
+      background: rgba(255, 255, 255, 0.08);
       border: 1px solid var(--border-glass);
       color: #fff;
-      font-size: 1.1rem;
-      width: 42px;
-      height: 42px;
+      font-size: 1.2rem;
+      width: 40px;
+      height: 40px;
       border-radius: 50%;
       cursor: pointer;
       display: flex;
@@ -245,20 +183,17 @@
 
     .dots-btn:hover {
       background: var(--primary);
-      border-color: var(--primary);
-      box-shadow: 0 0 15px var(--primary);
     }
 
     .dots-dropdown {
       position: absolute;
-      top: 52px;
+      top: 50px;
       right: 0;
-      background: rgba(14, 14, 20, 0.98);
+      background: #111116;
       border: 1px solid var(--border-glass);
-      backdrop-filter: blur(25px);
-      border-radius: 14px;
-      box-shadow: 0 15px 35px rgba(0,0,0,0.85);
-      width: 210px;
+      border-radius: 12px;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.9);
+      width: 220px;
       display: none;
       flex-direction: column;
       overflow: hidden;
@@ -266,50 +201,42 @@
     }
 
     .dots-dropdown.show {
-      display: flex;
-    }
-
-    .dropdown-divider {
-      height: 1px;
-      background: var(--border-glass);
-      margin: 4px 0;
+      display: flex !important;
     }
 
     .dropdown-header {
       padding: 10px 16px 4px;
       font-size: 0.75rem;
       text-transform: uppercase;
-      letter-spacing: 1.5px;
       color: var(--text-muted);
       font-weight: 700;
     }
 
     .dropdown-item {
-      padding: 12px 18px;
+      padding: 12px 16px;
       color: #fff;
       font-size: 0.95rem;
       font-weight: 600;
       display: flex;
       align-items: center;
       gap: 12px;
+      text-decoration: none;
       background: transparent;
       border: none;
       cursor: pointer;
-      text-align: left;
-      text-decoration: none;
       transition: var(--transition);
       font-family: 'Rajdhani', sans-serif;
-    }
-
-    .dropdown-item i {
-      font-size: 1.1rem;
-      width: 20px;
-      text-align: center;
     }
 
     .dropdown-item:hover {
       background: var(--primary);
       color: #fff;
+    }
+
+    .dropdown-divider {
+      height: 1px;
+      background: var(--border-glass);
+      margin: 4px 0;
     }
 
     .hamburger {
@@ -321,9 +248,7 @@
       cursor: pointer;
     }
 
-    /* ========================================================
-       3. HERO SECTION (90VH)
-       ======================================================== */
+    /* ================= HERO SECTION ================= */
     .hero {
       min-height: 90vh;
       display: flex;
@@ -331,13 +256,11 @@
       justify-content: center;
       text-align: center;
       padding: 130px 20px 40px;
-      position: relative;
-      background: radial-gradient(circle at 50% 30%, rgba(255, 0, 0, 0.12) 0%, rgba(8, 8, 10, 0) 70%);
+      background: radial-gradient(circle at center, rgba(255, 0, 0, 0.12) 0%, rgba(8, 8, 10, 0) 70%);
     }
 
     .hero-box {
       max-width: 880px;
-      z-index: 2;
     }
 
     .badge {
@@ -350,8 +273,7 @@
       font-size: 0.8rem;
       font-weight: 700;
       letter-spacing: 2px;
-      margin-bottom: 22px;
-      text-transform: uppercase;
+      margin-bottom: 20px;
     }
 
     .hero-title {
@@ -404,7 +326,7 @@
     }
 
     .btn-primary:hover {
-      transform: translateY(-3px) scale(1.03);
+      transform: translateY(-3px);
       box-shadow: 0 0 35px rgba(255, 0, 0, 0.85);
     }
 
@@ -412,18 +334,14 @@
       background: rgba(255, 255, 255, 0.05);
       color: #fff;
       border: 1px solid var(--border-glass);
-      backdrop-filter: blur(12px);
     }
 
     .btn-glass:hover {
-      transform: translateY(-3px) scale(1.03);
       border-color: #fff;
       background: rgba(255, 255, 255, 0.12);
     }
 
-    /* ========================================================
-       4. STUDY MATERIAL VAULT
-       ======================================================== */
+    /* ================= SECTIONS & MATERIALS ================= */
     .section-wrap {
       max-width: 1200px;
       margin: 0 auto;
@@ -455,21 +373,18 @@
       border: 1px solid var(--border-glass);
       border-radius: 18px;
       padding: 30px;
-      backdrop-filter: blur(16px);
       transition: var(--transition);
     }
 
     .material-card:hover {
       transform: translateY(-8px);
       border-color: var(--primary);
-      box-shadow: 0 10px 30px rgba(255, 0, 0, 0.2);
     }
 
     .card-badge {
       display: inline-block;
       padding: 4px 12px;
-      background: rgba(255, 0, 0, 0.12);
-      border: 1px solid rgba(255, 0, 0, 0.4);
+      background: rgba(255, 0, 0, 0.15);
       color: #ff7777;
       font-size: 0.75rem;
       border-radius: 12px;
@@ -494,71 +409,7 @@
       margin-bottom: 22px;
     }
 
-    /* ========================================================
-       5. YOUTUBE RSS FEED
-       ======================================================== */
-    .video-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-      gap: 25px;
-    }
-
-    .video-card {
-      background: var(--bg-card);
-      border: 1px solid var(--border-glass);
-      border-radius: 16px;
-      overflow: hidden;
-      backdrop-filter: blur(14px);
-      transition: var(--transition);
-    }
-
-    .video-card:hover {
-      transform: translateY(-6px) scale(1.02);
-      border-color: var(--primary);
-      box-shadow: 0 12px 30px rgba(255, 0, 0, 0.25);
-    }
-
-    .video-thumb-wrap {
-      position: relative;
-      width: 100%;
-      padding-top: 56.25%;
-      background: #000;
-    }
-
-    .video-thumb-wrap img {
-      position: absolute;
-      inset: 0;
-      width: 100%;
-      height: 100%;
-      object-fit: cover;
-    }
-
-    .video-details {
-      padding: 20px;
-    }
-
-    .video-details h3 {
-      font-size: 1rem;
-      margin-bottom: 12px;
-      display: -webkit-box;
-      -webkit-line-clamp: 2;
-      -webkit-box-orient: vertical;
-      overflow: hidden;
-    }
-
-    .video-link {
-      display: inline-flex;
-      align-items: center;
-      gap: 8px;
-      color: var(--primary);
-      text-decoration: none;
-      font-weight: 700;
-      font-size: 0.9rem;
-    }
-
-    /* ========================================================
-       6. ADMIN BIO SECTION
-       ======================================================== */
+    /* ================= BIO & CONTACT ================= */
     .bio-container {
       background: var(--bg-card);
       border: 1px solid var(--border-glass);
@@ -568,7 +419,6 @@
       grid-template-columns: 1fr 2fr;
       gap: 40px;
       align-items: center;
-      backdrop-filter: blur(16px);
     }
 
     .bio-profile {
@@ -582,7 +432,7 @@
       height: 130px;
       border-radius: 50%;
       border: 3px solid var(--primary);
-      box-shadow: 0 0 25px var(--primary-glow);
+      box-shadow: 0 0 20px var(--primary-glow);
       object-fit: cover;
       margin-bottom: 15px;
     }
@@ -599,11 +449,6 @@
       display: inline-flex;
       align-items: center;
       gap: 6px;
-      font-size: 1rem;
-    }
-
-    .insta-link:hover {
-      text-shadow: 0 0 10px var(--primary);
     }
 
     .systum-tagline {
@@ -611,16 +456,13 @@
       color: #fff;
       font-weight: 700;
       margin-bottom: 15px;
-      background: rgba(255, 0, 0, 0.1);
+      background: rgba(255, 0, 0, 0.15);
       display: inline-block;
       padding: 8px 18px;
       border-radius: 8px;
       border-left: 3px solid var(--primary);
     }
 
-    /* ========================================================
-       7. CONTACT SECTION & EMAIL DIRECT LINK
-       ======================================================== */
     .contact-card {
       max-width: 650px;
       margin: 0 auto;
@@ -628,7 +470,6 @@
       border: 1px solid var(--border-glass);
       padding: 35px;
       border-radius: 20px;
-      backdrop-filter: blur(16px);
     }
 
     .direct-email-badge {
@@ -636,7 +477,7 @@
       align-items: center;
       justify-content: center;
       gap: 10px;
-      background: rgba(255, 255, 255, 0.04);
+      background: rgba(255, 255, 255, 0.05);
       border: 1px solid var(--border-glass);
       padding: 14px;
       border-radius: 12px;
@@ -644,12 +485,10 @@
       text-decoration: none;
       color: #fff;
       font-weight: 600;
-      transition: var(--transition);
     }
 
     .direct-email-badge:hover {
       border-color: var(--primary);
-      box-shadow: 0 0 15px var(--primary-glow);
       color: var(--primary);
     }
 
@@ -663,7 +502,6 @@
       font-size: 0.85rem;
       color: var(--text-muted);
       text-transform: uppercase;
-      letter-spacing: 1px;
     }
 
     .form-group input,
@@ -677,19 +515,16 @@
       font-family: 'Rajdhani', sans-serif;
       font-size: 1rem;
       outline: none;
-      transition: var(--transition);
     }
 
     .form-group input:focus,
     .form-group textarea:focus {
       border-color: var(--primary);
-      box-shadow: 0 0 15px var(--primary-glow);
     }
 
-    /* Footer */
     footer {
       border-top: 1px solid var(--border-glass);
-      background: rgba(8, 8, 12, 0.95);
+      background: #050507;
       padding: 40px 20px;
       text-align: center;
     }
@@ -712,13 +547,10 @@
       justify-content: center;
       color: #fff;
       text-decoration: none;
-      transition: var(--transition);
     }
 
     .social-btn:hover {
       background: var(--primary);
-      box-shadow: 0 0 15px var(--primary);
-      transform: translateY(-4px);
     }
 
     @media (max-width: 900px) {
@@ -740,10 +572,10 @@
       }
       .nav-menu {
         position: absolute;
-        top: 85px;
+        top: 80px;
         left: 0;
         width: 100%;
-        background: rgba(14, 14, 20, 0.98);
+        background: #0f0f14;
         border: 1px solid var(--border-glass);
         border-radius: 16px;
         flex-direction: column;
@@ -758,52 +590,165 @@
 </head>
 <body>
 
-  <!-- 1. AUTO-FADING CINEMATIC INTRO SCREEN (2.3s) -->
+  <!-- INTRO SCREEN -->
   <div id="intro-screen">
-    <div class="intro-content">
-      <h1 class="intro-title">SYSTUM - <span>UNIVERSE</span></h1>
-      <p class="intro-subtitle">INITIALIZING QUANTUM STUDY ENGINE</p>
-      <div class="cyber-loader">
-        <div class="cyber-loader-bar"></div>
-      </div>
+    <div class="intro-title">SYSTUM - <span>UNIVERSE</span></div>
+    <div class="cyber-loader">
+      <div class="cyber-loader-bar"></div>
     </div>
   </div>
 
-  <!-- 2. FIXED LIQUID GLASS NAVBAR -->
-  <header>
-    <nav class="navbar">
-      <a href="#home" class="nav-logo">
-        <i class="fa-solid fa-atom" style="color:var(--primary)"></i> SYSTUM<span>.</span>
+  <!-- FIXED NAVBAR -->
+  <nav class="navbar">
+    <a href="#home" class="nav-logo">
+      <i class="fa-solid fa-atom" style="color:var(--primary)"></i> SYSTUM<span>.</span>
+    </a>
+
+    <ul class="nav-menu" id="nav-menu">
+      <li><a href="#home" class="nav-link">Home</a></li>
+      <li><a href="#materials" class="nav-link">Study Material</a></li>
+      <li><a href="#about" class="nav-link">Admin Bio</a></li>
+      <li><a href="#contact" class="nav-link">Contact</a></li>
+    </ul>
+
+    <div class="nav-actions">
+      <!-- 3 DOTS MENU -->
+      <div class="dots-wrapper">
+        <button class="dots-btn" id="dotsToggle">
+          <i class="fa-solid fa-ellipsis-vertical"></i>
+        </button>
+        <div class="dots-dropdown" id="dotsDropdown">
+          <div class="dropdown-header">Social Links</div>
+          <a href="https://instagram.com/_avinash_meenaa" target="_blank" class="dropdown-item">
+            <i class="fa-brands fa-instagram" style="color:#E1306C;"></i> Instagram
+          </a>
+          <a href="https://youtube.com/@xnaviff" target="_blank" class="dropdown-item">
+            <i class="fa-brands fa-youtube" style="color:#FF0000;"></i> xn avi ff
+          </a>
+
+          <div class="dropdown-divider"></div>
+          <div class="dropdown-header">Auth</div>
+          <button class="dropdown-item" onclick="alert('Login Clicked!')">
+            <i class="fa-solid fa-right-to-bracket" style="color:var(--primary)"></i> Login
+          </button>
+          <button class="dropdown-item" onclick="alert('Logged Out!')">
+            <i class="fa-solid fa-right-from-bracket" style="color:var(--primary)"></i> Logout
+          </button>
+        </div>
+      </div>
+
+      <button class="hamburger" id="hamburgerToggle">
+        <i class="fa-solid fa-bars"></i>
+      </button>
+    </div>
+  </nav>
+
+  <!-- HERO SECTION -->
+  <section class="hero" id="home">
+    <div class="hero-box">
+      <span class="badge">SYSTUM - UNIVERSE PORTAL</span>
+      <h1 class="hero-title">NEXT-GEN <span>STUDY ENGINE</span></h1>
+      <p class="hero-desc">
+        Structured tech study vaults, algorithmic roadmaps, and dynamic materials curated by Avinash Meena.
+      </p>
+      <div class="btn-group">
+        <a href="#materials" class="btn btn-primary"><i class="fa-solid fa-book-bookmark"></i> Explore Notes</a>
+        <a href="#contact" class="btn btn-glass"><i class="fa-solid fa-envelope"></i> Contact Admin</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- STUDY MATERIALS -->
+  <section class="section-wrap" id="materials">
+    <div class="section-title">
+      <h2>Study <span>Repository</span></h2>
+      <p style="color:var(--text-muted);">Select your modules below.</p>
+    </div>
+    <div class="materials-grid">
+      <div class="material-card">
+        <span class="card-badge">MODULE 01</span>
+        <i class="fa-solid fa-code card-icon"></i>
+        <h3>Data Structures & Algorithms</h3>
+        <p>Trees, Graphs, DP Patterns, recursion templates, and interview cheat-sheets.</p>
+        <a href="#contact" class="btn btn-glass" style="font-size:0.75rem; padding: 10px 20px;">Access Notes</a>
+      </div>
+      <div class="material-card">
+        <span class="card-badge">MODULE 02</span>
+        <i class="fa-solid fa-laptop-code card-icon"></i>
+        <h3>Full-Stack Web Development</h3>
+        <p>HTML, Advanced Glassmorphism CSS, JavaScript engines, APIs, and React projects.</p>
+        <a href="#contact" class="btn btn-glass" style="font-size:0.75rem; padding: 10px 20px;">Access Notes</a>
+      </div>
+      <div class="material-card">
+        <span class="card-badge">MODULE 03</span>
+        <i class="fa-solid fa-microchip card-icon"></i>
+        <h3>Core CS & Operating Systems</h3>
+        <p>Important interview notes on OS Scheduling, Computer Networks, and DBMS queries.</p>
+        <a href="#contact" class="btn btn-glass" style="font-size:0.75rem; padding: 10px 20px;">Access Notes</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- BIO SECTION -->
+  <section class="section-wrap" id="about">
+    <div class="bio-container">
+      <div class="bio-profile">
+        <img src="https://images.unsplash.com/photo-1535713875002-d1d0cf377fde?w=400" alt="Avinash Meena" class="bio-avatar" />
+        <h3>Avinash Meena</h3>
+        <a href="https://instagram.com/_avinash_meenaa" target="_blank" class="insta-link">
+          <i class="fa-brands fa-instagram"></i> @_avinash_meenaa
+        </a>
+      </div>
+      <div>
+        <div class="systum-tagline">
+          meenaji ka systum hai ladle ❤️🌝
+        </div>
+        <p style="color: var(--text-muted); margin-bottom: 14px;">
+          Welcome to the command hub! I am Avinash Meena, creator of <strong>SYSTUM - UNIVERSE</strong>. This portal provides direct access to high-yield engineering notes, coding sheets, and regular study updates.
+        </p>
+        <p style="color: var(--text-muted);">
+          Connect directly on Instagram for personal doubts, cheat-sheet PDFs, or study collaborations.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <!-- CONTACT SECTION -->
+  <section class="section-wrap" id="contact">
+    <div class="section-title">
+      <h2>Direct <span>Transmission</span></h2>
+      <p style="color: var(--text-muted);">Need material or have doubts? Reach out directly.</p>
+    </div>
+    <div class="contact-card">
+      <a href="mailto:avinashmeena00007@gmail.com" class="direct-email-badge">
+        <i class="fa-solid fa-envelope" style="color:var(--primary); font-size: 1.2rem;"></i>
+        <span>avinashmeena00007@gmail.com</span>
       </a>
 
-      <!-- Menu links -->
-      <ul class="nav-menu" id="nav-menu">
-        <li><a href="#home" class="nav-link">Home</a></li>
-        <li><a href="#materials" class="nav-link">Study Material</a></li>
-        <li><a href="#videos" class="nav-link">Lectures</a></li>
-        <li><a href="#about" class="nav-link">Admin Bio</a></li>
-        <li><a href="#contact" class="nav-link">Contact</a></li>
-      </ul>
+      <form onsubmit="alert('Message Sent!'); return false;">
+        <div class="form-group">
+          <label>Name</label>
+          <input type="text" placeholder="Your full name" required />
+        </div>
+        <div class="form-group">
+          <label>Your Email</label>
+          <input type="email" placeholder="Your email address" required />
+        </div>
+        <div class="form-group">
+          <label>Subject / Topic Request</label>
+          <textarea rows="4" placeholder="Mention the topics or notes you need..." required></textarea>
+        </div>
+        <button type="submit" class="btn btn-primary" style="width: 100%;">
+          <i class="fa-solid fa-paper-plane"></i> Send Request
+        </button>
+      </form>
+    </div>
+  </section>
 
-      <div class="nav-actions">
-        <!-- 3-DOTS MENU WITH INSTAGRAM, YOUTUBE, LOGIN/LOGOUT -->
-        <div class="dots-wrapper">
-          <button class="dots-btn" id="dotsToggle" title="Options">
-            <i class="fa-solid fa-ellipsis-vertical"></i>
-          </button>
-          
-          <div class="dots-dropdown" id="dotsDropdown">
-            <div class="dropdown-header">Social Media</div>
-            <!-- Instagram Link -->
-            <a href="https://instagram.com/_avinash_meenaa" target="_blank" class="dropdown-item">
-              <i class="fa-brands fa-instagram" style="color:#E1306C;"></i> Instagram
-            </a>
-            <!-- YouTube Channel Link -->
-            <a href="https://youtube.com/@xnaviff" target="_blank" class="dropdown-item">
-              <i class="fa-brands fa-youtube" style="color:#FF0000;"></i> xn avi ff
-            </a>
-
-            <div class="dropdown-divider"></div>
-            <div class="dropdown-header">Account</div>
-
-            <!-- Login / Logout Optio
+  <!-- FOOTER -->
+  <footer>
+    <div class="social-row">
+      <a href="https://instagram.com/_avinash_meenaa" target="_blank" class="social-btn">
+        <i class="fa-brands fa-instagram"></i>
+      </a>
+      <a href="https://youtube.com/@xnaviff" target="_blank" class=
