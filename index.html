@@ -14,7 +14,8 @@
   <style>
     :root {
       --primary: #FF0000;
-      --purple: #b000ff;
+      --primary-glow: rgba(255, 0, 0, 0.65);
+      --primary-dim: rgba(255, 0, 0, 0.15);
       --bg-dark: #070709;
       --bg-card: rgba(18, 18, 24, 0.85);
       --text-main: #FFFFFF;
@@ -22,22 +23,6 @@
       --border-glass: rgba(255, 255, 255, 0.12);
       --liquid-glass: rgba(14, 14, 20, 0.8);
       --transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
-    }
-
-    /* RED TO PURPLE CONTINUOUS GLOW ANIMATION */
-    @keyframes colorShift {
-      0% {
-        --active-color: #FF0000;
-        --active-glow: rgba(255, 0, 0, 0.65);
-      }
-      50% {
-        --active-color: #b000ff;
-        --active-glow: rgba(176, 0, 255, 0.65);
-      }
-      100% {
-        --active-color: #FF0000;
-        --active-glow: rgba(255, 0, 0, 0.65);
-      }
     }
 
     * {
@@ -54,7 +39,6 @@
       font-size: 18px;
       line-height: 1.6;
       overflow-x: hidden;
-      animation: colorShift 6s infinite ease-in-out;
     }
 
     h1, h2, h3, h4 {
@@ -96,7 +80,8 @@
     }
 
     .nav-logo span {
-      animation: colorTextShift 6s infinite ease-in-out;
+      color: var(--primary);
+      text-shadow: 0 0 15px var(--primary-glow);
     }
 
     .nav-menu {
@@ -117,6 +102,22 @@
 
     .nav-link:hover {
       color: #fff;
+    }
+
+    .nav-link::after {
+      content: '';
+      position: absolute;
+      bottom: -4px;
+      left: 0;
+      width: 0%;
+      height: 2px;
+      background: var(--primary);
+      transition: var(--transition);
+      box-shadow: 0 0 10px var(--primary);
+    }
+
+    .nav-link:hover::after {
+      width: 100%;
     }
 
     .nav-actions {
@@ -148,8 +149,9 @@
     }
 
     .dots-btn:hover {
-      background: #FF0000;
-      animation: bgPulseShift 6s infinite ease-in-out;
+      background: var(--primary);
+      border-color: var(--primary);
+      box-shadow: 0 0 20px var(--primary-glow);
     }
 
     /* DROPDOWN MENU */
@@ -158,9 +160,9 @@
       top: 54px;
       right: 0;
       background: #111116;
-      border: 1px solid rgba(255, 255, 255, 0.18);
+      border: 1px solid rgba(255, 0, 0, 0.3);
       border-radius: 14px;
-      box-shadow: 0 15px 40px rgba(0, 0, 0, 0.9);
+      box-shadow: 0 15px 40px rgba(0, 0, 0, 0.9), 0 0 15px rgba(255, 0, 0, 0.15);
       width: 230px;
       display: none;
       flex-direction: column;
@@ -199,9 +201,10 @@
     }
 
     .dropdown-item:hover {
-      background: rgba(255, 255, 255, 0.1);
+      background: var(--primary);
       color: #fff;
       padding-left: 22px;
+      box-shadow: 0 0 15px var(--primary-glow);
     }
 
     .dropdown-divider {
@@ -229,7 +232,7 @@
       padding: 130px 20px 40px;
       position: relative;
       overflow: hidden;
-      background: radial-gradient(circle at center, #1b001a 0%, #070709 85%);
+      background: radial-gradient(circle at center, #240000 0%, #070709 85%);
     }
 
     #hero-canvas {
@@ -251,14 +254,16 @@
     .universe-badge {
       display: inline-block;
       padding: 6px 18px;
-      background: rgba(255, 0, 0, 0.12);
-      border: 1px solid #FF0000;
+      background: var(--primary-dim);
+      border: 1px solid var(--primary);
+      color: var(--primary);
       border-radius: 30px;
       font-size: 0.8rem;
       font-weight: 700;
       letter-spacing: 3px;
       margin-bottom: 18px;
-      animation: badgePulse 6s infinite ease-in-out;
+      box-shadow: 0 0 15px var(--primary-glow);
+      animation: neonPulse 2s infinite alternate;
     }
 
     .hero-title {
@@ -269,7 +274,8 @@
     }
 
     .hero-title span {
-      animation: colorTextShift 6s infinite ease-in-out;
+      color: var(--primary);
+      text-shadow: 0 0 25px var(--primary), 0 0 50px var(--primary-glow);
     }
 
     .hero-subtitle {
@@ -304,12 +310,14 @@
     }
 
     .btn-primary {
+      background: var(--primary);
       color: #fff;
-      animation: bgPulseShift 6s infinite ease-in-out;
+      box-shadow: 0 0 25px var(--primary-glow);
     }
 
     .btn-primary:hover {
       transform: translateY(-3px) scale(1.03);
+      box-shadow: 0 0 35px rgba(255, 0, 0, 0.9);
     }
 
     .btn-glass {
@@ -324,39 +332,14 @@
       background: rgba(255, 255, 255, 0.12);
     }
 
-    /* DYNAMIC RED TO PURPLE KEYFRAMES */
-    @keyframes colorTextShift {
-      0%, 100% {
-        color: #FF0000;
-        text-shadow: 0 0 25px rgba(255, 0, 0, 0.8), 0 0 50px rgba(255, 0, 0, 0.5);
+    @keyframes neonPulse {
+      0% {
+        box-shadow: 0 0 10px var(--primary-glow);
+        text-shadow: 0 0 10px var(--primary-glow);
       }
-      50% {
-        color: #b000ff;
-        text-shadow: 0 0 25px rgba(176, 0, 255, 0.8), 0 0 50px rgba(176, 0, 255, 0.5);
-      }
-    }
-
-    @keyframes bgPulseShift {
-      0%, 100% {
-        background: #FF0000;
-        box-shadow: 0 0 25px rgba(255, 0, 0, 0.7);
-      }
-      50% {
-        background: #b000ff;
-        box-shadow: 0 0 25px rgba(176, 0, 255, 0.7);
-      }
-    }
-
-    @keyframes badgePulse {
-      0%, 100% {
-        color: #FF0000;
-        border-color: #FF0000;
-        box-shadow: 0 0 15px rgba(255, 0, 0, 0.4);
-      }
-      50% {
-        color: #b000ff;
-        border-color: #b000ff;
-        box-shadow: 0 0 15px rgba(176, 0, 255, 0.4);
+      100% {
+        box-shadow: 0 0 25px var(--primary);
+        text-shadow: 0 0 20px var(--primary);
       }
     }
 
@@ -378,7 +361,8 @@
     }
 
     .section-title span {
-      animation: colorTextShift 6s infinite ease-in-out;
+      color: var(--primary);
+      text-shadow: 0 0 20px var(--primary-glow);
     }
 
     .materials-grid {
@@ -399,15 +383,16 @@
 
     .material-card:hover {
       transform: translateY(-8px);
-      border-color: #b000ff;
-      box-shadow: 0 10px 30px rgba(176, 0, 255, 0.25);
+      border-color: var(--primary);
+      box-shadow: 0 10px 30px rgba(255, 0, 0, 0.25);
     }
 
     .card-badge {
       display: inline-block;
       padding: 4px 12px;
-      background: rgba(255, 255, 255, 0.08);
-      color: #fff;
+      background: var(--primary-dim);
+      border: 1px solid rgba(255, 0, 0, 0.4);
+      color: #ff6666;
       font-size: 0.75rem;
       border-radius: 12px;
       font-weight: 700;
@@ -418,7 +403,8 @@
       font-size: 2.2rem;
       margin-bottom: 18px;
       display: block;
-      animation: colorTextShift 6s infinite ease-in-out;
+      color: var(--primary);
+      text-shadow: 0 0 15px var(--primary-glow);
     }
 
     .material-card h3 {
@@ -432,7 +418,7 @@
       margin-bottom: 22px;
     }
 
-    /* ================= 4. ADMIN BIO (WITH IMAGE) ================= */
+    /* ================= 4. ADMIN BIO ================= */
     .bio-container {
       background: var(--bg-card);
       border: 1px solid var(--border-glass);
@@ -455,21 +441,16 @@
       width: 140px;
       height: 140px;
       border-radius: 50%;
-      border: 3px solid #FF0000;
+      border: 3px solid var(--primary);
+      box-shadow: 0 0 25px var(--primary-glow);
       object-fit: cover;
       margin-bottom: 15px;
-      animation: avatarBorderShift 6s infinite ease-in-out;
+      transition: var(--transition);
     }
 
-    @keyframes avatarBorderShift {
-      0%, 100% {
-        border-color: #FF0000;
-        box-shadow: 0 0 25px rgba(255, 0, 0, 0.75);
-      }
-      50% {
-        border-color: #b000ff;
-        box-shadow: 0 0 25px rgba(176, 0, 255, 0.75);
-      }
+    .bio-avatar:hover {
+      box-shadow: 0 0 35px var(--primary);
+      transform: scale(1.03);
     }
 
     .bio-profile h3 {
@@ -478,7 +459,7 @@
     }
 
     .insta-link {
-      color: #fff;
+      color: var(--primary);
       text-decoration: none;
       font-weight: 700;
       display: inline-flex;
@@ -489,7 +470,7 @@
     }
 
     .insta-link:hover {
-      animation: colorTextShift 6s infinite ease-in-out;
+      text-shadow: 0 0 12px var(--primary);
     }
 
     .systum-tagline {
@@ -497,21 +478,12 @@
       color: #fff;
       font-weight: 700;
       margin-bottom: 15px;
-      background: rgba(255, 255, 255, 0.05);
+      background: var(--primary-dim);
       display: inline-block;
       padding: 10px 20px;
       border-radius: 8px;
-      border-left: 4px solid #FF0000;
-      animation: taglineShift 6s infinite ease-in-out;
-    }
-
-    @keyframes taglineShift {
-      0%, 100% {
-        border-color: #FF0000;
-      }
-      50% {
-        border-color: #b000ff;
-      }
+      border-left: 4px solid var(--primary);
+      box-shadow: 0 0 15px rgba(255, 0, 0, 0.1);
     }
 
     /* ================= 5. CONTACT SECTION ================= */
@@ -542,8 +514,9 @@
     }
 
     .direct-email-badge:hover {
-      border-color: #b000ff;
-      box-shadow: 0 0 15px rgba(176, 0, 255, 0.4);
+      border-color: var(--primary);
+      box-shadow: 0 0 20px var(--primary-glow);
+      color: var(--primary);
     }
 
     .form-group {
@@ -575,8 +548,8 @@
 
     .form-group input:focus,
     .form-group textarea:focus {
-      border-color: #b000ff;
-      box-shadow: 0 0 15px rgba(176, 0, 255, 0.4);
+      border-color: var(--primary);
+      box-shadow: 0 0 15px var(--primary-glow);
     }
 
     /* ================= 6. FOOTER ================= */
@@ -609,7 +582,8 @@
     }
 
     .social-btn:hover {
-      animation: bgPulseShift 6s infinite ease-in-out;
+      background: var(--primary);
+      box-shadow: 0 0 20px var(--primary-glow);
       transform: translateY(-4px);
     }
 
@@ -654,7 +628,7 @@
   <header>
     <nav class="navbar">
       <a href="#home" class="nav-logo">
-        <i class="fa-solid fa-atom"></i> SYSTUM<span>.</span>
+        <i class="fa-solid fa-atom" style="color:var(--primary)"></i> SYSTUM<span>.</span>
       </a>
 
       <ul class="nav-menu" id="nav-menu">
@@ -685,10 +659,10 @@
             <div class="dropdown-divider"></div>
             <div class="dropdown-header">Account</div>
             <button type="button" class="dropdown-item" onclick="alert('Login window opening...');">
-              <i class="fa-solid fa-right-to-bracket"></i> Login
+              <i class="fa-solid fa-right-to-bracket" style="color:var(--primary)"></i> Login
             </button>
             <button type="button" class="dropdown-item" onclick="alert('Logged Out Successfully.');">
-              <i class="fa-solid fa-right-from-bracket"></i> Logout
+              <i class="fa-solid fa-right-from-bracket" style="color:var(--primary)"></i> Logout
             </button>
           </div>
         </div>
@@ -749,10 +723,18 @@
       </div>
     </section>
 
-    <!-- 4. ADMIN BIO -->
+    <!-- 4. ADMIN BIO (WITH TEDDY PHOTO) -->
     <section class="section-wrap" id="about">
       <div class="bio-container">
         <div class="bio-profile">
           <img src="11930.png" onerror="this.src='https://images.unsplash.com/photo-1579783902614-a3fb3927b675?w=500'" alt="Avinash Meena" class="bio-avatar" />
           <h3>Avinash Meena</h3>
-          <a href="https://w
+          <a href="https://www.instagram.com/_avinash_meena1?stkn=bm1rZWxmeWdsam43" target="_blank" rel="noopener noreferrer" class="insta-link">
+            <i class="fa-brands fa-instagram" style="color:#E1306C;"></i> @_avinash_meena1
+          </a>
+        </div>
+        <div>
+          <!-- Admin Bio Custom Line -->
+          <div class="systum-tagline">
+            meenaji ka systum hai ladle ❤️🌝
+            
