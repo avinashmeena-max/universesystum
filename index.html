@@ -3,390 +3,690 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Study Bee 🐝 | Welcome to the Ultimate Free Education Platform</title>
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@600;700;800&family=Playfair+Display:ital,wght@0,600;0,700;1,400&display=swap" rel="stylesheet">
+  <title>SYSTUM - UNIVERSE | Study Hub</title>
+  
+  <!-- FontAwesome Icons -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+
   <style>
+    :root {
+      --primary: #FF0000;
+      --primary-glow: rgba(255, 0, 0, 0.7);
+      --primary-dim: rgba(255, 0, 0, 0.15);
+      --bg-dark: #08080a;
+      --bg-card: #14141d;
+      --text-main: #FFFFFF;
+      --text-muted: #8e8e93; /* Apple standard muted gray */
+      --border-red: #FF0000;
+      /* Official Apple iOS Font Stack */
+      --ios-font: -apple-system, BlinkMacSystemFont, "SF Pro Display", "SF Pro Text", "Helvetica Neue", Helvetica, Arial, sans-serif;
+    }
+
     * {
       box-sizing: border-box;
       margin: 0;
       padding: 0;
+      scroll-behavior: smooth;
+      -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
     }
 
     body {
-      background: radial-gradient(circle at 50% 18%, #20170a 0%, #0c0a07 40%, #030303 90%);
-      color: #ffffff;
-      min-height: 100vh;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      padding: 24px 16px 50px;
-      position: relative;
+      background-color: var(--bg-dark);
+      color: var(--text-main);
+      font-family: var(--ios-font);
+      font-size: 17px;
+      line-height: 1.5;
+      letter-spacing: -0.022em;
+      background-image: radial-gradient(circle at 50% 15%, #250000 0%, #08080a 75%);
+      background-attachment: fixed;
+      padding-top: 85px;
     }
 
-    /* Floating notification bell */
-    .top-action-bar {
+    h1, h2, h3, h4 {
+      font-family: var(--ios-font);
+      font-weight: 700;
+      letter-spacing: -0.03em;
+    }
+
+    /* ================= INTRO ANIMATION ================= */
+    #intro-screen {
       position: fixed;
-      top: 18px;
-      right: 18px;
-      z-index: 100;
-    }
-
-    .bell-circle {
-      position: relative;
-      background: #11100e;
-      border: 1.5px solid #362e1e;
-      width: 52px;
-      height: 52px;
-      border-radius: 50%;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      cursor: pointer;
-      color: #facc15;
-      box-shadow: 0 4px 18px rgba(0, 0, 0, 0.7);
-    }
-
-    .bell-count {
-      position: absolute;
-      top: -2px;
-      right: -2px;
-      background: #ef4444;
-      color: #ffffff;
-      font-size: 11px;
-      font-family: sans-serif;
-      font-weight: 700;
-      width: 20px;
-      height: 20px;
-      border-radius: 50%;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      border: 2px solid #0c0a07;
-    }
-
-    /* Header & Branding */
-    header {
-      text-align: center;
-      margin-top: 14px;
-      margin-bottom: 26px;
-    }
-
-    .bee-avatar {
-      width: 82px;
-      height: 82px;
-      border-radius: 50%;
-      background: radial-gradient(circle, #fde047 25%, #d97706 80%);
-      border: 3px solid #1c1810;
-      box-shadow: 0 0 35px rgba(234, 179, 8, 0.4);
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-size: 38px;
-      margin: 0 auto 16px;
-    }
-
-    h1 {
-      font-family: 'Playfair Display', serif;
-      font-size: 30px;
-      font-weight: 700;
-      line-height: 1.2;
-      color: #ffffff;
-    }
-
-    .sub-tagline {
-      font-family: 'Playfair Display', serif;
-      font-style: italic;
-      font-size: 14.5px;
-      color: #d1cfc7;
-      margin-top: 8px;
-    }
-
-    .sub-tagline span {
-      color: #f59e0b;
-      font-weight: 700;
-      font-style: normal;
-    }
-
-    /* 2-Column Grid matching the viewport */
-    .grid-board {
-      display: grid;
-      grid-template-columns: repeat(2, 1fr);
-      gap: 16px;
-      width: 100%;
-      max-width: 440px;
-    }
-
-    .tile-card {
-      background: #09090b;
-      border: 1px solid #1a1a1e;
-      border-radius: 28px;
-      padding: 24px 10px 18px;
+      top: 0;
+      left: 0;
+      width: 100vw;
+      height: 100vh;
+      background: #08080a;
       display: flex;
       flex-direction: column;
       align-items: center;
-      text-decoration: none;
-      transition: transform 0.15s ease, border-color 0.15s ease;
+      justify-content: center;
+      z-index: 999999;
+      transition: opacity 0.5s ease;
     }
 
-    .tile-card:hover {
-      transform: translateY(-2px);
-      border-color: #2b271f;
+    .intro-title {
+      font-size: clamp(2.2rem, 6vw, 4.4rem);
+      font-weight: 800;
+      color: #fff;
+      margin-bottom: 18px;
+      text-align: center;
+      letter-spacing: -0.04em;
     }
 
-    /* Outer glowing squircle frame */
-    .golden-squircle {
+    .intro-title span {
+      color: var(--primary);
+      text-shadow: 0 0 25px var(--primary-glow);
+    }
+
+    .cyber-loader {
+      width: 200px;
+      height: 4px;
+      background: rgba(255, 255, 255, 0.15);
       position: relative;
-      width: 86px;
-      height: 86px;
-      border-radius: 26px;
-      border: 2px solid #eab308;
-      box-shadow: 0 0 16px rgba(234, 179, 8, 0.3), inset 0 0 8px rgba(0, 0, 0, 0.9);
-      background: #000000;
+      overflow: hidden;
+      border-radius: 999px;
+    }
+
+    .cyber-loader-bar {
+      position: absolute;
+      left: 0;
+      top: 0;
+      height: 100%;
+      width: 0%;
+      background: var(--primary);
+      box-shadow: 0 0 15px var(--primary);
+      animation: loadProg 1.6s forwards cubic-bezier(0.2, 0.8, 0.2, 1);
+    }
+
+    @keyframes loadProg {
+      0% { width: 0%; }
+      100% { width: 100%; }
+    }
+
+    /* ================= NAVBAR (LIQUID GLASS IOS STYLE) ================= */
+    .navbar {
+      position: fixed;
+      top: 10px;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 94%;
+      max-width: 1200px;
+      height: 62px;
+      background: rgba(22, 22, 28, 0.85);
+      backdrop-filter: blur(25px) saturate(180%);
+      -webkit-backdrop-filter: blur(25px) saturate(180%);
+      border: 1px solid rgba(255, 0, 0, 0.45);
+      border-radius: 20px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0 20px;
+      z-index: 99999;
+      box-shadow: 0 8px 32px rgba(0, 0, 0, 0.7);
+    }
+
+    .nav-logo {
+      font-size: 1.25rem;
+      font-weight: 800;
+      color: #fff;
+      text-decoration: none;
+      letter-spacing: -0.03em;
+    }
+
+    .nav-logo span {
+      color: var(--primary);
+      text-shadow: 0 0 12px var(--primary-glow);
+    }
+
+    .dots-btn {
+      background: rgba(255, 255, 255, 0.12);
+      border: 1px solid rgba(255, 0, 0, 0.5);
+      color: #fff;
+      font-size: 1.2rem;
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+      cursor: pointer;
       display: flex;
       align-items: center;
       justify-content: center;
+      transition: all 0.2s cubic-bezier(0.25, 0.8, 0.25, 1);
+    }
+
+    .dots-btn:hover {
+      background: var(--primary);
+      box-shadow: 0 0 15px var(--primary-glow);
+      transform: scale(1.05);
+    }
+
+    /* ================= 3-DOTS POPUP MENU (IOS ACTION SHEET STYLE) ================= */
+    .menu-overlay {
+      position: fixed;
+      inset: 0;
+      background: rgba(0, 0, 0, 0.65);
+      backdrop-filter: blur(10px);
+      -webkit-backdrop-filter: blur(10px);
+      z-index: 100000;
+      display: none;
+    }
+
+    .menu-popup {
+      position: fixed;
+      top: 80px;
+      right: max(4%, calc((100vw - 1200px) / 2 + 15px));
+      width: 250px;
+      background: rgba(28, 28, 35, 0.95);
+      backdrop-filter: blur(30px);
+      -webkit-backdrop-filter: blur(30px);
+      border: 1.5px solid var(--primary);
+      border-radius: 20px;
+      box-shadow: 0 20px 50px rgba(0, 0, 0, 0.95), 0 0 25px var(--primary-glow);
+      z-index: 100001;
+      display: none;
+      flex-direction: column;
+      overflow: hidden;
+    }
+
+    .menu-heading {
+      padding: 14px 18px 6px;
+      font-size: 0.72rem;
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+      color: var(--text-muted);
+      font-weight: 600;
+    }
+
+    .menu-link {
+      padding: 12px 18px;
+      color: #fff;
+      font-size: 0.98rem;
+      font-weight: 600;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      background: transparent;
+      border: none;
+      cursor: pointer;
+      text-decoration: none;
+      text-align: left;
+      font-family: var(--ios-font);
+      transition: background 0.15s ease;
+    }
+
+    .menu-link:hover {
+      background: var(--primary);
+      color: #fff;
+    }
+
+    .menu-divider {
+      height: 0.5px;
+      background: rgba(255, 255, 255, 0.12);
+      margin: 4px 0;
+    }
+
+    /* ================= CONTAINER ================= */
+    .container {
+      max-width: 1000px;
+      margin: 0 auto;
+      padding: 15px;
+    }
+
+    /* ================= HERO ================= */
+    .hero {
+      text-align: center;
+      padding: 25px 10px 30px;
+    }
+
+    .badge {
+      display: inline-block;
+      padding: 4px 16px;
+      background: var(--primary-dim);
+      border: 1px solid var(--primary);
+      color: var(--primary);
+      border-radius: 999px;
+      font-size: 0.8rem;
+      font-weight: 600;
+      letter-spacing: 0.05em;
+      margin-bottom: 12px;
+      box-shadow: 0 0 12px var(--primary-glow);
+    }
+
+    .hero h1 {
+      font-size: clamp(2.3rem, 6.5vw, 4rem);
+      margin-bottom: 12px;
+      font-weight: 800;
+      line-height: 1.1;
+    }
+
+    .hero h1 span {
+      color: var(--primary);
+      text-shadow: 0 0 25px var(--primary-glow);
+    }
+
+    .hero p {
+      color: var(--text-muted);
+      font-size: 1.1rem;
+      margin-bottom: 20px;
+      font-weight: 400;
+    }
+
+    /* ================= GUARANTEED BIO CARD ================= */
+    .bio-container {
+      background: #14141d;
+      border: 2px solid var(--primary);
+      border-radius: 24px;
+      padding: 28px 24px;
+      margin: 20px 0 35px 0;
+      box-shadow: 0 15px 35px rgba(0, 0, 0, 0.8), 0 0 25px rgba(255, 0, 0, 0.25);
+    }
+
+    .bio-content {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      text-align: center;
+      gap: 22px;
+    }
+
+    @media (min-width: 768px) {
+      .bio-content {
+        flex-direction: row;
+        text-align: left;
+      }
+    }
+
+    .avatar-wrapper {
+      width: 140px;
+      height: 140px;
+      min-width: 140px;
+      border-radius: 50%;
+      border: 4px solid var(--primary);
+      box-shadow: 0 0 25px var(--primary-glow);
+      overflow: hidden;
+      background: #000;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .avatar-wrapper svg {
+      width: 100%;
+      height: 100%;
+      display: block;
+    }
+
+    .owner-tag {
+      display: inline-block;
+      background: var(--primary);
+      color: #fff;
+      font-size: 0.78rem;
+      font-weight: 700;
+      padding: 4px 12px;
+      border-radius: 999px;
+      letter-spacing: 0.05em;
+      margin-bottom: 6px;
+    }
+
+    .bio-name {
+      font-size: 1.85rem;
+      font-weight: 800;
+      margin-bottom: 2px;
+      color: #fff;
+    }
+
+    .insta-direct {
+      color: #fff;
+      text-decoration: none;
+      font-weight: 600;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      font-size: 1.05rem;
+      margin-bottom: 12px;
+      transition: color 0.15s ease;
+    }
+
+    .insta-direct:hover {
+      color: var(--primary);
+      text-shadow: 0 0 10px var(--primary-glow);
+    }
+
+    .systum-tagline {
+      font-size: 1.25rem;
+      color: #fff;
+      font-weight: 700;
+      margin-bottom: 12px;
+      background: var(--primary-dim);
+      display: inline-block;
+      padding: 8px 16px;
+      border-radius: 12px;
+      border-left: 4px solid var(--primary);
+      box-shadow: 0 0 12px rgba(255, 0, 0, 0.2);
+    }
+
+    .bio-desc {
+      color: var(--text-muted);
+      font-size: 1.02rem;
+      line-height: 1.5;
+    }
+
+    /* ================= STUDY CARDS ================= */
+    .section-title {
+      text-align: center;
+      margin: 35px 0 20px;
+    }
+
+    .section-title h2 {
+      font-size: 1.9rem;
+      font-weight: 800;
+    }
+
+    .section-title span {
+      color: var(--primary);
+      text-shadow: 0 0 15px var(--primary-glow);
+    }
+
+    .materials-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+      gap: 18px;
+      margin-bottom: 35px;
+    }
+
+    .material-card {
+      background: var(--bg-card);
+      border: 1px solid rgba(255, 0, 0, 0.35);
+      border-radius: 18px;
+      padding: 22px;
+      transition: all 0.25s cubic-bezier(0.25, 0.8, 0.25, 1);
+    }
+
+    .material-card:hover {
+      border-color: var(--primary);
+      box-shadow: 0 0 20px rgba(255, 0, 0, 0.35);
+      transform: translateY(-3px);
+    }
+
+    .card-badge {
+      display: inline-block;
+      padding: 3px 8px;
+      background: var(--primary-dim);
+      border: 1px solid var(--primary);
+      color: #ff6666;
+      font-size: 0.72rem;
+      border-radius: 999px;
+      font-weight: 600;
+      margin-bottom: 10px;
+    }
+
+    .card-icon {
+      font-size: 2rem;
+      margin-bottom: 10px;
+      display: block;
+      color: var(--primary);
+      text-shadow: 0 0 12px var(--primary-glow);
+    }
+
+    .material-card h3 {
+      font-size: 1.2rem;
+      font-weight: 700;
+      margin-bottom: 8px;
+    }
+
+    .material-card p {
+      color: var(--text-muted);
+      font-size: 0.92rem;
+    }
+
+    /* ================= CONTACT ================= */
+    .contact-card {
+      background: var(--bg-card);
+      border: 1px solid rgba(255, 0, 0, 0.35);
+      padding: 26px 20px;
+      border-radius: 20px;
+      max-width: 600px;
+      margin: 0 auto 35px;
+    }
+
+    .direct-email-badge {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+      background: rgba(255, 255, 255, 0.05);
+      border: 1px solid rgba(255, 0, 0, 0.4);
+      padding: 12px;
+      border-radius: 14px;
+      margin-bottom: 18px;
+      text-decoration: none;
+      color: #fff;
+      font-weight: 600;
+      font-size: 1rem;
+      transition: all 0.2s ease;
+    }
+
+    .direct-email-badge:hover {
+      background: var(--primary);
+      box-shadow: 0 0 15px var(--primary-glow);
+    }
+
+    /* ================= FOOTER ================= */
+    footer {
+      border-top: 0.5px solid rgba(255, 255, 255, 0.12);
+      background: #050507;
+      padding: 30px 20px;
+      text-align: center;
+      margin-top: 20px;
+    }
+
+    .social-row {
+      display: flex;
+      justify-content: center;
+      gap: 16px;
       margin-bottom: 14px;
     }
 
-    .badge-bee {
-      position: absolute;
-      top: -6px;
-      right: -6px;
-      font-size: 19px;
-      line-height: 1;
-      filter: drop-shadow(0 2px 4px rgba(0,0,0,0.9));
-    }
-
-    .squircle-inner {
-      width: 100%;
-      height: 100%;
-      border-radius: 23px;
-      overflow: hidden;
+    .social-btn {
+      width: 42px;
+      height: 42px;
+      border-radius: 50%;
+      background: rgba(255, 255, 255, 0.08);
+      border: 1px solid rgba(255, 0, 0, 0.4);
       display: flex;
       align-items: center;
       justify-content: center;
+      color: #fff;
+      font-size: 1.15rem;
+      text-decoration: none;
+      transition: all 0.2s cubic-bezier(0.2, 0.8, 0.2, 1);
     }
 
-    /* Tile title text */
-    .tile-title {
-      font-family: 'Cinzel', serif;
-      font-size: 14px;
-      font-weight: 700;
-      color: #ffffff;
-      text-align: center;
-      letter-spacing: 0.3px;
-    }
-
-    .gold-accent {
-      color: #facc15 !important;
-    }
-
-    footer {
-      margin-top: 36px;
-      text-align: center;
-      font-size: 11px;
-      color: #6b7280;
-      letter-spacing: 0.5px;
+    .social-btn:hover {
+      background: var(--primary);
+      box-shadow: 0 0 15px var(--primary-glow);
+      transform: scale(1.08);
     }
   </style>
 </head>
 <body>
 
-  <!-- Floating Notification Bell -->
-  <div class="top-action-bar">
-    <div class="bell-circle">
-      <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-        <path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"></path>
-        <path d="M13.73 21a2 2 0 0 1-3.46 0"></path>
-      </svg>
-      <div class="bell-count">1</div>
+  <!-- 1. INTRO ANIMATION SCREEN -->
+  <div id="intro-screen">
+    <div class="intro-title">SYSTUM - <span>UNIVERSE</span></div>
+    <div class="cyber-loader">
+      <div class="cyber-loader-bar"></div>
     </div>
   </div>
 
-  <!-- Header -->
-  <header>
-    <div class="bee-avatar">🐝</div>
-    <h1>Welcome to Study Bee</h1>
-    <p class="sub-tagline">Education Must Be <span>Free</span> For Everyone</p>
-  </header>
-
-  <!-- Complete 12 Tiles Grid matching https://studybeepro.site/ -->
-  <div class="grid-board">
-
-    <!-- 0. Next Topper -->
-    <a href="https://nt.studybeepro.site/" class="tile-card">
-      <div class="golden-squircle">
-        <div class="squircle-inner" style="background:#09090b;">
-          <svg width="40" height="40" viewBox="0 0 24 24" fill="#38bdf8">
-            <path d="M4 18l8.5-6L4 6v12zm9-12v12l8.5-6L13 6z"/>
-          </svg>
-        </div>
-        <span class="badge-bee">🐝</span>
-      </div>
-      <span class="tile-title">Next Topper</span>
+  <!-- FIXED NAVBAR -->
+  <nav class="navbar">
+    <a href="#" class="nav-logo">
+      <i class="fa-solid fa-atom" style="color:var(--primary); margin-right: 6px;"></i> SYSTUM<span>.</span>
     </a>
 
-    <!-- 1. Mission Jeet -->
-    <a href="https://studybeepro.site/mj" class="tile-card">
-      <div class="golden-squircle">
-        <div class="squircle-inner" style="background:#09090b;">
-          <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="#ef4444" stroke-width="2">
-            <circle cx="12" cy="12" r="10"/><circle cx="12" cy="12" r="6"/><circle cx="12" cy="12" r="2" fill="#ef4444"/>
-          </svg>
-        </div>
-        <span class="badge-bee">🐝</span>
-      </div>
-      <span class="tile-title">Mission Jeet</span>
+    <!-- 3-DOTS BUTTON -->
+    <button type="button" class="dots-btn" id="dotsToggleBtn" aria-label="Menu">
+      <i class="fa-solid fa-ellipsis-vertical"></i>
+    </button>
+  </nav>
+
+  <!-- 3-DOTS POPUP -->
+  <div class="menu-overlay" id="menuOverlay"></div>
+  <div class="menu-popup" id="menuPopup">
+    <div class="menu-heading">Social Links</div>
+    <a href="https://www.instagram.com/_avinash_meena1?stkn=bm1rZWxmeWdsam43" target="_blank" rel="noopener noreferrer" class="menu-link">
+      <i class="fa-brands fa-instagram" style="color:#E1306C; font-size:1.2rem;"></i> Instagram
+    </a>
+    <a href="https://youtube.com/@xnaviff" target="_blank" rel="noopener noreferrer" class="menu-link">
+      <i class="fa-brands fa-youtube" style="color:#FF0000; font-size:1.2rem;"></i> YouTube
     </a>
 
-    <!-- 2. Bee Books -->
-    <a href="https://books.studybeepro.site/" class="tile-card">
-      <div class="golden-squircle">
-        <div class="squircle-inner" style="background:#09090b;">
-          <svg width="38" height="38" viewBox="0 0 24 24" fill="#f59e0b">
-            <path d="M18 2H6c-1.1 0-2 .9-2 2v16c0 1.1.9 2 2 2h12c1.1 0 2-.9 2-2V4c0-1.1-.9-2-2-2zM6 4h5v8l-2.5-1.5L6 12V4z"/>
-          </svg>
-        </div>
-        <span class="badge-bee">🐝</span>
-      </div>
-      <span class="tile-title">Bee Books</span>
-    </a>
+    <div class="menu-divider"></div>
+    <div class="menu-heading">Portal Access</div>
+    <button type="button" class="menu-link" onclick="alert('Login Portal'); closeMenu();">
+      <i class="fa-solid fa-right-to-bracket" style="color:var(--primary)"></i> Login
+    </button>
+    <button type="button" class="menu-link" onclick="alert('Logged Out'); closeMenu();">
+      <i class="fa-solid fa-right-from-bracket" style="color:var(--primary)"></i> Logout
+    </button>
+  </div>
 
-    <!-- 3. Target Board -->
-    <a href="https://studybeepro.site/tb" class="tile-card">
-      <div class="golden-squircle">
-        <div class="squircle-inner" style="background:#09090b;">
-          <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="#f97316" stroke-width="2.2">
-            <circle cx="12" cy="12" r="9.5"/><path d="M12 2v4M12 18v4M2 12h4M18 12h4"/><circle cx="12" cy="12" r="3" fill="#f97316"/>
-          </svg>
-        </div>
-        <span class="badge-bee">🐝</span>
-      </div>
-      <span class="tile-title">Target Board</span>
-    </a>
+  <div class="container">
 
-    <!-- 4. Futurekul -->
-    <a href="https://studybeepro.site/futurekul/" class="tile-card">
-      <div class="golden-squircle">
-        <div class="squircle-inner" style="background:#ffffff;">
-          <svg viewBox="0 0 100 100" width="62" height="62">
-            <circle cx="50" cy="50" r="42" fill="none" stroke="#0ea5e9" stroke-width="4.5"/>
-            <text x="50%" y="60%" text-anchor="middle" fill="#d946ef" font-size="36" font-family="'Playfair Display', serif" font-weight="700">Fe</text>
-          </svg>
-        </div>
-      </div>
-      <span class="tile-title">Futurekul</span>
-    </a>
+    <!-- HERO TITLE -->
+    <section class="hero">
+      <span class="badge">SYSTUM UNIVERSE LIVE</span>
+      <h1>SYSTUM - <span>UNIVERSE</span></h1>
+      <p>Curated technical roadmaps and study vaults maintained by Avinash Meena.</p>
+    </section>
 
-    <!-- 5. Master Sahab -->
-    <a href="url?id=5" class="tile-card">
-      <div class="golden-squircle">
-        <div class="squircle-inner" style="background:#ffffff;">
-          <svg viewBox="0 0 80 80" width="100%" height="100%">
-            <rect width="80" height="80" fill="#f1f5f9"/>
-            <circle cx="40" cy="27" r="13" fill="#334155"/>
-            <path d="M22 66 C 22 47, 58 47, 58 66 Z" fill="#60a5fa"/>
+    <!-- GUARANTEED VISIBLE BIO SECTION -->
+    <section class="bio-container" id="admin-bio-section">
+      <div class="bio-content">
+        <div class="avatar-wrapper">
+          <svg viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg">
+            <defs>
+              <radialGradient id="redFur" cx="50%" cy="45%" r="55%">
+                <stop offset="0%" stop-color="#ff3333"/>
+                <stop offset="60%" stop-color="#b30000"/>
+                <stop offset="100%" stop-color="#330000"/>
+              </radialGradient>
+              <linearGradient id="lensGlow" x1="0%" y1="0%" x2="100%" y2="100%">
+                <stop offset="0%" stop-color="#00ffff" stop-opacity="0.85"/>
+                <stop offset="50%" stop-color="#8a2be2" stop-opacity="0.85"/>
+                <stop offset="100%" stop-color="#ff0055" stop-opacity="0.9"/>
+              </linearGradient>
+            </defs>
+            <rect width="200" height="200" fill="#070709"/>
+            <circle cx="50" cy="55" r="28" fill="#800000"/>
+            <circle cx="50" cy="55" r="17" fill="#4d0000"/>
+            <circle cx="150" cy="55" r="28" fill="#800000"/>
+            <circle cx="150" cy="55" r="17" fill="#4d0000"/>
+            <circle cx="100" cy="100" r="62" fill="url(#redFur)"/>
+            <ellipse cx="100" cy="116" rx="26" ry="20" fill="#ff4d4d"/>
+            <polygon points="100,108 90,118 110,118" fill="#200000"/>
+            <rect x="36" y="80" width="56" height="38" rx="8" fill="none" stroke="#150000" stroke-width="7"/>
+            <rect x="108" y="80" width="56" height="38" rx="8" fill="none" stroke="#150000" stroke-width="7"/>
+            <line x1="92" y1="96" x2="108" y2="96" stroke="#150000" stroke-width="7"/>
+            <rect x="40" y="84" width="48" height="30" rx="5" fill="url(#lensGlow)"/>
+            <rect x="112" y="84" width="48" height="30" rx="5" fill="url(#lensGlow)"/>
           </svg>
         </div>
-      </div>
-      <span class="tile-title">Master Sahab</span>
-    </a>
 
-    <!-- 6. UNC Offline -->
-    <a href="https://unc.studybeepro.site/of-unc" class="tile-card">
-      <div class="golden-squircle">
-        <div class="squircle-inner" style="background: linear-gradient(135deg, #c79743, #7a5418);">
-          <svg width="42" height="42" viewBox="0 0 24 24" fill="#2d2208">
-            <path d="M19 3H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm-7 14H7v-5h5v5zm0-7H7V6h5v4zm6 7h-4V6h4v11z"/>
-          </svg>
-        </div>
-        <span class="badge-bee">🐝</span>
-      </div>
-      <span class="tile-title">UNC Offline</span>
-    </a>
+        <div>
+          <span class="owner-tag">OWNER : SYSTUM</span>
+          <h2 class="bio-name">Avinash Meena</h2>
+          <a href="https://www.instagram.com/_avinash_meena1?stkn=bm1rZWxmeWdsam43" target="_blank" rel="noopener noreferrer" class="insta-direct">
+            <i class="fa-brands fa-instagram" style="color:#E1306C;"></i> @_avinash_meena1
+          </a>
+          
+          <br>
+          <div class="systum-tagline">
+            meenaji ka systum hai ladle ❤️🌝
+          </div>
 
-    <!-- 7. UNC -->
-    <a href="https://uncs.pages.dev/" class="tile-card">
-      <div class="golden-squircle">
-        <div class="squircle-inner" style="background: linear-gradient(135deg, #c79743, #7a5418);">
-          <svg width="42" height="42" viewBox="0 0 24 24" fill="#2d2208">
-            <path d="M19 3H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm-7 14H7v-5h5v5zm0-7H7V6h5v4zm6 7h-4V6h4v11z"/>
-          </svg>
+          <p class="bio-desc">
+            Welcome to the command hub! I am <strong>Avinash Meena</strong>, owner of <strong>SYSTUM - UNIVERSE</strong>. This portal provides direct access to high-yield engineering notes, coding roadmaps, and computer science revision files.
+          </p>
         </div>
-        <span class="badge-bee">🐝</span>
       </div>
-      <span class="tile-title">UNC</span>
-    </a>
+    </section>
 
-    <!-- 8. Rojgar W/ Ankit -->
-    <a href="url?id=8" class="tile-card">
-      <div class="golden-squircle">
-        <div class="squircle-inner" style="background:#09090b;">
-          <svg viewBox="0 0 100 100" width="65" height="65">
-            <circle cx="50" cy="50" r="44" fill="#b91c1c"/>
-            <circle cx="50" cy="50" r="37" fill="none" stroke="#ffffff" stroke-width="2" stroke-dasharray="3,3"/>
-            <circle cx="50" cy="50" r="18" fill="#38bdf8"/>
-            <text x="50" y="53" text-anchor="middle" fill="#ffffff" font-size="8.5" font-family="sans-serif" font-weight="bold">With</text>
-            <text x="50" y="24" text-anchor="middle" fill="#ffffff" font-size="10" font-family="sans-serif" font-weight="bold">★ ROJGAR ★</text>
-            <text x="50" y="86" text-anchor="middle" fill="#ffffff" font-size="10" font-family="sans-serif" font-weight="bold">ANKIT</text>
-          </svg>
-        </div>
-        <span class="badge-bee">🐝</span>
+    <!-- STUDY MATERIAL CARDS -->
+    <section>
+      <div class="section-title">
+        <h2>Study <span>Repository</span></h2>
+        <p style="color:var(--text-muted); font-size: 0.95rem;">Developer study modules ready to use.</p>
       </div>
-      <span class="tile-title">Rojgar W/ Ankit</span>
-    </a>
+      <div class="materials-grid">
+        <div class="material-card">
+          <span class="card-badge">MODULE 01</span>
+          <i class="fa-solid fa-code card-icon"></i>
+          <h3>Data Structures & Algorithms</h3>
+          <p>Trees, Graphs, DP Patterns, recursion templates, and interview cheat-sheets.</p>
+        </div>
+        <div class="material-card">
+          <span class="card-badge">MODULE 02</span>
+          <i class="fa-solid fa-laptop-code card-icon"></i>
+          <h3>Full-Stack Web Dev</h3>
+          <p>HTML, Modern CSS, JavaScript engines, REST APIs, and React architectures.</p>
+        </div>
+        <div class="material-card">
+          <span class="card-badge">MODULE 03</span>
+          <i class="fa-solid fa-microchip card-icon"></i>
+          <h3>Core CS & Operating Systems</h3>
+          <p>High-yield notes on OS Scheduling, Computer Networks, and DBMS queries.</p>
+        </div>
+      </div>
+    </section>
 
-    <!-- 9. Selection Bee -->
-    <a href="https://studybeepro.site/selectionbee" class="tile-card">
-      <div class="golden-squircle">
-        <div class="squircle-inner" style="background:#09090b;">
-          <svg width="42" height="42" viewBox="0 0 24 24" fill="none" stroke="#38bdf8" stroke-width="2">
-            <rect x="3" y="3" width="18" height="18" rx="4"/>
-            <path d="M7 8h10M7 12h7M7 16h4"/>
-          </svg>
-        </div>
-        <span class="badge-bee">🐝</span>
+    <!-- CONTACT SECTION -->
+    <section>
+      <div class="section-title">
+        <h2>Direct <span>Transmission</span></h2>
       </div>
-      <span class="tile-title">Selection Bee</span>
-    </a>
-
-    <!-- 10. Vibrant Academy -->
-    <a href="https://studybeepro.site/vibrante" class="tile-card">
-      <div class="golden-squircle">
-        <div class="squircle-inner" style="background:#09090b;">
-          <svg viewBox="0 0 100 100" width="65" height="65">
-            <circle cx="50" cy="50" r="44" fill="none" stroke="#eab308" stroke-width="2"/>
-            <text x="50" y="22" text-anchor="middle" fill="#ffffff" font-size="7" font-family="sans-serif">Believe in Excellence</text>
-            <path d="M22 36 L40 76 L52 50 L64 76 L80 36" fill="none" stroke="#d97706" stroke-width="6" stroke-linecap="round"/>
-            <path d="M30 36 L48 76 L50 72 L60 52" fill="none" stroke="#f59e0b" stroke-width="4"/>
-          </svg>
-        </div>
-        <span class="badge-bee">🐝</span>
+      <div class="contact-card">
+        <a href="mailto:avinashmeena00007@gmail.com" class="direct-email-badge">
+          <i class="fa-solid fa-envelope" style="color:var(--primary); font-size: 1.1rem;"></i>
+          <span>avinashmeena00007@gmail.com</span>
+        </a>
       </div>
-      <span class="tile-title gold-accent">Vibrant Academy</span>
-    </a>
-
-    <!-- 11. Physics Wallah -->
-    <a href="https://pw.studybeepro.site/" class="tile-card">
-      <div class="golden-squircle">
-        <div class="squircle-inner" style="background:#09090b;">
-          <svg viewBox="0 0 100 100" width="65" height="65">
-            <circle cx="50" cy="50" r="42" fill="none" stroke="#ffffff" stroke-width="2.5"/>
-            <text x="50" y="58" text-anchor="middle" fill="#ffffff" font-size="34" font-family="'Playfair Display', serif" font-weight="bold">PW</text>
-          </svg>
-        </div>
-        <span class="badge-bee">🐝</span>
-      </div>
-      <span class="tile-title gold-accent">Physics Wallah</span>
-    </a>
+    </section>
 
   </div>
 
+  <!-- FOOTER -->
   <footer>
-    &copy; 2026 STUDY BEE ECOSYSTEM
+    <div class="social-row">
+      <a href="https://www.instagram.com/_avinash_meena1?stkn=bm1rZWxmeWdsam43" target="_blank" rel="noopener noreferrer" class="social-btn" title="Instagram">
+        <i class="fa-brands fa-instagram"></i>
+      </a>
+      <a href="https://youtube.com/@xnaviff" target="_blank" rel="noopener noreferrer" class="social-btn" title="YouTube - xn avi ff">
+        <i class="fa-brands fa-youtube"></i>
+      </a>
+      <a href="mailto:avinashmeena00007@gmail.com" class="social-btn" title="Email">
+        <i class="fa-solid fa-envelope"></i>
+      </a>
+    </div>
+    <p style="color: var(--text-muted); font-size: 0.9rem;">
+      &copy; 2026 <strong style="color: #fff;">SYSTUM - UNIVERSE</strong>. Owned & Managed by 
+      <a href="https://www.instagram.com/_avinash_meena1?stkn=bm1rZWxmeWdsam43" target="_blank" rel="noopener noreferrer" style="color: var(--primary); text-decoration: none;">@_avinash_meena1</a>
+    </p>
   </footer>
 
-</body>
-</html>
+  <script>
+    // 1. INTRO DISMISSAL
+    setTimeout(function() {
+      var intro = document.getElementById('intro-screen');
+      if (intro) {
+        intro.style.opacity = '0';
+        setTimeout(function() {
+          intro.remove();
+        }, 500);
+      }
+    }, 1600);
+
+    // 2. 3-DOT MENU
+    var btn = document.getElementById('dotsToggleBtn');
+    
