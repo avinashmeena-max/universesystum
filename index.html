@@ -3,319 +3,432 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Study Bee | Free Education Platform</title>
+  <title>Study Bee | Welcome to the Ultimate Free Education Platform</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@600;700;800&family=Playfair+Display:ital,wght@0,600;0,700;1,400&family=Poppins:wght@400;500;600&display=swap" rel="stylesheet">
   <style>
     * {
       box-sizing: border-box;
       margin: 0;
       padding: 0;
-      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
     }
 
     body {
-      background-color: #0d0e12;
+      background: radial-gradient(circle at 50% 18%, #2a200e 0%, #0c0b09 45%, #050505 100%);
       color: #ffffff;
+      font-family: 'Poppins', sans-serif;
       min-height: 100vh;
       display: flex;
       flex-direction: column;
       align-items: center;
-      padding: 24px 16px;
+      padding: 20px 16px 40px;
+      position: relative;
     }
 
-    /* Header */
-    header {
-      text-align: center;
-      margin-bottom: 28px;
+    /* Top bar & notification */
+    .top-bar {
+      width: 100%;
+      max-width: 440px;
+      display: flex;
+      justify-content: flex-end;
+      padding-top: 6px;
+      margin-bottom: 8px;
     }
 
-    .brand-icon {
-      width: 64px;
-      height: 64px;
-      background: linear-gradient(145deg, #fcd34d, #f59e0b);
-      border-radius: 18px;
+    .notif-btn {
+      position: relative;
+      background: #1b1915;
+      border: 1px solid #332d20;
+      width: 44px;
+      height: 44px;
+      border-radius: 50%;
       display: flex;
       align-items: center;
       justify-content: center;
-      font-size: 32px;
-      margin: 0 auto 14px;
-      box-shadow: 0 0 25px rgba(245, 158, 11, 0.35);
+      cursor: pointer;
+      color: #eab308;
     }
 
-    h1 {
-      font-size: 24px;
+    .notif-badge {
+      position: absolute;
+      top: -2px;
+      right: -2px;
+      background: #ef4444;
+      color: #fff;
+      font-size: 11px;
       font-weight: 700;
+      width: 20px;
+      height: 20px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      border: 2px solid #0c0b09;
+    }
+
+    /* Main circular badge */
+    .hero-badge {
+      width: 90px;
+      height: 90px;
+      border-radius: 50%;
+      background: radial-gradient(circle, #fcd34d 30%, #d97706 80%);
+      border: 3px solid #1a1711;
+      box-shadow: 0 0 35px rgba(234, 179, 8, 0.45);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 42px;
+      margin-bottom: 24px;
+    }
+
+    /* Titles */
+    h1 {
+      font-family: 'Playfair Display', serif;
+      font-size: 34px;
+      font-weight: 700;
+      text-align: center;
+      line-height: 1.15;
+      color: #ffffff;
       letter-spacing: -0.5px;
     }
 
-    .subtitle {
-      color: #9ca3af;
-      font-size: 14px;
-      margin-top: 6px;
+    h1 span {
+      display: block;
+      color: #f6c860;
+      font-size: 38px;
+      margin-top: 4px;
     }
 
-    .subtitle span {
-      color: #38bdf8;
-      font-weight: 600;
+    .tagline {
+      font-family: 'Playfair Display', serif;
+      font-size: 15px;
+      color: #c9c3b8;
+      text-align: center;
+      margin-top: 14px;
+      margin-bottom: 30px;
+      letter-spacing: 0.3px;
     }
 
-    /* Grid layout */
-    .grid {
+    .tagline .free-highlight {
+      color: #f59e0b;
+      font-weight: 700;
+    }
+
+    /* Grid container */
+    .platform-grid {
       display: grid;
       grid-template-columns: repeat(2, 1fr);
-      gap: 14px;
+      gap: 16px;
       width: 100%;
-      max-width: 420px;
-      margin-bottom: 36px;
+      max-width: 440px;
     }
 
-    .card {
-      background: #171922;
-      border: 1px solid #232733;
-      border-radius: 14px;
+    /* Card items */
+    .item-card {
+      background: #0f1012;
+      border: 1px solid #1c1e24;
+      border-radius: 20px;
       padding: 16px 12px;
       display: flex;
       flex-direction: column;
       align-items: center;
-      text-align: center;
       text-decoration: none;
-      color: inherit;
       transition: transform 0.15s ease, border-color 0.15s ease;
     }
 
-    .card:hover {
-      transform: translateY(-2px);
-      border-color: #3b82f6;
+    .item-card:hover {
+      transform: translateY(-3px);
+      border-color: #f59e0b;
     }
 
-    .card-icon {
-      width: 46px;
-      height: 46px;
-      border-radius: 12px;
-      background-color: #212534;
+    /* Golden border box for icons */
+    .icon-frame {
+      width: 78px;
+      height: 78px;
+      background: #090a0d;
+      border: 2px solid #eab308;
+      border-radius: 20px;
       display: flex;
       align-items: center;
       justify-content: center;
-      font-size: 22px;
-      margin-bottom: 10px;
+      margin-bottom: 12px;
+      box-shadow: inset 0 0 10px rgba(0, 0, 0, 0.9), 0 0 12px rgba(234, 179, 8, 0.15);
+      overflow: hidden;
     }
 
-    .card h3 {
-      font-size: 14px;
-      font-weight: 600;
-      color: #e5e7eb;
+    .icon-frame img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      border-radius: 17px;
+    }
+
+    .icon-fallback {
+      font-size: 32px;
+    }
+
+    .item-title {
+      color: #ffffff;
+      font-family: 'Cinzel', serif;
+      font-size: 13.5px;
+      font-weight: 700;
+      text-align: center;
+      letter-spacing: 0.3px;
     }
 
     /* Footer */
     footer {
+      margin-top: 36px;
       text-align: center;
-      font-size: 12px;
-      color: #6b7280;
-      margin-top: auto;
-      padding-top: 20px;
+      font-size: 11px;
+      color: #78716c;
+      letter-spacing: 0.5px;
     }
 
-    /* Modal Backdrop & Blur */
+    /* Telegram modal */
     .modal-overlay {
       position: fixed;
       inset: 0;
-      background: rgba(0, 0, 0, 0.75);
-      backdrop-filter: blur(8px);
-      -webkit-backdrop-filter: blur(8px);
+      background: rgba(0, 0, 0, 0.78);
+      backdrop-filter: blur(7px);
       display: flex;
       align-items: center;
       justify-content: center;
       padding: 16px;
-      z-index: 100;
+      z-index: 999;
       opacity: 0;
       pointer-events: none;
       transition: opacity 0.25s ease;
     }
 
-    .modal-overlay.active {
+    .modal-overlay.open {
       opacity: 1;
       pointer-events: auto;
     }
 
-    /* Popup Box */
-    .modal-card {
-      background: #161821;
-      border: 1px solid #282c3c;
+    .modal-window {
+      background: #141416;
+      border: 1px solid #2f291c;
       border-radius: 24px;
-      width: 100%;
+      padding: 26px 20px;
       max-width: 360px;
-      padding: 28px 22px;
+      width: 100%;
       text-align: center;
       position: relative;
-      box-shadow: 0 20px 40px rgba(0, 0, 0, 0.6);
-      transform: scale(0.92);
-      transition: transform 0.25s cubic-bezier(0.16, 1, 0.3, 1);
     }
 
-    .modal-overlay.active .modal-card {
-      transform: scale(1);
-    }
-
-    .close-btn {
+    .close-modal {
       position: absolute;
-      top: 16px;
-      right: 16px;
-      background: #232738;
+      top: 14px;
+      right: 14px;
+      background: #232220;
       border: none;
-      color: #9ca3af;
+      color: #999;
       width: 28px;
       height: 28px;
       border-radius: 50%;
       cursor: pointer;
-      font-size: 14px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
+      font-size: 16px;
     }
 
-    .modal-icon-glow {
-      width: 72px;
-      height: 72px;
-      margin: 0 auto 18px;
-      background: linear-gradient(145deg, #fcd34d, #f59e0b);
-      border-radius: 20px;
+    .modal-icon {
+      width: 70px;
+      height: 70px;
+      border-radius: 22px;
+      background: radial-gradient(circle, #fcd34d, #f59e0b);
       display: flex;
       align-items: center;
       justify-content: center;
       font-size: 36px;
-      box-shadow: 0 0 30px rgba(245, 158, 11, 0.45);
+      margin: 0 auto 16px;
+      box-shadow: 0 0 25px rgba(245, 158, 11, 0.4);
     }
 
-    .modal-title {
+    .modal-window h2 {
+      font-family: 'Playfair Display', serif;
       font-size: 22px;
-      font-weight: 700;
-      margin-bottom: 10px;
+      margin-bottom: 8px;
     }
 
-    .modal-desc {
-      font-size: 13.5px;
+    .modal-window p {
+      font-size: 13px;
+      color: #a8a29e;
       line-height: 1.5;
-      color: #9ca3af;
-      margin-bottom: 18px;
+      margin-bottom: 16px;
     }
 
-    .member-counter {
-      display: inline-flex;
-      align-items: center;
-      gap: 7px;
-      background: #0f1117;
-      border: 1px solid #232736;
-      padding: 6px 14px;
-      border-radius: 20px;
-      font-size: 12.5px;
-      color: #d1d5db;
-      margin-bottom: 20px;
-    }
-
-    .pulse-dot {
-      width: 7px;
-      height: 7px;
-      background-color: #22c55e;
-      border-radius: 50%;
-      box-shadow: 0 0 8px #22c55e;
-    }
-
-    .join-btn {
+    .btn-tg {
       display: flex;
       align-items: center;
       justify-content: center;
       gap: 8px;
-      width: 100%;
-      padding: 13px;
-      background: #2ea5e8;
-      color: #ffffff;
-      border: none;
-      border-radius: 12px;
-      font-size: 14px;
-      font-weight: 700;
-      letter-spacing: 0.5px;
+      background: #0284c7;
+      color: #fff;
       text-decoration: none;
-      cursor: pointer;
-      transition: background 0.15s ease;
-    }
-
-    .join-btn:hover {
-      background: #258ec9;
+      font-weight: 700;
+      font-size: 13.5px;
+      padding: 12px;
+      border-radius: 12px;
+      letter-spacing: 0.5px;
     }
   </style>
 </head>
 <body>
 
-  <!-- Header -->
-  <header>
-    <div class="brand-icon">🐝</div>
-    <h1>Welcome to Study Bee</h1>
-    <p class="subtitle">Education Must Be <span>Free</span> For Everyone</p>
-  </header>
+  <!-- Top Notification -->
+  <div class="top-bar">
+    <div class="notif-btn" id="bellIcon">
+      <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"></path>
+        <path d="M13.73 21a2 2 0 0 1-3.46 0"></path>
+      </svg>
+      <div class="notif-badge">1</div>
+    </div>
+  </div>
 
-  <!-- Platform Cards -->
-  <div class="grid">
-    <a href="#" class="card"><div class="card-icon">🎯</div><h3>Next Topper</h3></a>
-    <a href="#" class="card"><div class="card-icon">🚀</div><h3>Mission Jeet</h3></a>
-    <a href="#" class="card"><div class="card-icon">📚</div><h3>Bee Books</h3></a>
-    <a href="#" class="card"><div class="card-icon">🎯</div><h3>Target Board</h3></a>
-    <a href="#" class="card"><div class="card-icon">💡</div><h3>Futurekul</h3></a>
-    <a href="#" class="card"><div class="card-icon">👨‍🏫</div><h3>Master Sahab</h3></a>
-    <a href="#" class="card"><div class="card-icon">🏛️</div><h3>UNC Offline</h3></a>
-    <a href="#" class="card"><div class="card-icon">🎓</div><h3>UNC</h3></a>
-    <a href="#" class="card"><div class="card-icon">💼</div><h3>Rojgar W/ Ankit</h3></a>
-    <a href="#" class="card"><div class="card-icon">⭐</div><h3>Selection Bee</h3></a>
-    <a href="#" class="card"><div class="card-icon">⚡</div><h3>Vibrant Academy</h3></a>
-    <a href="#" class="card"><div class="card-icon">⚛️</div><h3>Physics Wallah</h3></a>
+  <!-- Central Logo -->
+  <div class="hero-badge">🐝</div>
+
+  <!-- Header Text -->
+  <h1>
+    Welcome to
+    <span>Study Bee</span>
+  </h1>
+  <p class="tagline">Education Must Be <span class="free-highlight">Free</span> For Everyone</p>
+
+  <!-- Complete 12 Grid Options with Target Frame & Labels -->
+  <div class="platform-grid">
+
+    <!-- 1. Next Topper -->
+    <a href="https://t.me/" class="item-card">
+      <div class="icon-frame">
+        <span class="icon-fallback" style="color: #22d3ee;">⏩</span>
+      </div>
+      <span class="item-title">Next Topper</span>
+    </a>
+
+    <!-- 2. Mission Jeet -->
+    <a href="https://t.me/" class="item-card">
+      <div class="icon-frame">
+        <span class="icon-fallback" style="color: #ef4444;">🎯</span>
+      </div>
+      <span class="item-title">Mission Jeet</span>
+    </a>
+
+    <!-- 3. Bee Books -->
+    <a href="https://t.me/" class="item-card">
+      <div class="icon-frame">
+        <span class="icon-fallback" style="color: #eab308;">📖</span>
+      </div>
+      <span class="item-title">Bee Books</span>
+    </a>
+
+    <!-- 4. Target Board -->
+    <a href="https://t.me/" class="item-card">
+      <div class="icon-frame">
+        <span class="icon-fallback" style="color: #f97316;">🎯</span>
+      </div>
+      <span class="item-title">Target Board</span>
+    </a>
+
+    <!-- 5. Futurekul -->
+    <a href="https://t.me/" class="item-card">
+      <div class="icon-frame">
+        <span class="icon-fallback" style="color: #ec4899;">🎓</span>
+      </div>
+      <span class="item-title">Futurekul</span>
+    </a>
+
+    <!-- 6. Master Sahab -->
+    <a href="https://t.me/" class="item-card">
+      <div class="icon-frame">
+        <span class="icon-fallback" style="color: #38bdf8;">👨‍🏫</span>
+      </div>
+      <span class="item-title">Master Sahab</span>
+    </a>
+
+    <!-- 7. UNC Offline -->
+    <a href="https://t.me/" class="item-card">
+      <div class="icon-frame">
+        <span class="icon-fallback" style="color: #10b981;">🏛️</span>
+      </div>
+      <span class="item-title">UNC Offline</span>
+    </a>
+
+    <!-- 8. UNC -->
+    <a href="https://t.me/" class="item-card">
+      <div class="icon-frame">
+        <span class="icon-fallback" style="color: #06b6d4;">🎓</span>
+      </div>
+      <span class="item-title">UNC</span>
+    </a>
+
+    <!-- 9. Rojgar W/ Ankit -->
+    <a href="https://t.me/" class="item-card">
+      <div class="icon-frame">
+        <span class="icon-fallback" style="color: #eab308;">💼</span>
+      </div>
+      <span class="item-title">Rojgar W/ Ankit</span>
+    </a>
+
+    <!-- 10. Selection Bee / Systum Bee -->
+    <a href="https://t.me/" class="item-card">
+      <div class="icon-frame">
+        <span class="icon-fallback" style="color: #f59e0b;">🐝</span>
+      </div>
+      <span class="item-title">Systum Bee</span>
+    </a>
+
+    <!-- 11. Vibrant Academy -->
+    <a href="https://t.me/" class="item-card">
+      <div class="icon-frame">
+        <span class="icon-fallback" style="color: #a855f7;">⚡</span>
+      </div>
+      <span class="item-title">Vibrant Academy</span>
+    </a>
+
+    <!-- 12. Physics Wallah -->
+    <a href="https://t.me/" class="item-card">
+      <div class="icon-frame">
+        <span class="icon-fallback" style="color: #ef4444;">⚛️</span>
+      </div>
+      <span class="item-title">Physics Wallah</span>
+    </a>
+
   </div>
 
   <footer>
     &copy; 2026 STUDY BEE ECOSYSTEM
   </footer>
 
-  <!-- Community Modal Popup -->
-  <div class="modal-overlay active" id="communityModal">
-    <div class="modal-card">
-      <button class="close-btn" id="closeModalBtn" aria-label="Close">&times;</button>
-      <div class="modal-icon-glow">🐝</div>
-      <h2 class="modal-title">Join Community!</h2>
-      <p class="modal-desc">
-        This site can be banned anytime. Please join our channel for latest updates and direct support.
-      </p>
-      <div class="member-counter">
-        <div class="pulse-dot"></div>
-        <span>50,551 Members</span>
-      </div>
-      <a href="https://t.me/" target="_blank" class="join-btn">
-        JOIN TELEGRAM
-        <svg width="15" height="15" viewBox="0 0 24 24" fill="currentColor">
-          <path d="M2.01 21L23 12 2.01 3 2 10l15 2-15 2z"/>
-        </svg>
-      </a>
+  <!-- Popup / Modal -->
+  <div class="modal-overlay" id="tgModal">
+    <div class="modal-window">
+      <button class="close-modal" id="closeBtn">&times;</button>
+      <div class="modal-icon">🐝</div>
+      <h2>Join Community!</h2>
+      <p>This site can be banned anytime. Please join our channel for latest updates and direct support.</p>
+      <a href="https://t.me/" target="_blank" class="btn-tg">JOIN TELEGRAM</a>
     </div>
   </div>
 
   <script>
-    const modal = document.getElementById('communityModal');
-    const closeBtn = document.getElementById('closeModalBtn');
+    const modal = document.getElementById('tgModal');
+    const closeBtn = document.getElementById('closeBtn');
+    const bellIcon = document.getElementById('bellIcon');
 
-    // Close on cross button click
-    closeBtn.addEventListener('click', () => {
-      modal.classList.remove('active');
+    // Auto-open modal shortly after landing
+    window.addEventListener('load', () => {
+      setTimeout(() => {
+        modal.classList.add('open');
+      }, 500);
     });
 
-    // Close when tapping outside the card
+    closeBtn.addEventListener('click', () => modal.classList.remove('open'));
+    bellIcon.addEventListener('click', () => modal.classList.add('open'));
     modal.addEventListener('click', (e) => {
-      if (e.target === modal) {
-        modal.classList.remove('active');
-      }
-    });
-
-    // Optional: Re-trigger popup after clicking any resource card
-    document.querySelectorAll('.card').forEach(card => {
-      card.addEventListener('click', (e) => {
-        e.preventDefault();
-        modal.classList.add('active');
-      });
+      if (e.target === modal) modal.classList.remove('open');
     });
   </script>
 </body>
