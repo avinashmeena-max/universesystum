@@ -5,7 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>SYSTUM - UNIVERSE | Study Hub</title>
   
-  <!-- Gaming & Tech Fonts -->
+  <!-- Fonts & Icons -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com">
   <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@600;800;900&family=Rajdhani:wght@500;600;700&display=swap" rel="stylesheet">
@@ -14,14 +14,30 @@
   <style>
     :root {
       --primary: #FF0000;
-      --primary-glow: rgba(255, 0, 0, 0.55);
+      --purple: #b000ff;
       --bg-dark: #070709;
-      --bg-card: rgba(18, 18, 24, 0.8);
+      --bg-card: rgba(18, 18, 24, 0.85);
       --text-main: #FFFFFF;
       --text-muted: #a2a2b5;
       --border-glass: rgba(255, 255, 255, 0.12);
-      --liquid-glass: rgba(14, 14, 20, 0.7);
+      --liquid-glass: rgba(14, 14, 20, 0.8);
       --transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+    }
+
+    /* RED TO PURPLE CONTINUOUS GLOW ANIMATION */
+    @keyframes colorShift {
+      0% {
+        --active-color: #FF0000;
+        --active-glow: rgba(255, 0, 0, 0.65);
+      }
+      50% {
+        --active-color: #b000ff;
+        --active-glow: rgba(176, 0, 255, 0.65);
+      }
+      100% {
+        --active-color: #FF0000;
+        --active-glow: rgba(255, 0, 0, 0.65);
+      }
     }
 
     * {
@@ -38,6 +54,7 @@
       font-size: 18px;
       line-height: 1.6;
       overflow-x: hidden;
+      animation: colorShift 6s infinite ease-in-out;
     }
 
     h1, h2, h3, h4 {
@@ -64,7 +81,7 @@
       align-items: center;
       justify-content: space-between;
       padding: 0 25px;
-      z-index: 9999;
+      z-index: 10000;
       box-shadow: 0 8px 32px rgba(0, 0, 0, 0.6);
     }
 
@@ -79,8 +96,7 @@
     }
 
     .nav-logo span {
-      color: var(--primary);
-      text-shadow: 0 0 10px var(--primary);
+      animation: colorTextShift 6s infinite ease-in-out;
     }
 
     .nav-menu {
@@ -103,29 +119,14 @@
       color: #fff;
     }
 
-    .nav-link::after {
-      content: '';
-      position: absolute;
-      bottom: -4px;
-      left: 0;
-      width: 0%;
-      height: 2px;
-      background: var(--primary);
-      transition: var(--transition);
-      box-shadow: 0 0 8px var(--primary);
-    }
-
-    .nav-link:hover::after {
-      width: 100%;
-    }
-
     .nav-actions {
       display: flex;
       align-items: center;
       gap: 15px;
+      position: relative;
     }
 
-    /* 3-DOTS ACTION MENU */
+    /* 3-DOTS ACTION MENU BUTTON */
     .dots-wrapper {
       position: relative;
     }
@@ -134,37 +135,37 @@
       background: rgba(255, 255, 255, 0.08);
       border: 1px solid var(--border-glass);
       color: #fff;
-      font-size: 1.1rem;
-      width: 42px;
-      height: 42px;
+      font-size: 1.2rem;
+      width: 44px;
+      height: 44px;
       border-radius: 50%;
       cursor: pointer;
       display: flex;
       align-items: center;
       justify-content: center;
       transition: var(--transition);
+      user-select: none;
     }
 
     .dots-btn:hover {
-      background: var(--primary);
-      border-color: var(--primary);
-      box-shadow: 0 0 15px var(--primary);
+      background: #FF0000;
+      animation: bgPulseShift 6s infinite ease-in-out;
     }
 
+    /* DROPDOWN MENU */
     .dots-dropdown {
       position: absolute;
-      top: 52px;
+      top: 54px;
       right: 0;
-      background: rgba(14, 14, 20, 0.98);
-      border: 1px solid var(--border-glass);
-      backdrop-filter: blur(25px);
+      background: #111116;
+      border: 1px solid rgba(255, 255, 255, 0.18);
       border-radius: 14px;
-      box-shadow: 0 15px 35px rgba(0,0,0,0.85);
-      width: 220px;
+      box-shadow: 0 15px 40px rgba(0, 0, 0, 0.9);
+      width: 230px;
       display: none;
       flex-direction: column;
       overflow: hidden;
-      z-index: 10000;
+      z-index: 10001;
     }
 
     .dots-dropdown.show {
@@ -198,8 +199,9 @@
     }
 
     .dropdown-item:hover {
-      background: var(--primary);
+      background: rgba(255, 255, 255, 0.1);
       color: #fff;
+      padding-left: 22px;
     }
 
     .dropdown-divider {
@@ -217,7 +219,7 @@
       cursor: pointer;
     }
 
-    /* ================= 2. HERO WITH UNIVERSE ANIMATION ================= */
+    /* ================= 2. HERO SECTION ================= */
     .hero {
       min-height: 92vh;
       display: flex;
@@ -227,10 +229,9 @@
       padding: 130px 20px 40px;
       position: relative;
       overflow: hidden;
-      background: radial-gradient(circle at center, #1b0000 0%, #070709 85%);
+      background: radial-gradient(circle at center, #1b001a 0%, #070709 85%);
     }
 
-    /* Canvas background for star warp */
     #hero-canvas {
       position: absolute;
       inset: 0;
@@ -251,14 +252,13 @@
       display: inline-block;
       padding: 6px 18px;
       background: rgba(255, 0, 0, 0.12);
-      border: 1px solid var(--primary);
-      color: var(--primary);
+      border: 1px solid #FF0000;
       border-radius: 30px;
       font-size: 0.8rem;
       font-weight: 700;
       letter-spacing: 3px;
       margin-bottom: 18px;
-      animation: pulseGlow 2s infinite alternate;
+      animation: badgePulse 6s infinite ease-in-out;
     }
 
     .hero-title {
@@ -266,12 +266,10 @@
       margin-bottom: 18px;
       font-weight: 900;
       line-height: 1.2;
-      animation: floatHero 3s ease-in-out infinite alternate;
     }
 
     .hero-title span {
-      color: var(--primary);
-      text-shadow: 0 0 25px var(--primary), 0 0 50px var(--primary-glow);
+      animation: colorTextShift 6s infinite ease-in-out;
     }
 
     .hero-subtitle {
@@ -306,14 +304,12 @@
     }
 
     .btn-primary {
-      background: var(--primary);
       color: #fff;
-      box-shadow: 0 0 25px var(--primary-glow);
+      animation: bgPulseShift 6s infinite ease-in-out;
     }
 
     .btn-primary:hover {
       transform: translateY(-3px) scale(1.03);
-      box-shadow: 0 0 35px rgba(255, 0, 0, 0.85);
     }
 
     .btn-glass {
@@ -324,22 +320,47 @@
     }
 
     .btn-glass:hover {
-      transform: translateY(-3px) scale(1.03);
       border-color: #fff;
       background: rgba(255, 255, 255, 0.12);
     }
 
-    @keyframes pulseGlow {
-      0% { box-shadow: 0 0 5px var(--primary-glow); }
-      100% { box-shadow: 0 0 20px var(--primary); }
+    /* DYNAMIC RED TO PURPLE KEYFRAMES */
+    @keyframes colorTextShift {
+      0%, 100% {
+        color: #FF0000;
+        text-shadow: 0 0 25px rgba(255, 0, 0, 0.8), 0 0 50px rgba(255, 0, 0, 0.5);
+      }
+      50% {
+        color: #b000ff;
+        text-shadow: 0 0 25px rgba(176, 0, 255, 0.8), 0 0 50px rgba(176, 0, 255, 0.5);
+      }
     }
 
-    @keyframes floatHero {
-      0% { transform: translateY(0px); }
-      100% { transform: translateY(-8px); }
+    @keyframes bgPulseShift {
+      0%, 100% {
+        background: #FF0000;
+        box-shadow: 0 0 25px rgba(255, 0, 0, 0.7);
+      }
+      50% {
+        background: #b000ff;
+        box-shadow: 0 0 25px rgba(176, 0, 255, 0.7);
+      }
     }
 
-    /* ================= 3. SECTIONS & STUDY CARDS ================= */
+    @keyframes badgePulse {
+      0%, 100% {
+        color: #FF0000;
+        border-color: #FF0000;
+        box-shadow: 0 0 15px rgba(255, 0, 0, 0.4);
+      }
+      50% {
+        color: #b000ff;
+        border-color: #b000ff;
+        box-shadow: 0 0 15px rgba(176, 0, 255, 0.4);
+      }
+    }
+
+    /* ================= 3. STUDY CARDS ================= */
     .section-wrap {
       max-width: 1200px;
       margin: 0 auto;
@@ -357,7 +378,7 @@
     }
 
     .section-title span {
-      color: var(--primary);
+      animation: colorTextShift 6s infinite ease-in-out;
     }
 
     .materials-grid {
@@ -378,16 +399,15 @@
 
     .material-card:hover {
       transform: translateY(-8px);
-      border-color: var(--primary);
-      box-shadow: 0 10px 30px rgba(255, 0, 0, 0.2);
+      border-color: #b000ff;
+      box-shadow: 0 10px 30px rgba(176, 0, 255, 0.25);
     }
 
     .card-badge {
       display: inline-block;
       padding: 4px 12px;
-      background: rgba(255, 0, 0, 0.12);
-      border: 1px solid rgba(255, 0, 0, 0.4);
-      color: #ff7777;
+      background: rgba(255, 255, 255, 0.08);
+      color: #fff;
       font-size: 0.75rem;
       border-radius: 12px;
       font-weight: 700;
@@ -396,9 +416,9 @@
 
     .card-icon {
       font-size: 2.2rem;
-      color: var(--primary);
       margin-bottom: 18px;
       display: block;
+      animation: colorTextShift 6s infinite ease-in-out;
     }
 
     .material-card h3 {
@@ -412,7 +432,7 @@
       margin-bottom: 22px;
     }
 
-    /* ================= 4. ADMIN BIO ================= */
+    /* ================= 4. ADMIN BIO (WITH IMAGE) ================= */
     .bio-container {
       background: var(--bg-card);
       border: 1px solid var(--border-glass);
@@ -431,14 +451,26 @@
       padding-right: 30px;
     }
 
+    /* Admin image glow with RED-TO-PURPLE animation */
     .bio-avatar {
-      width: 130px;
-      height: 130px;
+      width: 140px;
+      height: 140px;
       border-radius: 50%;
-      border: 3px solid var(--primary);
-      box-shadow: 0 0 25px var(--primary-glow);
+      border: 3px solid #FF0000;
       object-fit: cover;
       margin-bottom: 15px;
+      animation: avatarBorderShift 6s infinite ease-in-out;
+    }
+
+    @keyframes avatarBorderShift {
+      0%, 100% {
+        border-color: #FF0000;
+        box-shadow: 0 0 25px rgba(255, 0, 0, 0.75);
+      }
+      50% {
+        border-color: #b000ff;
+        box-shadow: 0 0 25px rgba(176, 0, 255, 0.75);
+      }
     }
 
     .bio-profile h3 {
@@ -447,7 +479,7 @@
     }
 
     .insta-link {
-      color: var(--primary);
+      color: #fff;
       text-decoration: none;
       font-weight: 700;
       display: inline-flex;
@@ -457,7 +489,7 @@
     }
 
     .insta-link:hover {
-      text-shadow: 0 0 10px var(--primary);
+      animation: colorTextShift 6s infinite ease-in-out;
     }
 
     .systum-tagline {
@@ -465,11 +497,21 @@
       color: #fff;
       font-weight: 700;
       margin-bottom: 15px;
-      background: rgba(255, 0, 0, 0.15);
+      background: rgba(255, 255, 255, 0.05);
       display: inline-block;
       padding: 10px 20px;
       border-radius: 8px;
-      border-left: 4px solid var(--primary);
+      border-left: 4px solid #FF0000;
+      animation: taglineShift 6s infinite ease-in-out;
+    }
+
+    @keyframes taglineShift {
+      0%, 100% {
+        border-color: #FF0000;
+      }
+      50% {
+        border-color: #b000ff;
+      }
     }
 
     /* ================= 5. CONTACT SECTION ================= */
@@ -500,9 +542,8 @@
     }
 
     .direct-email-badge:hover {
-      border-color: var(--primary);
-      box-shadow: 0 0 15px var(--primary-glow);
-      color: var(--primary);
+      border-color: #b000ff;
+      box-shadow: 0 0 15px rgba(176, 0, 255, 0.4);
     }
 
     .form-group {
@@ -534,8 +575,8 @@
 
     .form-group input:focus,
     .form-group textarea:focus {
-      border-color: var(--primary);
-      box-shadow: 0 0 15px var(--primary-glow);
+      border-color: #b000ff;
+      box-shadow: 0 0 15px rgba(176, 0, 255, 0.4);
     }
 
     /* ================= 6. FOOTER ================= */
@@ -568,8 +609,7 @@
     }
 
     .social-btn:hover {
-      background: var(--primary);
-      box-shadow: 0 0 15px var(--primary);
+      animation: bgPulseShift 6s infinite ease-in-out;
       transform: translateY(-4px);
     }
 
@@ -614,7 +654,7 @@
   <header>
     <nav class="navbar">
       <a href="#home" class="nav-logo">
-        <i class="fa-solid fa-atom" style="color:var(--primary)"></i> SYSTUM<span>.</span>
+        <i class="fa-solid fa-atom"></i> SYSTUM<span>.</span>
       </a>
 
       <ul class="nav-menu" id="nav-menu">
@@ -625,30 +665,29 @@
       </ul>
 
       <div class="nav-actions">
-        <!-- 3-DOTS MENU -->
+        <!-- 3-DOTS MENU BUTTON -->
         <div class="dots-wrapper">
-          <button class="dots-btn" id="dotsToggle" title="Options">
+          <button type="button" class="dots-btn" id="dotsToggle" aria-label="Open options menu">
             <i class="fa-solid fa-ellipsis-vertical"></i>
           </button>
           
+          <!-- 3-DOTS DROPDOWN LIST -->
           <div class="dots-dropdown" id="dotsDropdown">
             <div class="dropdown-header">Social Media</div>
-            <!-- Direct Instagram -->
-            <a href="https://www.instagram.com/_avinash_meena1?stkn=bm1rZWxmeWdsam43" target="_blank" class="dropdown-item">
+            <a href="https://instagram.com/_avinash_meenaa" target="_blank" class="dropdown-item">
               <i class="fa-brands fa-instagram" style="color:#E1306C;"></i> Instagram
             </a>
-            <!-- Direct YouTube -->
             <a href="https://youtube.com/@xnaviff" target="_blank" class="dropdown-item">
               <i class="fa-brands fa-youtube" style="color:#FF0000;"></i> xn avi ff
             </a>
 
             <div class="dropdown-divider"></div>
             <div class="dropdown-header">Account</div>
-            <button class="dropdown-item" onclick="alert('Login flow triggered.')">
-              <i class="fa-solid fa-right-to-bracket" style="color:var(--primary)"></i> Login
+            <button type="button" class="dropdown-item" onclick="alert('Login window opening...');">
+              <i class="fa-solid fa-right-to-bracket"></i> Login
             </button>
-            <button class="dropdown-item" onclick="alert('Logged Out Successfully.')">
-              <i class="fa-solid fa-right-from-bracket" style="color:var(--primary)"></i> Logout
+            <button type="button" class="dropdown-item" onclick="alert('Logged Out Successfully.');">
+              <i class="fa-solid fa-right-from-bracket"></i> Logout
             </button>
           </div>
         </div>
@@ -660,13 +699,13 @@
     </nav>
   </header>
 
-  <!-- 2. HERO SECTION WITH UNIVERSE ANIMATION (NO BLOCKING) -->
+  <!-- 2. HERO SECTION WITH RED-TO-PURPLE STAR WARP -->
   <main>
     <section class="hero" id="home">
       <canvas id="hero-canvas"></canvas>
 
       <div class="hero-container">
-        <span class="universe-badge">SYSTEM AVI</span>
+        <span class="universe-badge">SYSTEM INITIALIZED</span>
         <h1 class="hero-title">SYSTUM - <span>UNIVERSE</span></h1>
         <p class="hero-subtitle">
           Next-gen engineering hub, curated technical roadmaps, and cheat-sheets maintained by Avinash Meena.
@@ -685,7 +724,6 @@
         <p style="color:var(--text-muted);">Hand-picked developer modules & notes ready to use.</p>
       </div>
       <div class="materials-grid">
-        <!-- Card 1 -->
         <div class="material-card">
           <span class="card-badge">MODULE 01</span>
           <i class="fa-solid fa-code card-icon"></i>
@@ -693,7 +731,6 @@
           <p>Trees, Graphs, DP Patterns, recursion templates, and interview cheat-sheets.</p>
           <a href="#contact" class="btn btn-glass" style="font-size:0.75rem; padding: 10px 20px;">Access Notes</a>
         </div>
-        <!-- Card 2 -->
         <div class="material-card">
           <span class="card-badge">MODULE 02</span>
           <i class="fa-solid fa-laptop-code card-icon"></i>
@@ -701,7 +738,6 @@
           <p>HTML, Advanced Glassmorphism CSS, JavaScript engines, APIs, and React projects.</p>
           <a href="#contact" class="btn btn-glass" style="font-size:0.75rem; padding: 10px 20px;">Access Notes</a>
         </div>
-        <!-- Card 3 -->
         <div class="material-card">
           <span class="card-badge">MODULE 03</span>
           <i class="fa-solid fa-microchip card-icon"></i>
@@ -712,31 +748,11 @@
       </div>
     </section>
 
-    <!-- 4. ADMIN BIO SECTION -->
+    <!-- 4. ADMIN BIO (WITH YOUR TEDDY PHOTO) -->
     <section class="section-wrap" id="about">
       <div class="bio-container">
         <div class="bio-profile">
-          <img src="https://images.wallsphy.com/photo-1535713875002-d1d0cf377fde?w=400" alt="Avinash Meena" class="bio-avatar" />
+          <!-- Admin image set with fallback to same image folder -->
+          <img src="11930.png" onerror="this.src='https://images.unsplash.com/photo-1579783902614-a3fb3927b675?w=500'" alt="Avinash Meena" class="bio-avatar" />
           <h3>Avinash Meena</h3>
-          <a href="https://www.instagram.com/_avinash_meena1?stkn=bm1rZWxmeWdsam43" target="_blank" class="insta-link">
-            <i class="fa-brands fa-instagram"></i> @_avinash_meenaa1
-          </a>
-        </div>
-        <div>
-          <!-- Your Requested Admin Bio Line -->
-          <div class="systum-tagline">
-            Meenaji ka systum hai ladle ❤️
-          </div>
-          
-          <p style="color: var(--text-muted); margin-bottom: 14px;">
-            Welcome to the command hub! I am Avinash Meena, creator of <strong>SYSTUM - UNIVERSE</strong>. This portal provides direct access to high-yield engineering notes, coding sheets, and regular study updates.
-          </p>
-          <p style="color: var(--text-muted);">
-            Connect directly on Instagram for personal doubts, cheat-sheet PDFs, or study collaborations.
-          </p>
-        </div>
-      </div>
-    </section>
-
-    <!-- 5. CONTACT SECTION -->
-    <section class="section-wrap"
+          <a href="https://instagram.com/_avinash_meenaa" target="_bla
