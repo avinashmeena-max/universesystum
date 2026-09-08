@@ -451,7 +451,6 @@
       padding-right: 30px;
     }
 
-    /* Admin image glow with RED-TO-PURPLE animation */
     .bio-avatar {
       width: 140px;
       height: 140px;
@@ -486,6 +485,7 @@
       align-items: center;
       gap: 6px;
       font-size: 1rem;
+      transition: var(--transition);
     }
 
     .insta-link:hover {
@@ -674,10 +674,11 @@
           <!-- 3-DOTS DROPDOWN LIST -->
           <div class="dots-dropdown" id="dotsDropdown">
             <div class="dropdown-header">Social Media</div>
-            <a href="https://instagram.com/_avinash_meenaa" target="_blank" class="dropdown-item">
+            <!-- EXACT INSTAGRAM LINK WITH PARAMS -->
+            <a href="https://www.instagram.com/_avinash_meena1?stkn=bm1rZWxmeWdsam43" target="_blank" rel="noopener noreferrer" class="dropdown-item">
               <i class="fa-brands fa-instagram" style="color:#E1306C;"></i> Instagram
             </a>
-            <a href="https://youtube.com/@xnaviff" target="_blank" class="dropdown-item">
+            <a href="https://youtube.com/@xnaviff" target="_blank" rel="noopener noreferrer" class="dropdown-item">
               <i class="fa-brands fa-youtube" style="color:#FF0000;"></i> xn avi ff
             </a>
 
@@ -699,7 +700,7 @@
     </nav>
   </header>
 
-  <!-- 2. HERO SECTION WITH RED-TO-PURPLE STAR WARP -->
+  <!-- 2. HERO SECTION -->
   <main>
     <section class="hero" id="home">
       <canvas id="hero-canvas"></canvas>
@@ -712,7 +713,7 @@
         </p>
         <div class="btn-group">
           <a href="#materials" class="btn btn-primary"><i class="fa-solid fa-book-bookmark"></i> Explore Notes</a>
-          <a href="https://instagram.com/_avinash_meenaa" target="_blank" class="btn btn-glass"><i class="fa-brands fa-instagram"></i> Follow Insta</a>
+          <a href="https://www.instagram.com/_avinash_meena1?stkn=bm1rZWxmeWdsam43" target="_blank" rel="noopener noreferrer" class="btn btn-glass"><i class="fa-brands fa-instagram"></i> Follow Insta</a>
         </div>
       </div>
     </section>
@@ -748,11 +749,10 @@
       </div>
     </section>
 
-    <!-- 4. ADMIN BIO (WITH YOUR TEDDY PHOTO) -->
+    <!-- 4. ADMIN BIO -->
     <section class="section-wrap" id="about">
       <div class="bio-container">
         <div class="bio-profile">
-          <!-- Admin image set with fallback to same image folder -->
           <img src="11930.png" onerror="this.src='https://images.unsplash.com/photo-1579783902614-a3fb3927b675?w=500'" alt="Avinash Meena" class="bio-avatar" />
           <h3>Avinash Meena</h3>
-          <a href="https://instagram.com/_avinash_meenaa" target="_bla
+          <a href="https://w
