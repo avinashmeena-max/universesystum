@@ -5,8 +5,9 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>SYSTUM - UNIVERSE | Study Hub</title>
   
+  <!-- Fonts & FontAwesome -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@700;900&family=Rajdhani:wght@600;700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
 
@@ -16,7 +17,7 @@
       --primary-glow: rgba(255, 0, 0, 0.7);
       --primary-dim: rgba(255, 0, 0, 0.15);
       --bg-dark: #08080a;
-      --bg-card: #13131a;
+      --bg-card: #13131c;
       --text-main: #FFFFFF;
       --text-muted: #b5b5c7;
       --border-red: rgba(255, 0, 0, 0.4);
@@ -36,7 +37,7 @@
       font-size: 18px;
       line-height: 1.6;
       min-height: 100vh;
-      background-image: radial-gradient(circle at 50% 10%, #2a0000 0%, #08080a 75%);
+      background-image: radial-gradient(circle at 50% 10%, #2b0000 0%, #08080a 75%);
       background-attachment: fixed;
       padding-top: 85px;
     }
@@ -47,91 +48,10 @@
       letter-spacing: 1.5px;
     }
 
-    /* ================= SYSTUM - UNIVERSE INTRO ANIMATION ================= */
-    #intro-screen {
-      position: fixed;
-      inset: 0;
-      width: 100vw;
-      height: 100vh;
-      background: radial-gradient(circle at center, #260000 0%, #050508 85%);
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: center;
-      z-index: 9999999;
-      pointer-events: none;
-      animation: autoDismissIntro 0.8s 2.2s forwards ease-in-out;
-    }
-
-    @keyframes autoDismissIntro {
-      0% { opacity: 1; visibility: visible; transform: scale(1); }
-      99% { opacity: 0; visibility: visible; transform: scale(1.05); }
-      100% { opacity: 0; visibility: hidden; display: none !important; }
-    }
-
-    .intro-content {
-      text-align: center;
-      padding: 0 20px;
-    }
-
-    .intro-title {
-      font-size: clamp(2.2rem, 7vw, 5rem);
-      font-weight: 900;
-      color: #ffffff;
-      letter-spacing: 6px;
-      margin-bottom: 15px;
-      animation: pulseTitle 1.5s infinite alternate ease-in-out;
-      filter: drop-shadow(0 0 25px rgba(255, 0, 0, 0.5));
-    }
-
-    .intro-title span {
-      color: var(--primary);
-      text-shadow: 0 0 25px var(--primary), 0 0 50px var(--primary-glow);
-    }
-
-    .intro-subtitle {
-      font-size: clamp(0.85rem, 2vw, 1.2rem);
-      letter-spacing: 4px;
-      color: var(--text-muted);
-      margin-bottom: 25px;
-      font-weight: 600;
-    }
-
-    .cyber-loader {
-      width: 260px;
-      height: 4px;
-      background: rgba(255, 255, 255, 0.1);
-      margin: 0 auto;
-      position: relative;
-      overflow: hidden;
-      border-radius: 4px;
-    }
-
-    .cyber-loader-bar {
-      position: absolute;
-      left: 0;
-      top: 0;
-      height: 100%;
-      width: 0%;
-      background: linear-gradient(90deg, #990000, #FF0000, #ff6666);
-      box-shadow: 0 0 15px var(--primary);
-      animation: loadBar 2s forwards cubic-bezier(0.65, 0, 0.35, 1);
-    }
-
-    @keyframes pulseTitle {
-      0% { transform: scale(0.97); filter: drop-shadow(0 0 15px rgba(255,0,0,0.3)); }
-      100% { transform: scale(1.02); filter: drop-shadow(0 0 35px rgba(255,0,0,0.8)); }
-    }
-
-    @keyframes loadBar {
-      0% { width: 0%; }
-      100% { width: 100%; }
-    }
-
     /* ================= FIXED NAVBAR ================= */
     .navbar {
       position: fixed;
-      top: 10px;
+      top: 12px;
       left: 50%;
       transform: translateX(-50%);
       width: 94%;
@@ -144,8 +64,8 @@
       align-items: center;
       justify-content: space-between;
       padding: 0 20px;
-      z-index: 999;
-      box-shadow: 0 5px 25px rgba(0, 0, 0, 0.8), 0 0 10px rgba(255, 0, 0, 0.2);
+      z-index: 9999;
+      box-shadow: 0 8px 30px rgba(0, 0, 0, 0.8), 0 0 15px rgba(255, 0, 0, 0.2);
     }
 
     .nav-logo {
@@ -182,7 +102,7 @@
       color: var(--primary);
     }
 
-    /* 3-DOTS BUTTON (DIRECT CHECKBOX TRIGGER) */
+    /* 3-DOTS BUTTON (HTML CHECKBOX TRIGGER) */
     .dots-toggle-btn {
       background: rgba(255, 255, 255, 0.1);
       border: 1px solid var(--border-red);
@@ -204,7 +124,7 @@
       box-shadow: 0 0 15px var(--primary-glow);
     }
 
-    /* ================= PURE CSS SLIDE DRAWER ================= */
+    /* ================= PURE CSS SLIDE DRAWER (ZERO BUG) ================= */
     #menu-switch {
       display: none;
     }
@@ -301,17 +221,18 @@
       transform: translateX(4px);
     }
 
-    /* ================= MAIN WRAPPER ================= */
+    /* ================= MAIN CONTAINER ================= */
     .wrapper {
       max-width: 1150px;
       margin: 0 auto;
       padding: 15px;
     }
 
-    /* ================= HERO ================= */
+    /* ================= HERO WITH BUILT-IN INTRO ANIMATION ================= */
     .hero {
       text-align: center;
       padding: 30px 10px 40px;
+      position: relative;
     }
 
     .badge {
@@ -326,18 +247,30 @@
       letter-spacing: 2px;
       margin-bottom: 15px;
       box-shadow: 0 0 12px var(--primary-glow);
+      animation: neonPulse 2s infinite alternate;
     }
 
-    .hero h1 {
-      font-size: clamp(2.3rem, 6vw, 4.5rem);
+    .hero-title {
+      font-size: clamp(2.4rem, 6.5vw, 4.6rem);
       margin-bottom: 15px;
       font-weight: 900;
       line-height: 1.2;
+      animation: glitchZoom 1.2s cubic-bezier(0.15, 0.9, 0.3, 1) forwards;
     }
 
-    .hero h1 span {
+    .hero-title span {
       color: var(--primary);
-      text-shadow: 0 0 25px var(--primary-glow);
+      text-shadow: 0 0 25px var(--primary), 0 0 50px var(--primary-glow);
+    }
+
+    @keyframes glitchZoom {
+      0% { opacity: 0; transform: scale(0.85); filter: blur(8px); }
+      100% { opacity: 1; transform: scale(1); filter: blur(0px); }
+    }
+
+    @keyframes neonPulse {
+      0% { box-shadow: 0 0 8px var(--primary-glow); }
+      100% { box-shadow: 0 0 20px var(--primary); }
     }
 
     .hero p {
@@ -367,6 +300,7 @@
       gap: 8px;
       border: none;
       cursor: pointer;
+      transition: all 0.2s ease;
     }
 
     .btn-primary {
@@ -375,20 +309,31 @@
       box-shadow: 0 0 20px var(--primary-glow);
     }
 
+    .btn-primary:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 0 30px var(--primary);
+    }
+
     .btn-glass {
       background: rgba(255, 255, 255, 0.08);
       color: #fff;
       border: 1px solid var(--border-red);
     }
 
-    /* ================= GUARANTEED VISIBLE BIO SECTION ================= */
+    .btn-glass:hover {
+      border-color: var(--primary);
+      transform: translateY(-2px);
+    }
+
+    /* ================= GUARANTEED PERMANENT BIO SECTION ================= */
     .bio-card {
       background: var(--bg-card);
       border: 2px solid var(--primary);
       border-radius: 20px;
-      padding: 30px 20px;
-      margin: 30px 0;
-      box-shadow: 0 10px 35px rgba(0, 0, 0, 0.9), 0 0 25px rgba(255, 0, 0, 0.25);
+      padding: 35px 25px;
+      margin: 35px 0;
+      box-shadow: 0 10px 35px rgba(0, 0, 0, 0.9), 0 0 25px rgba(255, 0, 0, 0.3);
+      display: block !important;
     }
 
     .bio-flex {
@@ -408,9 +353,9 @@
     }
 
     .avatar-box {
-      width: 145px;
-      height: 145px;
-      min-width: 145px;
+      width: 150px;
+      height: 150px;
+      min-width: 150px;
       border-radius: 50%;
       border: 4px solid var(--primary);
       box-shadow: 0 0 25px var(--primary-glow);
@@ -514,6 +459,7 @@
     .material-card:hover {
       border-color: var(--primary);
       box-shadow: 0 0 20px rgba(255, 0, 0, 0.3);
+      transform: translateY(-4px);
     }
 
     .card-badge {
@@ -571,6 +517,13 @@
       color: #fff;
       font-weight: 700;
       font-size: 1.05rem;
+      transition: all 0.2s ease;
+    }
+
+    .direct-email-badge:hover {
+      border-color: var(--primary);
+      box-shadow: 0 0 15px var(--primary-glow);
+      color: var(--primary);
     }
 
     .form-group {
@@ -632,11 +585,13 @@
       color: #fff;
       font-size: 1.15rem;
       text-decoration: none;
+      transition: all 0.2s ease;
     }
 
     .social-btn:hover {
       background: var(--primary);
       box-shadow: 0 0 15px var(--primary-glow);
+      transform: translateY(-2px);
     }
 
     @media (max-width: 768px) {
@@ -648,21 +603,10 @@
 </head>
 <body>
 
-  <!-- 1. SYSTUM - UNIVERSE CINEMATIC INTRO SCREEN -->
-  <div id="intro-screen">
-    <div class="intro-content">
-      <h1 class="intro-title">SYSTUM - <span>UNIVERSE</span></h1>
-      <p class="intro-subtitle">INITIALIZING STUDY ENGINE</p>
-      <div class="cyber-loader">
-        <div class="cyber-loader-bar"></div>
-      </div>
-    </div>
-  </div>
-
   <!-- CHECKBOX FOR ZERO-BUG DRAWER -->
   <input type="checkbox" id="menu-switch">
 
-  <!-- NAVBAR -->
+  <!-- FIXED NAVBAR -->
   <header>
     <nav class="navbar">
       <a href="#home" class="nav-logo">
@@ -676,14 +620,14 @@
         <li><a href="#contact" class="nav-link">Contact</a></li>
       </ul>
 
-      <!-- 3-DOTS BUTTON -->
+      <!-- 3-DOTS BUTTON (DIRECT TARGETS CHECKBOX) -->
       <label for="menu-switch" class="dots-toggle-btn" title="Options">
         <i class="fa-solid fa-ellipsis-vertical"></i>
       </label>
     </nav>
   </header>
 
-  <!-- SLIDE-OUT 3-DOTS MENU DRAWER -->
+  <!-- SLIDE-OUT 3-DOTS DRAWER MENU -->
   <label for="menu-switch" class="drawer-overlay"></label>
   <div class="side-drawer">
     <div class="drawer-header">
@@ -712,10 +656,10 @@
 
   <div class="wrapper">
 
-    <!-- HERO SECTION -->
+    <!-- HERO SECTION WITH SYSTUM - UNIVERSE -->
     <section class="hero" id="home">
-      <span class="badge">SYSTEM READY</span>
-      <h1>SYSTUM - <span>UNIVERSE</span></h1>
+      <span class="badge">SYSTUM UNIVERSE ACTIVE</span>
+      <h1 class="hero-title">SYSTUM - <span>UNIVERSE</span></h1>
       <p>Next-gen engineering hub, curated technical roadmaps, and cheat-sheets maintained by Avinash Meena.</p>
       <div class="btn-group">
         <a href="#materials" class="btn btn-primary"><i class="fa-solid fa-book-bookmark"></i> Access Notes</a>
@@ -727,6 +671,7 @@
     <section class="bio-card" id="about">
       <div class="bio-flex">
         <div class="avatar-box">
+          <!-- Exact Teddy Vector Graphic with Red Neon Fur and Cyber Shades -->
           <svg viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg">
             <defs>
               <radialGradient id="redFur" cx="50%" cy="45%" r="55%">
@@ -749,4 +694,31 @@
             <ellipse cx="100" cy="116" rx="26" ry="20" fill="#ff4d4d"/>
             <polygon points="100,108 90,118 110,118" fill="#200000"/>
             <rect x="36" y="80" width="56" height="38" rx="8" fill="none" stroke="#150000" stroke-width="7"/>
-            <rect x="108
+            <rect x="108" y="80" width="56" height="38" rx="8" fill="none" stroke="#150000" stroke-width="7"/>
+            <line x1="92" y1="96" x2="108" y2="96" stroke="#150000" stroke-width="7"/>
+            <rect x="40" y="84" width="48" height="30" rx="5" fill="url(#lensGlow)"/>
+            <rect x="112" y="84" width="48" height="30" rx="5" fill="url(#lensGlow)"/>
+          </svg>
+        </div>
+
+        <div>
+          <span class="owner-tag">OWNER : SYSTUM</span>
+          <h2 class="bio-name">Avinash Meena</h2>
+          <a href="https://www.instagram.com/_avinash_meena1?stkn=bm1rZWxmeWdsam43" target="_blank" rel="noopener noreferrer" class="insta-direct">
+            <i class="fa-brands fa-instagram" style="color:#E1306C;"></i> @_avinash_meena1
+          </a>
+          
+          <br>
+          <div class="systum-tagline">
+            meenaji ka systum hai ladle ❤️🌝
+          </div>
+
+          <p class="bio-description">
+            Welcome to the command hub! I am <strong>Avinash Meena</strong>, owner of <strong>SYSTUM - UNIVERSE</strong>. This portal provides direct access to high-yield engineering notes, coding roadmaps, and computer science revision files.
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <!-- STUDY MATERIAL CARDS -->
+    <section id="materi
