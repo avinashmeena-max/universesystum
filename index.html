@@ -6,7 +6,7 @@
   <title>SYSTUM - UNIVERSE | Study Hub</title>
   
   <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="preconnect" href="https://fonts.gstatic.com">
   <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@700;900&family=Rajdhani:wght@600;700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
 
@@ -47,7 +47,88 @@
       letter-spacing: 1.5px;
     }
 
-    /* ================= NAVBAR ================= */
+    /* ================= SYSTUM - UNIVERSE INTRO ANIMATION ================= */
+    #intro-screen {
+      position: fixed;
+      inset: 0;
+      width: 100vw;
+      height: 100vh;
+      background: radial-gradient(circle at center, #260000 0%, #050508 85%);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      z-index: 9999999;
+      pointer-events: none;
+      animation: autoDismissIntro 0.8s 2.2s forwards ease-in-out;
+    }
+
+    @keyframes autoDismissIntro {
+      0% { opacity: 1; visibility: visible; transform: scale(1); }
+      99% { opacity: 0; visibility: visible; transform: scale(1.05); }
+      100% { opacity: 0; visibility: hidden; display: none !important; }
+    }
+
+    .intro-content {
+      text-align: center;
+      padding: 0 20px;
+    }
+
+    .intro-title {
+      font-size: clamp(2.2rem, 7vw, 5rem);
+      font-weight: 900;
+      color: #ffffff;
+      letter-spacing: 6px;
+      margin-bottom: 15px;
+      animation: pulseTitle 1.5s infinite alternate ease-in-out;
+      filter: drop-shadow(0 0 25px rgba(255, 0, 0, 0.5));
+    }
+
+    .intro-title span {
+      color: var(--primary);
+      text-shadow: 0 0 25px var(--primary), 0 0 50px var(--primary-glow);
+    }
+
+    .intro-subtitle {
+      font-size: clamp(0.85rem, 2vw, 1.2rem);
+      letter-spacing: 4px;
+      color: var(--text-muted);
+      margin-bottom: 25px;
+      font-weight: 600;
+    }
+
+    .cyber-loader {
+      width: 260px;
+      height: 4px;
+      background: rgba(255, 255, 255, 0.1);
+      margin: 0 auto;
+      position: relative;
+      overflow: hidden;
+      border-radius: 4px;
+    }
+
+    .cyber-loader-bar {
+      position: absolute;
+      left: 0;
+      top: 0;
+      height: 100%;
+      width: 0%;
+      background: linear-gradient(90deg, #990000, #FF0000, #ff6666);
+      box-shadow: 0 0 15px var(--primary);
+      animation: loadBar 2s forwards cubic-bezier(0.65, 0, 0.35, 1);
+    }
+
+    @keyframes pulseTitle {
+      0% { transform: scale(0.97); filter: drop-shadow(0 0 15px rgba(255,0,0,0.3)); }
+      100% { transform: scale(1.02); filter: drop-shadow(0 0 35px rgba(255,0,0,0.8)); }
+    }
+
+    @keyframes loadBar {
+      0% { width: 0%; }
+      100% { width: 100%; }
+    }
+
+    /* ================= FIXED NAVBAR ================= */
     .navbar {
       position: fixed;
       top: 10px;
@@ -101,7 +182,7 @@
       color: var(--primary);
     }
 
-    /* 3-DOTS BUTTON (LABEL FOR CHECKBOX) */
+    /* 3-DOTS BUTTON (DIRECT CHECKBOX TRIGGER) */
     .dots-toggle-btn {
       background: rgba(255, 255, 255, 0.1);
       border: 1px solid var(--border-red);
@@ -123,7 +204,7 @@
       box-shadow: 0 0 15px var(--primary-glow);
     }
 
-    /* ================= 100% WORKING CSS DRAWER ================= */
+    /* ================= PURE CSS SLIDE DRAWER ================= */
     #menu-switch {
       display: none;
     }
@@ -155,7 +236,6 @@
       transition: right 0.3s cubic-bezier(0.1, 0.9, 0.2, 1);
     }
 
-    /* Jab 3-Dot par tap karenge tab open hoga */
     #menu-switch:checked ~ .drawer-overlay {
       opacity: 1;
       visibility: visible;
@@ -221,7 +301,7 @@
       transform: translateX(4px);
     }
 
-    /* ================= MAIN CONTAINER ================= */
+    /* ================= MAIN WRAPPER ================= */
     .wrapper {
       max-width: 1150px;
       margin: 0 auto;
@@ -568,10 +648,21 @@
 </head>
 <body>
 
-  <!-- 0% BUG PURE CSS CHECKBOX STATE -->
+  <!-- 1. SYSTUM - UNIVERSE CINEMATIC INTRO SCREEN -->
+  <div id="intro-screen">
+    <div class="intro-content">
+      <h1 class="intro-title">SYSTUM - <span>UNIVERSE</span></h1>
+      <p class="intro-subtitle">INITIALIZING STUDY ENGINE</p>
+      <div class="cyber-loader">
+        <div class="cyber-loader-bar"></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- CHECKBOX FOR ZERO-BUG DRAWER -->
   <input type="checkbox" id="menu-switch">
 
-  <!-- FIXED NAVBAR -->
+  <!-- NAVBAR -->
   <header>
     <nav class="navbar">
       <a href="#home" class="nav-logo">
@@ -585,14 +676,14 @@
         <li><a href="#contact" class="nav-link">Contact</a></li>
       </ul>
 
-      <!-- 3-DOTS BUTTON (DIRECT TARGETS CHECKBOX) -->
+      <!-- 3-DOTS BUTTON -->
       <label for="menu-switch" class="dots-toggle-btn" title="Options">
         <i class="fa-solid fa-ellipsis-vertical"></i>
       </label>
     </nav>
   </header>
 
-  <!-- POPUP OVERLAY & SLIDE-OUT DRAWER -->
+  <!-- SLIDE-OUT 3-DOTS MENU DRAWER -->
   <label for="menu-switch" class="drawer-overlay"></label>
   <div class="side-drawer">
     <div class="drawer-header">
@@ -632,11 +723,10 @@
       </div>
     </section>
 
-    <!-- OWNER & BIO SECTION (GUARANTEED VISIBLE) -->
+    <!-- GUARANTEED VISIBLE OWNER & BIO SECTION -->
     <section class="bio-card" id="about">
       <div class="bio-flex">
         <div class="avatar-box">
-          <!-- Guaranteed Teddy SVG Graphic -->
           <svg viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg">
             <defs>
               <radialGradient id="redFur" cx="50%" cy="45%" r="55%">
@@ -651,62 +741,12 @@
               </linearGradient>
             </defs>
             <rect width="200" height="200" fill="#070709"/>
-            <!-- Ears -->
             <circle cx="50" cy="55" r="28" fill="#800000"/>
             <circle cx="50" cy="55" r="17" fill="#4d0000"/>
             <circle cx="150" cy="55" r="28" fill="#800000"/>
             <circle cx="150" cy="55" r="17" fill="#4d0000"/>
-            <!-- Head -->
             <circle cx="100" cy="100" r="62" fill="url(#redFur)"/>
-            <!-- Snout -->
             <ellipse cx="100" cy="116" rx="26" ry="20" fill="#ff4d4d"/>
             <polygon points="100,108 90,118 110,118" fill="#200000"/>
-            <!-- Glasses Frame -->
             <rect x="36" y="80" width="56" height="38" rx="8" fill="none" stroke="#150000" stroke-width="7"/>
-            <rect x="108" y="80" width="56" height="38" rx="8" fill="none" stroke="#150000" stroke-width="7"/>
-            <line x1="92" y1="96" x2="108" y2="96" stroke="#150000" stroke-width="7"/>
-            <!-- Neon Lenses -->
-            <rect x="40" y="84" width="48" height="30" rx="5" fill="url(#lensGlow)"/>
-            <rect x="112" y="84" width="48" height="30" rx="5" fill="url(#lensGlow)"/>
-          </svg>
-        </div>
-
-        <div>
-          <span class="owner-tag">OWNER : SYSTUM</span>
-          <h2 class="bio-name">Avinash Meena</h2>
-          <a href="https://www.instagram.com/_avinash_meena1?stkn=bm1rZWxmeWdsam43" target="_blank" rel="noopener noreferrer" class="insta-direct">
-            <i class="fa-brands fa-instagram" style="color:#E1306C;"></i> @_avinash_meena1
-          </a>
-          
-          <br>
-          <div class="systum-tagline">
-            meenaji ka systum hai ladle ❤️🌝
-          </div>
-
-          <p class="bio-description">
-            Welcome to the command hub! I am <strong>Avinash Meena</strong>, owner of <strong>SYSTUM - UNIVERSE</strong>. This portal provides direct access to high-yield engineering notes, coding roadmaps, and computer science revision files.
-          </p>
-        </div>
-      </div>
-    </section>
-
-    <!-- STUDY MATERIAL CARDS -->
-    <section id="materials">
-      <div class="section-title">
-        <h2>Study <span>Repository</span></h2>
-        <p style="color:var(--text-muted);">Hand-picked developer modules & notes ready to use.</p>
-      </div>
-      <div class="materials-grid">
-        <div class="material-card">
-          <span class="card-badge">MODULE 01</span>
-          <i class="fa-solid fa-code card-icon"></i>
-          <h3>Data Structures & Algorithms</h3>
-          <p>Trees, Graphs, DP Patterns, recursion templates, and interview cheat-sheets.</p>
-          <a href="#contact" class="btn btn-glass" style="font-size:0.75rem; padding: 8px 16px;">Access Notes</a>
-        </div>
-        <div class="material-card">
-          <span class="card-badge">MODULE 02</span>
-          <i class="fa-solid fa-laptop-code card-icon"></i>
-          <h3>Full-Stack Web Dev</h3>
-          <p>HTML, Advanced Glassmorphism CSS, JavaScript engines, APIs, and React projects.</p>
-          <a href="#contact" class="btn btn-glass" style="font-size:0.75rem; padding: 8px 
+            <rect x="108
