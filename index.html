@@ -3,738 +3,404 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>SYSTUM - UNIVERSE | Study Hub</title>
-  
-  <!-- Fonts & Icons -->
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com">
-  <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@600;800;900&family=Rajdhani:wght@500;600;700&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
-
+  <title>Study Portal - Learn & Succeed</title>
   <style>
     :root {
-      --primary: #FF0000;
-      --primary-glow: rgba(255, 0, 0, 0.65);
-      --primary-dim: rgba(255, 0, 0, 0.15);
-      --bg-dark: #070709;
-      --bg-card: rgba(18, 18, 24, 0.85);
-      --text-main: #FFFFFF;
-      --text-muted: #a2a2b5;
-      --border-glass: rgba(255, 255, 255, 0.12);
-      --liquid-glass: rgba(14, 14, 20, 0.8);
-      --transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+      --bg-dark: #0e0d0c;
+      --card-bg: #191714;
+      --card-border: #2e2820;
+      --accent-orange: #ff7300;
+      --accent-hover: #e06500;
+      --text-main: #f5f0e6;
+      --text-muted: #a89f91;
+      --tag-green: #2ecc71;
     }
 
     * {
       box-sizing: border-box;
       margin: 0;
       padding: 0;
-      scroll-behavior: smooth;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
     }
 
     body {
       background-color: var(--bg-dark);
       color: var(--text-main);
-      font-family: 'Rajdhani', sans-serif;
-      font-size: 18px;
-      line-height: 1.6;
-      overflow-x: hidden;
+      padding-bottom: 70px;
     }
 
-    h1, h2, h3, h4 {
-      font-family: 'Orbitron', sans-serif;
-      text-transform: uppercase;
-      letter-spacing: 2px;
-    }
-
-    /* ================= 1. FIXED LIQUID GLASS NAVBAR ================= */
-    .navbar {
-      position: fixed;
-      top: 15px;
-      left: 50%;
-      transform: translateX(-50%);
-      width: 92%;
-      max-width: 1200px;
-      height: 70px;
-      background: var(--liquid-glass);
-      backdrop-filter: blur(20px);
-      -webkit-backdrop-filter: blur(20px);
-      border: 1px solid var(--border-glass);
-      border-radius: 18px;
+    /* Top Navigation */
+    header {
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      background-color: rgba(14, 13, 12, 0.95);
+      border-bottom: 1px solid var(--card-border);
+      padding: 12px 24px;
       display: flex;
       align-items: center;
       justify-content: space-between;
-      padding: 0 25px;
-      z-index: 10000;
-      box-shadow: 0 8px 32px rgba(0, 0, 0, 0.6);
+      gap: 16px;
     }
 
-    .nav-logo {
-      font-size: 1.3rem;
-      font-weight: 900;
-      color: #fff;
-      text-decoration: none;
-      display: flex;
-      align-items: center;
-      gap: 10px;
+    .logo {
+      font-weight: 800;
+      font-size: 1.1rem;
+      letter-spacing: 0.5px;
+    }
+    .logo span {
+      color: var(--accent-orange);
     }
 
-    .nav-logo span {
-      color: var(--primary);
-      text-shadow: 0 0 15px var(--primary-glow);
-    }
-
-    .nav-menu {
-      display: flex;
-      list-style: none;
-      gap: 25px;
-      align-items: center;
-    }
-
-    .nav-link {
-      color: var(--text-muted);
-      text-decoration: none;
-      font-weight: 600;
-      font-size: 0.95rem;
-      transition: var(--transition);
+    .search-box {
+      flex: 1;
+      max-width: 500px;
       position: relative;
     }
-
-    .nav-link:hover {
-      color: #fff;
-    }
-
-    .nav-link::after {
-      content: '';
-      position: absolute;
-      bottom: -4px;
-      left: 0;
-      width: 0%;
-      height: 2px;
-      background: var(--primary);
-      transition: var(--transition);
-      box-shadow: 0 0 10px var(--primary);
-    }
-
-    .nav-link:hover::after {
+    .search-box input {
       width: 100%;
-    }
-
-    .nav-actions {
-      display: flex;
-      align-items: center;
-      gap: 15px;
-      position: relative;
-    }
-
-    /* 3-DOTS ACTION MENU BUTTON */
-    .dots-wrapper {
-      position: relative;
-    }
-
-    .dots-btn {
-      background: rgba(255, 255, 255, 0.08);
-      border: 1px solid var(--border-glass);
-      color: #fff;
-      font-size: 1.2rem;
-      width: 44px;
-      height: 44px;
-      border-radius: 50%;
-      cursor: pointer;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      transition: var(--transition);
-      user-select: none;
-    }
-
-    .dots-btn:hover {
-      background: var(--primary);
-      border-color: var(--primary);
-      box-shadow: 0 0 20px var(--primary-glow);
-    }
-
-    /* DROPDOWN MENU */
-    .dots-dropdown {
-      position: absolute;
-      top: 54px;
-      right: 0;
-      background: #111116;
-      border: 1px solid rgba(255, 0, 0, 0.3);
-      border-radius: 14px;
-      box-shadow: 0 15px 40px rgba(0, 0, 0, 0.9), 0 0 15px rgba(255, 0, 0, 0.15);
-      width: 230px;
-      display: none;
-      flex-direction: column;
-      overflow: hidden;
-      z-index: 10001;
-    }
-
-    .dots-dropdown.show {
-      display: flex !important;
-    }
-
-    .dropdown-header {
-      padding: 10px 16px 4px;
-      font-size: 0.75rem;
-      text-transform: uppercase;
-      letter-spacing: 1.5px;
-      color: var(--text-muted);
-      font-weight: 700;
-    }
-
-    .dropdown-item {
-      padding: 12px 18px;
-      color: #fff;
-      font-size: 0.95rem;
-      font-weight: 600;
-      display: flex;
-      align-items: center;
-      gap: 12px;
-      background: transparent;
-      border: none;
-      cursor: pointer;
-      text-align: left;
-      text-decoration: none;
-      transition: var(--transition);
-      font-family: 'Rajdhani', sans-serif;
-    }
-
-    .dropdown-item:hover {
-      background: var(--primary);
-      color: #fff;
-      padding-left: 22px;
-      box-shadow: 0 0 15px var(--primary-glow);
-    }
-
-    .dropdown-divider {
-      height: 1px;
-      background: var(--border-glass);
-      margin: 4px 0;
-    }
-
-    .hamburger {
-      display: none;
-      background: transparent;
-      border: none;
-      color: #fff;
-      font-size: 1.4rem;
-      cursor: pointer;
-    }
-
-    /* ================= 2. HERO SECTION ================= */
-    .hero {
-      min-height: 92vh;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      text-align: center;
-      padding: 130px 20px 40px;
-      position: relative;
-      overflow: hidden;
-      background: radial-gradient(circle at center, #240000 0%, #070709 85%);
-    }
-
-    #hero-canvas {
-      position: absolute;
-      inset: 0;
-      width: 100%;
-      height: 100%;
-      z-index: 1;
-      opacity: 0.85;
-      pointer-events: none;
-    }
-
-    .hero-container {
-      position: relative;
-      z-index: 2;
-      max-width: 900px;
-    }
-
-    .universe-badge {
-      display: inline-block;
-      padding: 6px 18px;
-      background: var(--primary-dim);
-      border: 1px solid var(--primary);
-      color: var(--primary);
-      border-radius: 30px;
-      font-size: 0.8rem;
-      font-weight: 700;
-      letter-spacing: 3px;
-      margin-bottom: 18px;
-      box-shadow: 0 0 15px var(--primary-glow);
-      animation: neonPulse 2s infinite alternate;
-    }
-
-    .hero-title {
-      font-size: clamp(2.4rem, 6.5vw, 4.8rem);
-      margin-bottom: 18px;
-      font-weight: 900;
-      line-height: 1.2;
-    }
-
-    .hero-title span {
-      color: var(--primary);
-      text-shadow: 0 0 25px var(--primary), 0 0 50px var(--primary-glow);
-    }
-
-    .hero-subtitle {
-      color: var(--text-muted);
-      font-size: clamp(1rem, 2vw, 1.25rem);
-      margin-bottom: 35px;
-      max-width: 680px;
-      margin-inline: auto;
-    }
-
-    .btn-group {
-      display: flex;
-      justify-content: center;
-      gap: 18px;
-      flex-wrap: wrap;
-    }
-
-    .btn {
-      padding: 14px 32px;
-      border-radius: 10px;
-      font-family: 'Orbitron', sans-serif;
+      background: #1f1b15;
+      border: 1px solid var(--card-border);
+      color: var(--text-main);
+      padding: 8px 16px;
+      border-radius: 20px;
+      outline: none;
       font-size: 0.85rem;
-      font-weight: 700;
-      text-decoration: none;
-      letter-spacing: 1px;
-      cursor: pointer;
-      display: inline-flex;
-      align-items: center;
-      gap: 10px;
-      transition: var(--transition);
+    }
+
+    .btn-tg {
+      background: var(--accent-orange);
+      color: #fff;
       border: none;
+      padding: 8px 16px;
+      border-radius: 20px;
+      font-size: 0.85rem;
+      font-weight: 600;
+      cursor: pointer;
+      text-decoration: none;
     }
 
-    .btn-primary {
-      background: var(--primary);
-      color: #fff;
-      box-shadow: 0 0 25px var(--primary-glow);
-    }
-
-    .btn-primary:hover {
-      transform: translateY(-3px) scale(1.03);
-      box-shadow: 0 0 35px rgba(255, 0, 0, 0.9);
-    }
-
-    .btn-glass {
-      background: rgba(255, 255, 255, 0.05);
-      color: #fff;
-      border: 1px solid var(--border-glass);
-      backdrop-filter: blur(12px);
-    }
-
-    .btn-glass:hover {
-      border-color: #fff;
-      background: rgba(255, 255, 255, 0.12);
-    }
-
-    @keyframes neonPulse {
-      0% {
-        box-shadow: 0 0 10px var(--primary-glow);
-        text-shadow: 0 0 10px var(--primary-glow);
-      }
-      100% {
-        box-shadow: 0 0 25px var(--primary);
-        text-shadow: 0 0 20px var(--primary);
-      }
-    }
-
-    /* ================= 3. STUDY CARDS ================= */
-    .section-wrap {
-      max-width: 1200px;
+    /* Layout Container */
+    .container {
+      max-width: 1100px;
       margin: 0 auto;
-      padding: 85px 20px;
+      padding: 24px 16px;
     }
 
-    .section-title {
-      text-align: center;
-      margin-bottom: 50px;
+    /* Hero Banner */
+    .hero-banner {
+      background: radial-gradient(circle at top right, #2b1f13, var(--card-bg));
+      border: 1px solid var(--card-border);
+      border-radius: 16px;
+      padding: 36px 28px;
+      margin-bottom: 32px;
     }
-
-    .section-title h2 {
-      font-size: clamp(1.8rem, 3.5vw, 2.4rem);
-      margin-bottom: 8px;
-    }
-
-    .section-title span {
-      color: var(--primary);
-      text-shadow: 0 0 20px var(--primary-glow);
-    }
-
-    .materials-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-      gap: 25px;
-    }
-
-    .material-card {
-      background: var(--bg-card);
-      border: 1px solid var(--border-glass);
-      border-radius: 18px;
-      padding: 32px;
-      backdrop-filter: blur(16px);
-      transition: var(--transition);
-      position: relative;
-    }
-
-    .material-card:hover {
-      transform: translateY(-8px);
-      border-color: var(--primary);
-      box-shadow: 0 10px 30px rgba(255, 0, 0, 0.25);
-    }
-
-    .card-badge {
+    .hero-tag {
       display: inline-block;
-      padding: 4px 12px;
-      background: var(--primary-dim);
-      border: 1px solid rgba(255, 0, 0, 0.4);
-      color: #ff6666;
       font-size: 0.75rem;
+      color: var(--accent-orange);
+      border: 1px solid rgba(255, 115, 0, 0.3);
+      padding: 4px 10px;
       border-radius: 12px;
-      font-weight: 700;
-      margin-bottom: 15px;
-    }
-
-    .card-icon {
-      font-size: 2.2rem;
-      margin-bottom: 18px;
-      display: block;
-      color: var(--primary);
-      text-shadow: 0 0 15px var(--primary-glow);
-    }
-
-    .material-card h3 {
-      font-size: 1.25rem;
       margin-bottom: 12px;
     }
-
-    .material-card p {
+    .hero-banner h1 {
+      font-size: 2.2rem;
+      margin-bottom: 12px;
+    }
+    .hero-banner h1 span {
+      color: var(--accent-orange);
+    }
+    .hero-banner p {
       color: var(--text-muted);
+      max-width: 650px;
+      line-height: 1.5;
       font-size: 0.95rem;
-      margin-bottom: 22px;
+      margin-bottom: 20px;
     }
-
-    /* ================= 4. ADMIN BIO ================= */
-    .bio-container {
-      background: var(--bg-card);
-      border: 1px solid var(--border-glass);
-      border-radius: 20px;
-      padding: 45px;
-      display: grid;
-      grid-template-columns: 1fr 2fr;
-      gap: 40px;
-      align-items: center;
-      backdrop-filter: blur(16px);
+    .hero-actions {
+      display: flex;
+      gap: 12px;
+      flex-wrap: wrap;
     }
-
-    .bio-profile {
-      text-align: center;
-      border-right: 1px solid var(--border-glass);
-      padding-right: 30px;
-    }
-
-    .bio-avatar {
-      width: 140px;
-      height: 140px;
-      border-radius: 50%;
-      border: 3px solid var(--primary);
-      box-shadow: 0 0 25px var(--primary-glow);
-      object-fit: cover;
-      margin-bottom: 15px;
-      transition: var(--transition);
-    }
-
-    .bio-avatar:hover {
-      box-shadow: 0 0 35px var(--primary);
-      transform: scale(1.03);
-    }
-
-    .bio-profile h3 {
-      font-size: 1.3rem;
-      margin-bottom: 6px;
-    }
-
-    .insta-link {
-      color: var(--primary);
-      text-decoration: none;
-      font-weight: 700;
-      display: inline-flex;
-      align-items: center;
-      gap: 6px;
-      font-size: 1rem;
-      transition: var(--transition);
-    }
-
-    .insta-link:hover {
-      text-shadow: 0 0 12px var(--primary);
-    }
-
-    .systum-tagline {
-      font-size: 1.3rem;
-      color: #fff;
-      font-weight: 700;
-      margin-bottom: 15px;
-      background: var(--primary-dim);
-      display: inline-block;
+    .btn-primary {
+      background: var(--accent-orange);
+      color: white;
       padding: 10px 20px;
       border-radius: 8px;
-      border-left: 4px solid var(--primary);
-      box-shadow: 0 0 15px rgba(255, 0, 0, 0.1);
+      font-weight: 600;
+      text-decoration: none;
+      border: none;
+      cursor: pointer;
+    }
+    .btn-secondary {
+      background: transparent;
+      color: var(--text-main);
+      border: 1px solid var(--card-border);
+      padding: 10px 20px;
+      border-radius: 8px;
+      text-decoration: none;
+      cursor: pointer;
     }
 
-    /* ================= 5. CONTACT SECTION ================= */
-    .contact-card {
-      max-width: 650px;
-      margin: 0 auto;
-      background: var(--bg-card);
-      border: 1px solid var(--border-glass);
-      padding: 35px;
-      border-radius: 20px;
-      backdrop-filter: blur(16px);
+    /* Section Headers */
+    .section-header {
+      margin-bottom: 16px;
     }
-
-    .direct-email-badge {
+    .section-header h2 {
+      font-size: 1.25rem;
       display: flex;
       align-items: center;
-      justify-content: center;
-      gap: 10px;
-      background: rgba(255, 255, 255, 0.04);
-      border: 1px solid var(--border-glass);
-      padding: 14px;
-      border-radius: 12px;
-      margin-bottom: 25px;
-      text-decoration: none;
-      color: #fff;
-      font-weight: 600;
-      transition: var(--transition);
+      gap: 8px;
     }
-
-    .direct-email-badge:hover {
-      border-color: var(--primary);
-      box-shadow: 0 0 20px var(--primary-glow);
-      color: var(--primary);
-    }
-
-    .form-group {
-      margin-bottom: 20px;
-    }
-
-    .form-group label {
-      display: block;
-      margin-bottom: 8px;
-      font-size: 0.85rem;
-      color: var(--text-muted);
+    .section-header span {
+      font-size: 0.75rem;
       text-transform: uppercase;
       letter-spacing: 1px;
+      color: var(--accent-orange);
     }
 
-    .form-group input,
-    .form-group textarea {
-      width: 100%;
-      padding: 14px 16px;
-      background: rgba(10, 10, 14, 0.85);
-      border: 1px solid var(--border-glass);
-      border-radius: 10px;
-      color: #fff;
-      font-family: 'Rajdhani', sans-serif;
+    /* Grid Layouts */
+    .cards-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 16px;
+      margin-bottom: 36px;
+    }
+
+    .card {
+      background-color: var(--card-bg);
+      border: 1px solid var(--card-border);
+      border-radius: 12px;
+      padding: 16px;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      transition: transform 0.2s, border-color 0.2s;
+    }
+    .card:hover {
+      transform: translateY(-2px);
+      border-color: var(--accent-orange);
+    }
+    .card-top {
+      display: flex;
+      justify-content: space-between;
+      margin-bottom: 12px;
+    }
+    .card-title {
       font-size: 1rem;
-      outline: none;
-      transition: var(--transition);
+      font-weight: 600;
     }
-
-    .form-group input:focus,
-    .form-group textarea:focus {
-      border-color: var(--primary);
-      box-shadow: 0 0 15px var(--primary-glow);
+    .card-subtitle {
+      font-size: 0.75rem;
+      color: var(--text-muted);
+      margin-top: 2px;
     }
-
-    /* ================= 6. FOOTER ================= */
-    footer {
-      border-top: 1px solid var(--border-glass);
-      background: rgba(8, 8, 12, 0.95);
-      padding: 40px 20px;
-      text-align: center;
-    }
-
-    .social-row {
+    .card-meta {
+      font-size: 0.75rem;
+      color: var(--text-muted);
       display: flex;
-      justify-content: center;
-      gap: 20px;
-      margin-bottom: 20px;
+      gap: 12px;
+      margin-top: 8px;
     }
-
-    .social-btn {
-      width: 44px;
-      height: 44px;
-      border-radius: 50%;
-      background: rgba(255, 255, 255, 0.05);
-      border: 1px solid var(--border-glass);
+    .card-actions {
       display: flex;
+      justify-content: space-between;
       align-items: center;
-      justify-content: center;
-      color: #fff;
-      text-decoration: none;
-      transition: var(--transition);
+      margin-top: 16px;
+      padding-top: 12px;
+      border-top: 1px solid rgba(255, 255, 255, 0.05);
+    }
+    .status-badge {
+      font-size: 0.75rem;
+      color: var(--tag-green);
+    }
+    .btn-resume {
+      background: var(--accent-orange);
+      color: white;
+      border: none;
+      padding: 6px 14px;
+      border-radius: 6px;
+      font-size: 0.8rem;
+      font-weight: 600;
+      cursor: pointer;
     }
 
-    .social-btn:hover {
-      background: var(--primary);
-      box-shadow: 0 0 20px var(--primary-glow);
-      transform: translateY(-4px);
+    /* Quick Access Cards */
+    .quick-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 14px;
+      margin-bottom: 36px;
+    }
+    .quick-card {
+      background: #14120f;
+      border: 1px solid var(--card-border);
+      padding: 16px;
+      border-radius: 10px;
+      cursor: pointer;
+    }
+    .quick-card h3 {
+      font-size: 0.95rem;
+      margin-bottom: 4px;
+    }
+    .quick-card p {
+      font-size: 0.75rem;
+      color: var(--text-muted);
     }
 
-    @media (max-width: 900px) {
-      .bio-container {
-        grid-template-columns: 1fr;
-        padding: 30px;
-      }
-      .bio-profile {
-        border-right: none;
-        border-bottom: 1px solid var(--border-glass);
-        padding-right: 0;
-        padding-bottom: 25px;
-      }
+    /* Mobile Bottom Navigation */
+    .bottom-nav {
+      position: fixed;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      height: 56px;
+      background: rgba(14, 13, 12, 0.98);
+      border-top: 1px solid var(--card-border);
+      display: flex;
+      justify-content: space-around;
+      align-items: center;
     }
-
-    @media (max-width: 768px) {
-      .hamburger {
-        display: block;
-      }
-      .nav-menu {
-        position: absolute;
-        top: 85px;
-        left: 0;
-        width: 100%;
-        background: rgba(14, 14, 20, 0.98);
-        border: 1px solid var(--border-glass);
-        border-radius: 16px;
-        flex-direction: column;
-        padding: 25px;
-        display: none;
-      }
-      .nav-menu.active {
-        display: flex;
-      }
+    .bottom-nav button {
+      background: transparent;
+      border: none;
+      color: var(--text-muted);
+      font-size: 0.8rem;
+      cursor: pointer;
+    }
+    .bottom-nav button.active {
+      color: var(--accent-orange);
+      font-weight: 600;
     }
   </style>
 </head>
 <body>
 
-  <!-- 1. FIXED LIQUID GLASS NAVBAR -->
   <header>
-    <nav class="navbar">
-      <a href="#home" class="nav-logo">
-        <i class="fa-solid fa-atom" style="color:var(--primary)"></i> SYSTUM<span>.</span>
-      </a>
-
-      <ul class="nav-menu" id="nav-menu">
-        <li><a href="#home" class="nav-link">Home</a></li>
-        <li><a href="#materials" class="nav-link">Study Material</a></li>
-        <li><a href="#about" class="nav-link">Admin Bio</a></li>
-        <li><a href="#contact" class="nav-link">Contact</a></li>
-      </ul>
-
-      <div class="nav-actions">
-        <!-- 3-DOTS MENU BUTTON -->
-        <div class="dots-wrapper">
-          <button type="button" class="dots-btn" id="dotsToggle" aria-label="Open options menu">
-            <i class="fa-solid fa-ellipsis-vertical"></i>
-          </button>
-          
-          <!-- 3-DOTS DROPDOWN LIST -->
-          <div class="dots-dropdown" id="dotsDropdown">
-            <div class="dropdown-header">Social Media</div>
-            <!-- EXACT INSTAGRAM LINK WITH PARAMS -->
-            <a href="https://www.instagram.com/_avinash_meena1?stkn=bm1rZWxmeWdsam43" target="_blank" rel="noopener noreferrer" class="dropdown-item">
-              <i class="fa-brands fa-instagram" style="color:#E1306C;"></i> Instagram
-            </a>
-            <a href="https://youtube.com/@xnaviff" target="_blank" rel="noopener noreferrer" class="dropdown-item">
-              <i class="fa-brands fa-youtube" style="color:#FF0000;"></i> xn avi ff
-            </a>
-
-            <div class="dropdown-divider"></div>
-            <div class="dropdown-header">Account</div>
-            <button type="button" class="dropdown-item" onclick="alert('Login window opening...');">
-              <i class="fa-solid fa-right-to-bracket" style="color:var(--primary)"></i> Login
-            </button>
-            <button type="button" class="dropdown-item" onclick="alert('Logged Out Successfully.');">
-              <i class="fa-solid fa-right-from-bracket" style="color:var(--primary)"></i> Logout
-            </button>
-          </div>
-        </div>
-
-        <button class="hamburger" id="hamburgerToggle" aria-label="Menu">
-          <i class="fa-solid fa-bars"></i>
-        </button>
-      </div>
-    </nav>
+    <div class="logo">STUDY WITH <span>SYSTUM</span></div>
+    <div class="search-box">
+      <input type="text" id="searchInput" placeholder="Search handwritten notes, PYQ papers, batches..." />
+    </div>
+    <a href="#" class="btn-tg">Join Telegram</a>
   </header>
 
-  <!-- 2. HERO SECTION -->
-  <main>
-    <section class="hero" id="home">
-      <canvas id="hero-canvas"></canvas>
-
-      <div class="hero-container">
-        <span class="universe-badge">SYSTEM INITIALIZED</span>
-        <h1 class="hero-title">SYSTUM - <span>UNIVERSE</span></h1>
-        <p class="hero-subtitle">
-          Next-gen engineering hub, curated technical roadmaps, and cheat-sheets maintained by Avinash Meena.
-        </p>
-        <div class="btn-group">
-          <a href="#materials" class="btn btn-primary"><i class="fa-solid fa-book-bookmark"></i> Explore Notes</a>
-          <a href="https://www.instagram.com/_avinash_meena1?stkn=bm1rZWxmeWdsam43" target="_blank" rel="noopener noreferrer" class="btn btn-glass"><i class="fa-brands fa-instagram"></i> Follow Insta</a>
-        </div>
+  <main class="container">
+    <!-- Hero Section -->
+    <section class="hero-banner">
+      <span class="hero-tag">One Platform • Every Student • Every Exam</span>
+      <h1>Welcome to <span>Study With Abhi</span></h1>
+      <p>Curated study materials, handwritten revision notes, solved PYQ question banks, and learning resources across competitive and government exams.</p>
+      <div class="hero-actions">
+        <button class="btn-primary" onclick="alert('Navigating to Materials...')">Explore Study Materials &gt;</button>
+        <button class="btn-secondary" onclick="alert('Redirecting to Community...')">Join Community</button>
       </div>
     </section>
 
-    <!-- 3. STUDY MATERIAL CARDS -->
-    <section class="section-wrap" id="materials">
-      <div class="section-title">
-        <h2>Study <span>Vault</span></h2>
-        <p style="color:var(--text-muted);">Hand-picked developer modules & notes ready to use.</p>
-      </div>
-      <div class="materials-grid">
-        <div class="material-card">
-          <span class="card-badge">MODULE 01</span>
-          <i class="fa-solid fa-code card-icon"></i>
-          <h3>Data Structures & Algorithms</h3>
-          <p>Trees, Graphs, DP Patterns, recursion templates, and interview cheat-sheets.</p>
-          <a href="#contact" class="btn btn-glass" style="font-size:0.75rem; padding: 10px 20px;">Access Notes</a>
-        </div>
-        <div class="material-card">
-          <span class="card-badge">MODULE 02</span>
-          <i class="fa-solid fa-laptop-code card-icon"></i>
-          <h3>Full-Stack Web Dev</h3>
-          <p>HTML, Advanced Glassmorphism CSS, JavaScript engines, APIs, and React projects.</p>
-          <a href="#contact" class="btn btn-glass" style="font-size:0.75rem; padding: 10px 20px;">Access Notes</a>
-        </div>
-        <div class="material-card">
-          <span class="card-badge">MODULE 03</span>
-          <i class="fa-solid fa-microchip card-icon"></i>
-          <h3>Core CS & Operating Systems</h3>
-          <p>Important interview notes on OS Scheduling, Computer Networks, and DBMS queries.</p>
-          <a href="#contact" class="btn btn-glass" style="font-size:0.75rem; padding: 10px 20px;">Access Notes</a>
-        </div>
-      </div>
+    <!-- Continue Learning Section -->
+    <div class="section-header">
+      <span>My Study Workspace</span>
+      <h2>Continue Learning</h2>
+    </div>
+
+    <section class="cards-grid" id="learningGrid">
+      <!-- Injected via JavaScript -->
     </section>
 
-    <!-- 4. ADMIN BIO (WITH TEDDY PHOTO) -->
-    <section class="section-wrap" id="about">
-      <div class="bio-container">
-        <div class="bio-profile">
-          <img src="11930.png" onerror="this.src='https://images.unsplash.com/photo-1579783902614-a3fb3927b675?w=500'" alt="Avinash Meena" class="bio-avatar" />
-          <h3>Avinash Meena</h3>
-          <a href="https://www.instagram.com/_avinash_meena1?stkn=bm1rZWxmeWdsam43" target="_blank" rel="noopener noreferrer" class="insta-link">
-            <i class="fa-brands fa-instagram" style="color:#E1306C;"></i> @_avinash_meena1
-          </a>
-        </div>
-        <div>
-          <!-- Admin Bio Custom Line -->
-          <div class="systum-tagline">
-            meenaji ka systum hai ladle ❤️🌝
-            
+    <!-- Quick Access Hub -->
+    <div class="section-header">
+      <span>Direct Links</span>
+      <h2>Quick Access Hub</h2>
+    </div>
+
+    <section class="quick-grid">
+      <div class="quick-card" onclick="filterBatch('Community')">
+        <h3>Community Materials</h3>
+        <p>Student Shared & Verified</p>
+      </div>
+      <div class="quick-card" onclick="filterBatch('Study')">
+        <h3>Study Materials</h3>
+        <p>Books & Practice PDFs</p>
+      </div>
+      <div class="quick-card" onclick="filterBatch('PYQ')">
+        <h3>Solved PYQs</h3>
+        <p>UPSC, SSC, JEE & NEET</p>
+      </div>
+      <div class="quick-card" onclick="filterBatch('Platforms')">
+        <h3>Platforms Directory</h3>
+        <p>Top Prep Portals</p>
+      </div>
+    </section>
+  </main>
+
+  <!-- Mobile Tab Bar -->
+  <nav class="bottom-nav">
+    <button class="active">Home</button>
+    <button>Community</button>
+    <button>Materials</button>
+    <button>Platforms</button>
+  </nav>
+
+  <script>
+    // Sample batch data
+    const batches = [
+      { id: 1, title: "Rojgar With Ankit", category: "Government Exams", timeStudied: "20s studied", lastActive: "4d ago" },
+      { id: 2, title: "SSC Parivartan Target Batch", category: "Government Exams", timeStudied: "Just started", lastActive: "Aug 31" },
+      { id: 3, title: "UP Police Constable Khaki Batch", category: "Government Exams", timeStudied: "15s studied", lastActive: "Aug 31" },
+      { id: 4, title: "Physics Wallah (PW)", category: "Competitive Prep", timeStudied: "5s studied", lastActive: "Aug 29" }
+    ];
+
+    // Render workspace cards
+    function renderCards(data) {
+      const grid = document.getElementById("learningGrid");
+      grid.innerHTML = "";
+
+      data.forEach(item => {
+        const card = document.createElement("div");
+        card.className = "card";
+        card.innerHTML = `
+          <div>
+            <div class="card-top">
+              <div>
+                <div class="card-title">${item.title}</div>
+                <div class="card-subtitle">${item.category}</div>
+              </div>
+            </div>
+            <div class="card-meta">
+              <span>⏱ ${item.timeStudied}</span>
+              <span>📅 ${item.lastActive}</span>
+            </div>
+          </div>
+          <div class="card-actions">
+            <span class="status-badge">● Ready to resume</span>
+            <button class="btn-resume" onclick="resumeCourse('${item.title}')">Resume ▶</button>
+          </div>
+        `;
+        grid.appendChild(card);
+      });
+    }
+
+    // Action handlers
+    function resumeCourse(title) {
+      alert(`Resuming: ${title}`);
+    }
+
+    function filterBatch(tag) {
+      alert(`Opening ${tag} Section`);
+    }
+
+    // Dynamic search filtering
+    document.getElementById("searchInput").addEventListener("input", function(e) {
+      const query = e.target.value.toLowerCase();
+      const filtered = batches.filter(b => 
+        b.title.toLowerCase().includes(query) || 
+        b.category.toLowerCase().includes(query)
+      );
+      renderCards(filtered);
+    });
+
+    // Initial render
+    renderCards(batches);
+  </script>
+</body>
+</html>
