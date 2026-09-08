@@ -3,202 +3,310 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Study Portal - Backend Integrated</title>
-  <!-- Supabase JS Client -->
-  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  <title>Study With Abhi - Workspace</title>
   <style>
     :root {
-      --bg-dark: #0e0d0c;
-      --card-bg: #191714;
-      --card-border: #2e2820;
-      --accent-orange: #ff7300;
-      --text-main: #f5f0e6;
-      --text-muted: #a89f91;
-      --tag-green: #2ecc71;
+      --bg-color: #0c0b0a;
+      --card-bg: #151311;
+      --card-border: #26211c;
+      --accent: #ff6a00;
+      --accent-glow: rgba(255, 106, 0, 0.15);
+      --text-main: #f3eee6;
+      --text-muted: #8d8579;
+      --green: #2ecc71;
     }
 
-    * { box-sizing: border-box; margin: 0; padding: 0; font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; }
-    body { background-color: var(--bg-dark); color: var(--text-main); padding-bottom: 80px; }
+    * { box-sizing: border-box; margin: 0; padding: 0; font-family: system-ui, -apple-system, sans-serif; }
+    body { background: var(--bg-color); color: var(--text-main); padding-bottom: 90px; }
 
+    /* Top Bar */
     header {
-      position: sticky; top: 0; z-index: 100; background: rgba(14, 13, 12, 0.95);
-      border-bottom: 1px solid var(--card-border); padding: 12px 24px;
+      position: sticky; top: 0; z-index: 100;
+      background: rgba(12, 11, 10, 0.95);
+      backdrop-filter: blur(8px);
+      border-bottom: 1px solid var(--card-border);
+      padding: 12px 20px;
       display: flex; align-items: center; justify-content: space-between; gap: 16px;
     }
-    .logo { font-weight: 800; font-size: 1.1rem; }
-    .logo span { color: var(--accent-orange); }
-    .search-box { flex: 1; max-width: 450px; }
-    .search-box input {
-      width: 100%; background: #1f1b15; border: 1px solid var(--card-border);
-      color: var(--text-main); padding: 8px 16px; border-radius: 20px; outline: none;
+    .brand { font-size: 1rem; font-weight: 800; letter-spacing: 0.5px; }
+    .brand span { color: var(--accent); }
+    .brand-sub { font-size: 0.65rem; color: var(--text-muted); display: block; font-weight: 400; }
+
+    .search-bar { flex: 1; max-width: 480px; }
+    .search-bar input {
+      width: 100%; background: #1a1714; border: 1px solid var(--card-border);
+      color: var(--text-main); padding: 8px 14px; border-radius: 20px; outline: none; font-size: 0.85rem;
+    }
+    .search-bar input:focus { border-color: var(--accent); }
+
+    .header-right { display: flex; align-items: center; gap: 10px; }
+    .timer-pill {
+      background: #1e1b17; border: 1px solid var(--card-border);
+      padding: 6px 12px; border-radius: 20px; font-size: 0.75rem; color: var(--text-muted);
+    }
+    .btn-tg {
+      background: var(--accent); color: #fff; text-decoration: none;
+      padding: 7px 14px; border-radius: 20px; font-size: 0.8rem; font-weight: 600;
     }
 
     .container { max-width: 1100px; margin: 0 auto; padding: 24px 16px; }
 
-    /* PDF Viewer Modal */
-    .modal-overlay {
-      display: none; position: fixed; inset: 0; background: rgba(0,0,0,0.85);
-      z-index: 200; justify-content: center; align-items: center; padding: 20px;
+    /* Hero Banner */
+    .hero {
+      background: linear-gradient(135deg, #24190e 0%, var(--card-bg) 60%);
+      border: 1px solid var(--card-border);
+      border-radius: 16px; padding: 28px; margin-bottom: 30px;
     }
-    .modal-overlay.active { display: flex; }
-    .modal-content {
-      background: var(--card-bg); border: 1px solid var(--card-border);
-      border-radius: 12px; width: 100%; max-width: 900px; height: 85vh;
-      display: flex; flex-direction: column; overflow: hidden;
+    .badge {
+      display: inline-block; font-size: 0.7rem; color: var(--accent);
+      background: var(--accent-glow); padding: 3px 10px; border-radius: 10px; margin-bottom: 12px;
     }
-    .modal-header {
-      padding: 14px 20px; border-bottom: 1px solid var(--card-border);
-      display: flex; justify-content: space-between; align-items: center;
-    }
-    .modal-close { background: none; border: none; color: var(--text-muted); font-size: 1.4rem; cursor: pointer; }
-    .modal-body { flex: 1; background: #222; }
-    .modal-body iframe { width: 100%; height: 100%; border: none; }
+    .hero h1 { font-size: 1.8rem; margin-bottom: 8px; }
+    .hero h1 span { color: var(--accent); }
+    .hero p { color: var(--text-muted); font-size: 0.9rem; line-height: 1.5; max-width: 600px; margin-bottom: 18px; }
+    .hero-btns { display: flex; gap: 10px; }
+    .btn-solid { background: var(--accent); color: #fff; border: none; padding: 9px 18px; border-radius: 8px; font-weight: 600; cursor: pointer; }
+    .btn-outline { background: transparent; color: var(--text-main); border: 1px solid var(--card-border); padding: 9px 18px; border-radius: 8px; cursor: pointer; }
 
-    /* Cards */
-    .section-title { font-size: 1.25rem; margin: 24px 0 14px; display: flex; align-items: center; gap: 8px; }
-    .cards-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); gap: 16px; }
+    /* Section Styling */
+    .section-head { margin: 24px 0 14px; }
+    .section-head small { color: var(--accent); font-size: 0.7rem; font-weight: 700; text-transform: uppercase; }
+    .section-head h2 { font-size: 1.2rem; }
+
+    /* Cards Grid */
+    .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 14px; }
     .card {
-      background-color: var(--card-bg); border: 1px solid var(--card-border);
+      background: var(--card-bg); border: 1px solid var(--card-border);
       border-radius: 12px; padding: 16px; display: flex; flex-direction: column; justify-content: space-between;
     }
-    .card-meta { font-size: 0.8rem; color: var(--text-muted); margin: 8px 0 16px; }
-    .card-actions { display: flex; justify-content: space-between; align-items: center; }
-    .btn-action {
-      background: var(--accent-orange); color: white; border: none; padding: 6px 14px;
-      border-radius: 6px; font-weight: 600; cursor: pointer; text-decoration: none;
+    .card:hover { border-color: var(--accent); }
+    .card-title { font-size: 0.95rem; font-weight: 600; }
+    .card-tag { font-size: 0.75rem; color: var(--text-muted); margin-top: 2px; }
+    .card-stats { display: flex; gap: 12px; font-size: 0.75rem; color: var(--text-muted); margin: 12px 0; }
+    .card-bottom { display: flex; justify-content: space-between; align-items: center; padding-top: 10px; border-top: 1px solid #201c18; }
+    .status { font-size: 0.75rem; color: var(--green); }
+    .btn-resume { background: var(--accent); color: #fff; border: none; padding: 6px 14px; border-radius: 6px; font-size: 0.8rem; font-weight: 600; cursor: pointer; }
+
+    /* Hub Links */
+    .hub-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap: 12px; }
+    .hub-box { background: #110f0d; border: 1px solid var(--card-border); padding: 14px; border-radius: 10px; cursor: pointer; }
+    .hub-box:hover { border-color: var(--accent); }
+    .hub-box h4 { font-size: 0.9rem; margin-bottom: 4px; }
+    .hub-box p { font-size: 0.75rem; color: var(--text-muted); }
+
+    /* Built-in Reader Modal */
+    .modal {
+      display: none; position: fixed; inset: 0; background: rgba(0,0,0,0.85);
+      z-index: 200; justify-content: center; align-items: center; padding: 16px;
     }
-    .progress-bar { background: #2a251e; height: 4px; border-radius: 2px; overflow: hidden; margin-top: 8px; }
-    .progress-fill { background: var(--accent-orange); height: 100%; width: 0%; transition: width 0.3s; }
+    .modal.active { display: flex; }
+    .modal-box {
+      background: var(--card-bg); border: 1px solid var(--card-border);
+      width: 100%; max-width: 800px; height: 80vh; border-radius: 12px; display: flex; flex-direction: column;
+    }
+    .modal-bar { padding: 12px 16px; border-bottom: 1px solid var(--card-border); display: flex; justify-content: space-between; align-items: center; }
+    .modal-bar button { background: none; border: none; color: #fff; font-size: 1.2rem; cursor: pointer; }
+    .modal-body { padding: 20px; overflow-y: auto; line-height: 1.6; color: #d6cfc5; }
+
+    /* Bottom Navigation */
+    .nav-bar {
+      position: fixed; bottom: 0; left: 0; right: 0; height: 60px;
+      background: rgba(12, 11, 10, 0.98); border-top: 1px solid var(--card-border);
+      display: flex; justify-content: space-around; align-items: center;
+    }
+    .nav-item { background: none; border: none; color: var(--text-muted); font-size: 0.75rem; cursor: pointer; }
+    .nav-item.active { color: var(--accent); font-weight: 600; }
   </style>
 </head>
 <body>
 
   <header>
-    <div class="logo">STUDY WITH <span>ABHI</span></div>
-    <div class="search-box">
-      <input type="text" id="searchInput" placeholder="Search handwritten notes, PYQs, batches..." />
+    <div class="brand">
+      STUDY WITH <span>ABHI</span>
+      <span class="brand-sub">Official Educational Portal</span>
+    </div>
+    <div class="search-bar">
+      <input type="text" id="searchInput" placeholder="Search batches, subjects, notes..." />
+    </div>
+    <div class="header-right">
+      <div class="timer-pill" id="sessionTimer">⏱ 0s studied</div>
+      <a href="https://study-with-abhi.ai.studio/" class="btn-tg" target="_blank">View Site</a>
     </div>
   </header>
 
   <main class="container">
-    <h2 class="section-title">Continue Learning & Batches</h2>
-    <div class="cards-grid" id="materialsGrid"></div>
+    <section class="hero">
+      <div class="badge">One Platform • Every Student • Every Exam</div>
+      <h1>Welcome to <span>Study With Abhi</span></h1>
+      <p>Curated study materials, handwritten revision notes, and solved PYQ papers for government and competitive exams.</p>
+      <div class="hero-btns">
+        <button class="btn-solid" onclick="filterItems('All')">Explore Materials</button>
+        <button class="btn-outline" onclick="alert('Join the Telegram group for daily PDFs!')">Telegram Hub</button>
+      </div>
+    </section>
+
+    <div class="section-head">
+      <small>Workspace</small>
+      <h2>Continue Learning</h2>
+    </div>
+    <section class="grid" id="cardsContainer"></section>
+
+    <div class="section-head">
+      <small>Navigation</small>
+      <h2>Quick Access Hub</h2>
+    </div>
+    <section class="hub-grid">
+      <div class="hub-box" onclick="filterItems('Government')">
+        <h4>Government Exams</h4>
+        <p>SSC, UP Police, State PSC</p>
+      </div>
+      <div class="hub-box" onclick="filterItems('Competitive')">
+        <h4>Competitive Prep</h4>
+        <p>JEE, NEET, Foundation</p>
+      </div>
+      <div class="hub-box" onclick="filterItems('Notes')">
+        <h4>Handwritten Notes</h4>
+        <p>Class 01 Full Form, History</p>
+      </div>
+      <div class="hub-box" onclick="filterItems('All')">
+        <h4>All Materials</h4>
+        <p>Reset and view everything</p>
+      </div>
+    </section>
   </main>
 
-  <!-- Embedded PDF Viewer Modal -->
-  <div class="modal-overlay" id="pdfModal">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h3 id="pdfTitle">Document Preview</h3>
-        <button class="modal-close" onclick="closePdf()">&times;</button>
+  <!-- Reader Modal -->
+  <div class="modal" id="readerModal">
+    <div class="modal-box">
+      <div class="modal-bar">
+        <h3 id="modalTitle">Notes Viewer</h3>
+        <button onclick="closeReader()">&times;</button>
       </div>
-      <div class="modal-body">
-        <iframe id="pdfFrame" src=""></iframe>
-      </div>
+      <div class="modal-body" id="modalContent"></div>
     </div>
   </div>
 
-  <script>
-    // 1. Supabase Initialization Setup
-    // Replace with your project credentials from supabase.com -> Settings -> API
-    const SUPABASE_URL = "https://your-project.supabase.co";
-    const SUPABASE_ANON_KEY = "your-anon-key";
-    const supabase = window.supabase ? window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY) : null;
+  <nav class="nav-bar">
+    <button class="nav-item active" onclick="filterItems('All')">Home</button>
+    <button class="nav-item" onclick="filterItems('Government')">Govt Exams</button>
+    <button class="nav-item" onclick="filterItems('Notes')">Notes</button>
+    <button class="nav-item" onclick="filterItems('Competitive')">Competitive</button>
+  </nav>
 
-    // Fallback static data if Supabase keys aren't configured yet
-    const localCourses = [
+  <script>
+    // 1. Initial items list
+    const defaultData = [
       {
-        id: "c1",
-        title: "Class 01 full form COMPUTER",
-        category: "General Resources › History",
-        pdf_url: "https://www.w3.org/WAI/ER/tests/xhtml/testfiles/resources/pdf/dummy.pdf",
-        progress: 45
-      },
-      {
-        id: "c2",
-        title: "Computer 1000 MCQ Bank",
-        category: "General Resources › Practice",
-        pdf_url: "https://www.w3.org/WAI/ER/tests/xhtml/testfiles/resources/pdf/dummy.pdf",
-        progress: 10
-      },
-      {
-        id: "c3",
-        title: "SSC CGL / CHSL Target Batch",
+        id: "1",
+        title: "Rojgar With Ankit",
         category: "Government Exams",
-        pdf_url: "",
-        progress: 75
+        type: "Government",
+        timeStudied: 20,
+        content: "<h3>Rojgar With Ankit - Study Notes</h3><br><p>Key Topics Covered:</p><ul><li>General Knowledge & Hindi</li><li>Maths & Reasoning Revision Sheets</li><li>Daily Practice Problems</li></ul>"
+      },
+      {
+        id: "2",
+        title: "SSC CGL / CHSL Parivartan Target Batch",
+        category: "Government Exams",
+        type: "Government",
+        timeStudied: 0,
+        content: "<h3>SSC Target Batch</h3><br><p>Modules:</p><ul><li>Quantitative Aptitude (Arithmetic & Advanced)</li><li>General English Grammatical Rules</li><li>Tier 1 Mock Papers</li></ul>"
+      },
+      {
+        id: "3",
+        title: "Class 01 full form COMPUTER",
+        category: "Handwritten Notes › General",
+        type: "Notes",
+        timeStudied: 15,
+        content: "<h3>Computer Abbreviations & Full Forms</h3><br><p><b>CPU:</b> Central Processing Unit</p><p><b>ALU:</b> Arithmetic Logic Unit</p><p><b>RAM:</b> Random Access Memory</p><p><b>ROM:</b> Read Only Memory</p><p><b>HTTP:</b> HyperText Transfer Protocol</p>"
+      },
+      {
+        id: "4",
+        title: "Physics Wallah (PW) Modules",
+        category: "Competitive & Board Prep",
+        type: "Competitive",
+        timeStudied: 5,
+        content: "<h3>Competitive Exam Notes</h3><br><p>Includes fundamental formulas, quick derivation sheets, and short revision modules.</p>"
       }
     ];
 
-    // 2. Fetch from Supabase Table or Local Fallback
-    async function fetchMaterials() {
-      let data = localCourses;
-      if (supabase && SUPABASE_URL !== "https://your-project.supabase.co") {
-        const { data: dbData, error } = await supabase.from("materials").select("*");
-        if (!error && dbData) data = dbData;
-      }
-      return data;
-    }
+    // Load or initialize localStorage
+    let materials = JSON.parse(localStorage.getItem("study_materials")) || defaultData;
+    let totalSeconds = parseInt(localStorage.getItem("study_time")) || 0;
 
-    // 3. Render Cards
-    async function loadGrid(search = "") {
-      const grid = document.getElementById("materialsGrid");
-      const items = await fetchMaterials();
-      
-      const filtered = items.filter(item => 
-        item.title.toLowerCase().includes(search.toLowerCase()) ||
-        item.category.toLowerCase().includes(search.toLowerCase())
-      );
+    // 2. Study Session Timer (Updates live & saves to storage)
+    setInterval(() => {
+      totalSeconds++;
+      localStorage.setItem("study_time", totalSeconds);
+      const mins = Math.floor(totalSeconds / 60);
+      const secs = totalSeconds % 60;
+      document.getElementById("sessionTimer").innerText = `⏱ ${mins > 0 ? mins + "m " : ""}${secs}s studied`;
+    }, 1000);
 
-      grid.innerHTML = filtered.map(item => `
-        <div class="card">
+    // 3. Render function
+    function render(list) {
+      const container = document.getElementById("cardsContainer");
+      container.innerHTML = "";
+
+      list.forEach(item => {
+        const card = document.createElement("div");
+        card.className = "card";
+        card.innerHTML = `
           <div>
-            <h3>${item.title}</h3>
-            <p class="card-meta">${item.category}</p>
-            <div class="progress-bar">
-              <div class="progress-fill" style="width: ${item.progress || 0}%"></div>
+            <div class="card-title">${item.title}</div>
+            <div class="card-tag">${item.category}</div>
+            <div class="card-stats">
+              <span>⏱ ${item.timeStudied}s logged</span>
+              <span>● Active Module</span>
             </div>
           </div>
-          <div class="card-actions" style="margin-top: 14px;">
-            <span style="font-size: 0.8rem; color: var(--tag-green);">${item.progress || 0}% Complete</span>
-            <button class="btn-action" onclick="openResource('${item.id}', '${item.title}', '${item.pdf_url}')">
-              ${item.pdf_url ? "Read PDF" : "Resume"}
-            </button>
+          <div class="card-bottom">
+            <span class="status">● Ready</span>
+            <button class="btn-resume" onclick="openItem('${item.id}')">Resume ▶</button>
           </div>
-        </div>
-      `).join("");
+        `;
+        container.appendChild(card);
+      });
     }
 
-    // 4. PDF Viewer & Progress Tracking
-    function openResource(id, title, url) {
-      if (url) {
-        document.getElementById("pdfTitle").innerText = title;
-        document.getElementById("pdfFrame").src = url;
-        document.getElementById("pdfModal").classList.add("active");
-        trackProgress(id);
+    // 4. Open Reader & Increase Course Study Time
+    function openItem(id) {
+      const item = materials.find(m => m.id === id);
+      if (!item) return;
+
+      item.timeStudied += 30; // logs 30 seconds to the card
+      localStorage.setItem("study_materials", JSON.stringify(materials));
+      render(materials);
+
+      document.getElementById("modalTitle").innerText = item.title;
+      document.getElementById("modalContent").innerHTML = item.content;
+      document.getElementById("readerModal").classList.add("active");
+    }
+
+    function closeReader() {
+      document.getElementById("readerModal").classList.remove("active");
+    }
+
+    // 5. Filters & Search
+    function filterItems(type) {
+      if (type === "All") {
+        render(materials);
       } else {
-        alert("Navigating to course module: " + title);
+        const filtered = materials.filter(m => m.type === type);
+        render(filtered);
       }
     }
 
-    function closePdf() {
-      document.getElementById("pdfModal").classList.remove("active");
-      document.getElementById("pdfFrame").src = "";
-    }
-
-    async function trackProgress(id) {
-      if (supabase && SUPABASE_URL !== "https://your-project.supabase.co") {
-        await supabase.from("user_progress").upsert({ material_id: id, last_read: new Date() });
-      }
-    }
-
-    // 5. Search Listener
     document.getElementById("searchInput").addEventListener("input", (e) => {
-      loadGrid(e.target.value);
+      const q = e.target.value.toLowerCase();
+      const filtered = materials.filter(m => 
+        m.title.toLowerCase().includes(q) || m.category.toLowerCase().includes(q)
+      );
+      render(filtered);
     });
 
-    // Initial Load
-    loadGrid();
+    // Initial draw
+    render(materials);
   </script>
 </body>
 </html>
