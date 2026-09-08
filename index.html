@@ -5,11 +5,10 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>SYSTUM - UNIVERSE | Study Hub</title>
   
-  <!-- Orbitron & Rajdhani Fonts -->
+  <!-- Fonts & Font Awesome Icons -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@600;800;900&family=Rajdhani:wght@500;600;700&display=swap" rel="stylesheet">
-  <!-- FontAwesome Icons -->
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
 
   <style>
@@ -17,11 +16,11 @@
       --primary: #FF0000;
       --primary-glow: rgba(255, 0, 0, 0.6);
       --bg-dark: #08080a;
-      --bg-card: rgba(18, 18, 24, 0.7);
+      --bg-card: rgba(18, 18, 24, 0.75);
       --text-main: #FFFFFF;
       --text-muted: #a0a0b2;
       --border-glass: rgba(255, 255, 255, 0.12);
-      --liquid-glass: rgba(14, 14, 20, 0.6);
+      --liquid-glass: rgba(14, 14, 20, 0.65);
       --transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
     }
 
@@ -37,9 +36,8 @@
       color: var(--text-main);
       font-family: 'Rajdhani', sans-serif;
       font-size: 18px;
-      overflow-x: hidden;
       line-height: 1.6;
-      min-height: 100vh;
+      overflow-x: hidden;
     }
 
     h1, h2, h3, h4 {
@@ -49,71 +47,54 @@
     }
 
     /* ========================================================
-       1. CINEMATIC INTRO ANIMATION (SYSTUM - UNIVERSE)
+       1. AUTO-CLOSING INTRO OVERLAY (NO FREEZING / NO JAVASCRIPT BLOCK)
        ======================================================== */
     #intro-screen {
       position: fixed;
       inset: 0;
       width: 100vw;
       height: 100vh;
-      background: radial-gradient(circle at center, #1e0202 0%, #050508 85%);
+      background: radial-gradient(circle at center, #260000 0%, #050508 85%);
       display: flex;
       flex-direction: column;
       align-items: center;
       justify-content: center;
-      z-index: 999999;
-      transition: opacity 0.8s ease, transform 0.8s ease, visibility 0.8s;
-      overflow: hidden;
+      z-index: 9999999;
+      /* Ye animation 2.5s chalega fir 100% apne aap gayab ho jayega */
+      animation: autoDismissIntro 0.8s 2.5s forwards ease-in-out;
     }
 
-    /* Intro dismiss class applied via JavaScript */
-    .remove-intro {
-      opacity: 0 !important;
-      visibility: hidden !important;
-      pointer-events: none !important;
-      transform: scale(1.08);
-    }
-
-    #space-canvas {
-      position: absolute;
-      inset: 0;
-      width: 100%;
-      height: 100%;
-      z-index: 1;
-      opacity: 0.8;
-    }
-
-    .shockwave {
-      position: absolute;
-      width: 80px;
-      height: 80px;
-      border-radius: 50%;
-      border: 2px solid var(--primary);
-      box-shadow: 0 0 35px var(--primary);
-      z-index: 2;
-      animation: blastWave 2.2s infinite cubic-bezier(0.1, 0.9, 0.2, 1);
-    }
-
-    @keyframes blastWave {
-      0% { transform: scale(0.1); opacity: 1; }
-      70% { opacity: 0.8; }
-      100% { transform: scale(26); opacity: 0; }
+    @keyframes autoDismissIntro {
+      0% {
+        opacity: 1;
+        visibility: visible;
+        transform: scale(1);
+      }
+      99% {
+        opacity: 0;
+        visibility: visible;
+        transform: scale(1.08);
+      }
+      100% {
+        opacity: 0;
+        visibility: hidden;
+        display: none !important;
+        pointer-events: none !important;
+      }
     }
 
     .intro-content {
-      position: relative;
-      z-index: 3;
       text-align: center;
       padding: 0 20px;
     }
 
     .intro-title {
-      font-size: clamp(2.2rem, 6.5vw, 5.2rem);
+      font-size: clamp(2.2rem, 7vw, 5.2rem);
       font-weight: 900;
       color: #ffffff;
       letter-spacing: 6px;
       margin-bottom: 12px;
-      animation: zoomIn 1.2s cubic-bezier(0.15, 0.9, 0.3, 1) forwards;
+      animation: pulseTitle 1.5s infinite alternate ease-in-out;
       filter: drop-shadow(0 0 25px rgba(255, 0, 0, 0.4));
     }
 
@@ -131,10 +112,10 @@
     }
 
     .cyber-loader {
-      width: 250px;
+      width: 260px;
       height: 4px;
-      background: rgba(255, 255, 255, 0.08);
-      margin: 0 auto 20px;
+      background: rgba(255, 255, 255, 0.1);
+      margin: 0 auto;
       position: relative;
       overflow: hidden;
       border-radius: 4px;
@@ -148,31 +129,12 @@
       width: 0%;
       background: linear-gradient(90deg, #990000, #FF0000, #ff6666);
       box-shadow: 0 0 15px var(--primary);
-      animation: loadBar 2.2s forwards cubic-bezier(0.65, 0, 0.35, 1);
+      animation: loadBar 2.3s forwards cubic-bezier(0.65, 0, 0.35, 1);
     }
 
-    .enter-btn {
-      background: rgba(255, 0, 0, 0.15);
-      border: 1px solid var(--primary);
-      color: #fff;
-      padding: 10px 24px;
-      border-radius: 30px;
-      font-family: 'Orbitron', sans-serif;
-      font-size: 0.8rem;
-      cursor: pointer;
-      letter-spacing: 2px;
-      transition: var(--transition);
-    }
-
-    .enter-btn:hover {
-      background: var(--primary);
-      box-shadow: 0 0 25px var(--primary);
-      transform: scale(1.05);
-    }
-
-    @keyframes zoomIn {
-      0% { opacity: 0; transform: scale(0.6); filter: blur(8px); }
-      100% { opacity: 1; transform: scale(1); filter: blur(0px); }
+    @keyframes pulseTitle {
+      0% { transform: scale(0.97); filter: drop-shadow(0 0 15px rgba(255,0,0,0.3)); }
+      100% { transform: scale(1.02); filter: drop-shadow(0 0 35px rgba(255,0,0,0.8)); }
     }
 
     @keyframes loadBar {
@@ -181,7 +143,7 @@
     }
 
     /* ========================================================
-       2. LIQUID GLASS NAVBAR & 3-DOT MENU
+       2. LIQUID GLASS NAVBAR WITH 3-DOTS MENU
        ======================================================== */
     .navbar {
       position: fixed;
@@ -199,9 +161,9 @@
       display: flex;
       align-items: center;
       justify-content: space-between;
-      padding: 0 28px;
+      padding: 0 25px;
       z-index: 1000;
-      box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.5), inset 0 0 0 1px rgba(255, 255, 255, 0.05);
+      box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.5);
     }
 
     .nav-logo {
@@ -222,7 +184,7 @@
     .nav-menu {
       display: flex;
       list-style: none;
-      gap: 28px;
+      gap: 25px;
       align-items: center;
     }
 
@@ -261,7 +223,7 @@
       gap: 15px;
     }
 
-    /* 3-DOT MENU */
+    /* 3-DOTS ACTION MENU */
     .dots-wrapper {
       position: relative;
     }
@@ -291,12 +253,12 @@
       position: absolute;
       top: 50px;
       right: 0;
-      background: rgba(16, 16, 22, 0.95);
+      background: rgba(16, 16, 22, 0.98);
       border: 1px solid var(--border-glass);
       backdrop-filter: blur(25px);
       border-radius: 12px;
       box-shadow: 0 15px 35px rgba(0,0,0,0.8);
-      width: 170px;
+      width: 160px;
       display: none;
       flex-direction: column;
       overflow: hidden;
@@ -314,7 +276,7 @@
       font-weight: 600;
       display: flex;
       align-items: center;
-      gap: 12px;
+      gap: 10px;
       background: transparent;
       border: none;
       cursor: pointer;
@@ -333,7 +295,7 @@
       background: transparent;
       border: none;
       color: #fff;
-      font-size: 1.5rem;
+      font-size: 1.4rem;
       cursor: pointer;
     }
 
@@ -346,9 +308,9 @@
       align-items: center;
       justify-content: center;
       text-align: center;
-      padding: 130px 20px 50px;
+      padding: 130px 20px 40px;
       position: relative;
-      background: radial-gradient(circle at 50% 35%, rgba(255, 0, 0, 0.12) 0%, rgba(8, 8, 10, 0) 70%);
+      background: radial-gradient(circle at 50% 30%, rgba(255, 0, 0, 0.12) 0%, rgba(8, 8, 10, 0) 70%);
     }
 
     .hero-box {
@@ -384,7 +346,7 @@
 
     .hero-desc {
       color: var(--text-muted);
-      font-size: clamp(1.05rem, 2vw, 1.3rem);
+      font-size: clamp(1rem, 2vw, 1.25rem);
       margin-bottom: 35px;
       max-width: 700px;
       margin-inline: auto;
@@ -393,7 +355,7 @@
     .btn-group {
       display: flex;
       justify-content: center;
-      gap: 20px;
+      gap: 18px;
       flex-wrap: wrap;
     }
 
@@ -438,7 +400,7 @@
     }
 
     /* ========================================================
-       4. STUDY MATERIAL VAULT (READY FOR YOUR CONTENT)
+       4. STUDY MATERIALS CARDS
        ======================================================== */
     .section-wrap {
       max-width: 1200px;
@@ -473,7 +435,6 @@
       padding: 30px;
       backdrop-filter: blur(16px);
       transition: var(--transition);
-      position: relative;
     }
 
     .material-card:hover {
@@ -482,8 +443,20 @@
       box-shadow: 0 10px 30px rgba(255, 0, 0, 0.2);
     }
 
+    .card-badge {
+      display: inline-block;
+      padding: 4px 12px;
+      background: rgba(255, 0, 0, 0.12);
+      border: 1px solid rgba(255, 0, 0, 0.4);
+      color: #ff7777;
+      font-size: 0.75rem;
+      border-radius: 12px;
+      font-weight: 700;
+      margin-bottom: 15px;
+    }
+
     .card-icon {
-      font-size: 2.3rem;
+      font-size: 2.2rem;
       color: var(--primary);
       margin-bottom: 18px;
     }
@@ -497,18 +470,6 @@
       color: var(--text-muted);
       font-size: 0.95rem;
       margin-bottom: 22px;
-    }
-
-    .card-badge {
-      display: inline-block;
-      padding: 4px 12px;
-      background: rgba(255, 0, 0, 0.12);
-      border: 1px solid rgba(255, 0, 0, 0.4);
-      color: #ff6b6b;
-      font-size: 0.75rem;
-      border-radius: 12px;
-      font-weight: 700;
-      margin-bottom: 15px;
     }
 
     /* ========================================================
@@ -703,7 +664,6 @@
       transform: translateY(-4px);
     }
 
-    /* RESPONSIVENESS */
     @media (max-width: 900px) {
       .bio-container {
         grid-template-columns: 1fr;
@@ -741,32 +701,25 @@
 </head>
 <body>
 
-  <!-- 1. SMOOTH CINEMATIC INTRO -->
+  <!-- 1. AUTO-FADING CINEMATIC INTRO SCREEN (2.5 SECONDS) -->
   <div id="intro-screen">
-    <canvas id="space-canvas"></canvas>
-    <div class="shockwave"></div>
     <div class="intro-content">
       <h1 class="intro-title">SYSTUM - <span>UNIVERSE</span></h1>
       <p class="intro-subtitle">INITIALIZING QUANTUM STUDY ENGINE</p>
       <div class="cyber-loader">
         <div class="cyber-loader-bar"></div>
       </div>
-      <div>
-        <button class="enter-btn" onclick="openSiteNow()">
-          ENTER UNIVERSE <i class="fa-solid fa-arrow-right"></i>
-        </button>
-      </div>
     </div>
   </div>
 
-  <!-- 2. LIQUID GLASS NAVBAR WITH 3-DOTS MENU -->
+  <!-- 2. FIXED LIQUID GLASS NAVBAR -->
   <header>
     <nav class="navbar">
       <a href="#home" class="nav-logo">
         <i class="fa-solid fa-atom" style="color:var(--primary)"></i> SYSTUM<span>.</span>
       </a>
 
-      <!-- Main Navigation Menu -->
+      <!-- Menu links -->
       <ul class="nav-menu" id="nav-menu">
         <li><a href="#home" class="nav-link">Home</a></li>
         <li><a href="#materials" class="nav-link">Study Material</a></li>
@@ -776,9 +729,9 @@
       </ul>
 
       <div class="nav-actions">
-        <!-- 3-Dot Dropdown (Login / Logout) -->
+        <!-- 3-DOTS MENU (LOGIN / LOGOUT) -->
         <div class="dots-wrapper">
-          <button class="dots-btn" id="dotsToggle" title="Account Settings">
+          <button class="dots-btn" id="dotsToggle" title="Options">
             <i class="fa-solid fa-ellipsis-vertical"></i>
           </button>
           <div class="dots-dropdown" id="dotsDropdown">
@@ -801,4 +754,30 @@
 
   <!-- 3. HERO SECTION (90VH) -->
   <main>
-    <section class="hero" id="hom
+    <section class="hero" id="home">
+      <div class="hero-box">
+        <span class="badge">SYSTUM - UNIVERSE PORTAL</span>
+        <h1 class="hero-title">NEXT-GEN <span>STUDY ENGINE</span></h1>
+        <p class="hero-desc">
+          Structured tech study vaults, algorithmic roadmaps, and dynamic lecture feeds curated by Avinash Meena.
+        </p>
+        <div class="btn-group">
+          <a href="#materials" class="btn btn-primary"><i class="fa-solid fa-book-bookmark"></i> Explore Notes</a>
+          <a href="#videos" class="btn btn-glass"><i class="fa-solid fa-play"></i> Watch Lectures</a>
+        </div>
+      </div>
+    </section>
+
+    <!-- 4. STUDY MATERIALS CARDS (Ready to edit/add notes) -->
+    <section class="section-wrap" id="materials">
+      <div class="section-title">
+        <h2>Study <span>Repository</span></h2>
+        <p style="color:var(--text-muted);">Pick any topic to start reading or download cheat-sheets.</p>
+      </div>
+      <div class="materials-grid">
+        <!-- Card 1 -->
+        <div class="material-card">
+          <span class="card-badge">MODULE 01</span>
+          <i class="fa-solid fa-code card-icon"></i>
+          <h3>Data Structures & Algorithms</h3>
+          <p>Trees, Graphs, DP Patterns, recursion templates, and interview cheat-s
