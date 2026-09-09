@@ -1,723 +1,213 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
-  <title>SYSTUM - UNIVERSE | Study Hub</title>
-  
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
-
-  <style>
-    :root {
-      --primary: #FF0000;
-      --primary-glow: rgba(255, 0, 0, 0.7);
-      --primary-dim: rgba(255, 0, 0, 0.15);
-      --bg-dark: #050507;
-      --bg-card: #12121a;
-      --text-main: #FFFFFF;
-      --text-muted: #8e8e93;
-      --border-red: rgba(255, 0, 0, 0.4);
-      --ios-font: -apple-system, BlinkMacSystemFont, "SF Pro Display", "SF Pro Text", "Helvetica Neue", sans-serif;
-    }
-
-    * {
-      box-sizing: border-box;
-      margin: 0;
-      padding: 0;
-      -webkit-font-smoothing: antialiased;
-    }
-
-    body {
-      background-color: var(--bg-dark);
-      color: var(--text-main);
-      font-family: var(--ios-font);
-      font-size: 17px;
-      line-height: 1.5;
-      letter-spacing: -0.02em;
-      background-image: radial-gradient(circle at 50% 10%, #200000 0%, #050507 75%);
-      background-attachment: fixed;
-      padding-top: 80px;
-      overflow-x: hidden;
-    }
-
-    /* ========================================================
-       1. PURE CSS 4K CINEMATIC INTRO (KABHI STUCK NAHI HOGA)
-       ======================================================== */
-    #universe-stage {
-      position: fixed;
-      inset: 0;
-      width: 100vw;
-      height: 100vh;
-      background: radial-gradient(circle at center, #1a0000 0%, #000000 90%);
-      z-index: 9999999;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: center;
-      /* Pure CSS Timer: 2.4s baad 100% apne aap disappear hoga */
-      animation: dismissStage 0.6s 2.4s forwards cubic-bezier(0.8, 0, 0.2, 1);
-    }
-
-    @keyframes dismissStage {
-      0% { opacity: 1; visibility: visible; }
-      99% { opacity: 0; visibility: visible; }
-      100% { opacity: 0; visibility: hidden; display: none !important; pointer-events: none !important; }
-    }
-
-    /* Supernova Shockwave Pulse */
-    .shock-ring {
-      position: absolute;
-      width: 120px;
-      height: 120px;
-      border-radius: 50%;
-      border: 2px solid var(--primary);
-      box-shadow: 0 0 40px var(--primary);
-      animation: explodeRing 2.2s infinite cubic-bezier(0.1, 0.9, 0.2, 1);
-    }
-
-    @keyframes explodeRing {
-      0% { transform: scale(0.1); opacity: 1; }
-      70% { opacity: 0.8; }
-      100% { transform: scale(18); opacity: 0; }
-    }
-
-    .hud-title-wrap {
-      position: relative;
-      z-index: 2;
-      text-align: center;
-      padding: 0 20px;
-    }
-
-    .hud-sub {
-      font-size: clamp(0.75rem, 1.6vw, 0.95rem);
-      letter-spacing: 0.4em;
-      color: rgba(255, 255, 255, 0.6);
-      text-transform: uppercase;
-      font-weight: 600;
-      margin-bottom: 8px;
-      animation: textGlow 1.5s infinite alternate;
-    }
-
-    .hud-title {
-      font-size: clamp(2.2rem, 7vw, 5rem);
-      font-weight: 900;
-      letter-spacing: 0.08em;
-      color: #fff;
-      text-transform: uppercase;
-      margin-bottom: 20px;
-      filter: drop-shadow(0 0 35px rgba(255, 0, 0, 0.9));
-      animation: pulseZoom 1.5s infinite alternate ease-in-out;
-    }
-
-    .hud-title span {
-      color: var(--primary);
-      text-shadow: 0 0 30px var(--primary), 0 0 60px rgba(255, 0, 0, 0.6);
-    }
-
-    .hud-loader {
-      width: 220px;
-      height: 4px;
-      background: rgba(255, 255, 255, 0.12);
-      border-radius: 999px;
-      margin: 0 auto 25px;
-      overflow: hidden;
-      position: relative;
-    }
-
-    .hud-loader-bar {
-      position: absolute;
-      top: 0;
-      left: 0;
-      height: 100%;
-      width: 0%;
-      background: linear-gradient(90deg, #660000, #FF0000, #ffffff);
-      box-shadow: 0 0 15px var(--primary);
-      animation: loadBarFill 2.2s forwards cubic-bezier(0.65, 0, 0.35, 1);
-    }
-
-    .skip-btn {
-      background: rgba(255, 0, 0, 0.15);
-      border: 1px solid var(--primary);
-      color: #fff;
-      padding: 8px 22px;
-      border-radius: 20px;
-      font-size: 0.8rem;
-      font-weight: 700;
-      letter-spacing: 0.1em;
-      cursor: pointer;
-      pointer-events: auto;
-      transition: background 0.2s;
-    }
-
-    .skip-btn:hover {
-      background: var(--primary);
-    }
-
-    @keyframes pulseZoom {
-      0% { transform: scale(0.96); }
-      100% { transform: scale(1.03); }
-    }
-
-    @keyframes textGlow {
-      0% { opacity: 0.5; }
-      100% { opacity: 0.9; }
-    }
-
-    @keyframes loadBarFill {
-      0% { width: 0%; }
-      50% { width: 70%; }
-      100% { width: 100%; }
-    }
-
-    /* ================= 2. 3-DOT TOGGLE DRAWER ================= */
-    #menu-toggle {
-      display: none;
-    }
-
-    .drawer-overlay {
-      position: fixed;
-      inset: 0;
-      background: rgba(0, 0, 0, 0.75);
-      backdrop-filter: blur(10px);
-      -webkit-backdrop-filter: blur(10px);
-      z-index: 10000;
-      opacity: 0;
-      visibility: hidden;
-      transition: all 0.3s ease;
-    }
-
-    .side-drawer {
-      position: fixed;
-      top: 0;
-      right: -320px;
-      width: 290px;
-      height: 100vh;
-      background: #14141c;
-      border-left: 2px solid var(--primary);
-      box-shadow: -10px 0 35px rgba(0, 0, 0, 0.9), 0 0 25px var(--primary-glow);
-      z-index: 10001;
-      display: flex;
-      flex-direction: column;
-      padding: 25px 20px;
-      transition: right 0.3s cubic-bezier(0.1, 0.9, 0.2, 1);
-    }
-
-    #menu-toggle:checked ~ .drawer-overlay {
-      opacity: 1;
-      visibility: visible;
-    }
-
-    #menu-toggle:checked ~ .side-drawer {
-      right: 0;
-    }
-
-    .drawer-header {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      margin-bottom: 25px;
-      padding-bottom: 12px;
-      border-bottom: 1px solid rgba(255, 255, 255, 0.1);
-    }
-
-    .drawer-header h3 {
-      font-size: 1rem;
-      color: var(--primary);
-      font-weight: 700;
-      letter-spacing: 0.05em;
-    }
-
-    .close-btn {
-      color: #fff;
-      font-size: 1.3rem;
-      cursor: pointer;
-    }
-
-    .drawer-heading {
-      font-size: 0.75rem;
-      text-transform: uppercase;
-      letter-spacing: 0.08em;
-      color: var(--text-muted);
-      margin-bottom: 8px;
-      font-weight: 600;
-    }
-
-    .drawer-link {
-      display: flex;
-      align-items: center;
-      gap: 12px;
-      color: #fff;
-      text-decoration: none;
-      font-size: 1rem;
-      font-weight: 600;
-      padding: 12px 14px;
-      border-radius: 10px;
-      background: rgba(255, 255, 255, 0.04);
-      margin-bottom: 10px;
-      border: 1px solid transparent;
-      transition: background 0.2s;
-    }
-
-    .drawer-link:hover {
-      background: var(--primary);
-      box-shadow: 0 0 15px var(--primary-glow);
-    }
-
-    /* ================= 3. FIXED NAVBAR ================= */
-    .navbar {
-      position: fixed;
-      top: 10px;
-      left: 50%;
-      transform: translateX(-50%);
-      width: 94%;
-      max-width: 1100px;
-      height: 60px;
-      background: rgba(18, 18, 24, 0.95);
-      border: 1px solid var(--border-red);
-      border-radius: 18px;
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      padding: 0 18px;
-      z-index: 1000;
-      box-shadow: 0 8px 30px rgba(0, 0, 0, 0.8);
-    }
-
-    .nav-logo {
-      font-size: 1.25rem;
-      font-weight: 800;
-      color: #fff;
-      text-decoration: none;
-      letter-spacing: -0.03em;
-    }
-
-    .nav-logo span {
-      color: var(--primary);
-      text-shadow: 0 0 10px var(--primary-glow);
-    }
-
-    .dots-btn {
-      background: rgba(255, 255, 255, 0.1);
-      border: 1px solid var(--border-red);
-      color: #fff;
-      font-size: 1.2rem;
-      width: 40px;
-      height: 40px;
-      border-radius: 50%;
-      cursor: pointer;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      user-select: none;
-      transition: background 0.2s;
-    }
-
-    .dots-btn:hover {
-      background: var(--primary);
-      box-shadow: 0 0 15px var(--primary-glow);
-    }
-
-    /* ================= 4. MAIN CONTAINER ================= */
-    .container {
-      max-width: 950px;
-      margin: 0 auto;
-      padding: 15px;
-    }
-
-    /* ================= 5. HERO ================= */
-    .hero {
-      text-align: center;
-      padding: 20px 10px 30px;
-    }
-
-    .badge {
-      display: inline-block;
-      padding: 4px 16px;
-      background: var(--primary-dim);
-      border: 1px solid var(--primary);
-      color: var(--primary);
-      border-radius: 999px;
-      font-size: 0.78rem;
-      font-weight: 700;
-      letter-spacing: 0.05em;
-      margin-bottom: 15px;
-      box-shadow: 0 0 10px var(--primary-glow);
-    }
-
-    .hero-title {
-      font-size: clamp(2.3rem, 6.5vw, 3.8rem);
-      font-weight: 800;
-      margin-bottom: 12px;
-      line-height: 1.1;
-    }
-
-    .hero-title span {
-      color: var(--primary);
-      text-shadow: 0 0 25px var(--primary-glow);
-    }
-
-    .hero p {
-      color: var(--text-muted);
-      font-size: 1.05rem;
-      max-width: 650px;
-      margin: 0 auto 20px;
-    }
-
-    /* ================= 6. BIO CARD ================= */
-    .bio-card {
-      background: var(--bg-card);
-      border: 2px solid var(--primary);
-      border-radius: 22px;
-      padding: 25px;
-      margin: 25px 0 35px;
-      box-shadow: 0 12px 35px rgba(0, 0, 0, 0.8), 0 0 20px rgba(255, 0, 0, 0.25);
-    }
-
-    .bio-flex {
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      text-align: center;
-      gap: 20px;
-    }
-
-    @media (min-width: 768px) {
-      .bio-flex {
-        flex-direction: row;
-        text-align: left;
-      }
-    }
-
-    .avatar-wrapper {
-      width: 135px;
-      height: 135px;
-      min-width: 135px;
-      border-radius: 50%;
-      border: 4px solid var(--primary);
-      box-shadow: 0 0 20px var(--primary-glow);
-      overflow: hidden;
-      background: #000;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-    }
-
-    .avatar-wrapper svg {
-      width: 100%;
-      height: 100%;
-      display: block;
-    }
-
-    .owner-tag {
-      display: inline-block;
-      background: var(--primary);
-      color: #fff;
-      font-size: 0.75rem;
-      font-weight: 800;
-      padding: 3px 12px;
-      border-radius: 999px;
-      margin-bottom: 6px;
-    }
-
-    .bio-name {
-      font-size: 1.8rem;
-      font-weight: 800;
-      margin-bottom: 2px;
-      color: #fff;
-    }
-
-    .insta-direct {
-      color: #fff;
-      text-decoration: none;
-      font-weight: 600;
-      display: inline-flex;
-      align-items: center;
-      gap: 6px;
-      font-size: 1rem;
-      margin-bottom: 12px;
-    }
-
-    .insta-direct:hover {
-      color: var(--primary);
-      text-shadow: 0 0 8px var(--primary-glow);
-    }
-
-    .systum-tagline {
-      font-size: 1.25rem;
-      color: #fff;
-      font-weight: 700;
-      margin-bottom: 12px;
-      background: var(--primary-dim);
-      display: inline-block;
-      padding: 8px 16px;
-      border-radius: 10px;
-      border-left: 4px solid var(--primary);
-      box-shadow: 0 0 10px rgba(255, 0, 0, 0.15);
-    }
-
-    .bio-desc {
-      color: var(--text-muted);
-      font-size: 1rem;
-      line-height: 1.5;
-    }
-
-    /* ================= 7. STUDY CARDS ================= */
-    .section-title {
-      text-align: center;
-      margin: 35px 0 20px;
-    }
-
-    .section-title h2 {
-      font-size: 1.8rem;
-      font-weight: 800;
-    }
-
-    .section-title span {
-      color: var(--primary);
-      text-shadow: 0 0 12px var(--primary-glow);
-    }
-
-    .materials-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
-      gap: 18px;
-      margin-bottom: 35px;
-    }
-
-    .material-card {
-      background: var(--bg-card);
-      border: 1px solid var(--border-red);
-      border-radius: 18px;
-      padding: 22px;
-      transition: transform 0.2s, box-shadow 0.2s;
-    }
-
-    .material-card:hover {
-      border-color: var(--primary);
-      box-shadow: 0 0 20px rgba(255, 0, 0, 0.3);
-      transform: translateY(-3px);
-    }
-
-    .card-badge {
-      display: inline-block;
-      padding: 2px 8px;
-      background: var(--primary-dim);
-      border: 1px solid var(--primary);
-      color: #ff6666;
-      font-size: 0.72rem;
-      border-radius: 999px;
-      font-weight: 700;
-      margin-bottom: 10px;
-    }
-
-    .card-icon {
-      font-size: 1.8rem;
-      margin-bottom: 10px;
-      display: block;
-      color: var(--primary);
-      text-shadow: 0 0 10px var(--primary-glow);
-    }
-
-    .material-card h3 {
-      font-size: 1.15rem;
-      font-weight: 700;
-      margin-bottom: 6px;
-    }
-
-    .material-card p {
-      color: var(--text-muted);
-      font-size: 0.92rem;
-    }
-
-    /* ================= 8. CONTACT ================= */
-    .contact-card {
-      background: var(--bg-card);
-      border: 1px solid var(--border-red);
-      padding: 25px 20px;
-      border-radius: 20px;
-      max-width: 600px;
-      margin: 0 auto 30px;
-      text-align: center;
-    }
-
-    .direct-email-badge {
-      display: inline-flex;
-      align-items: center;
-      justify-content: center;
-      gap: 10px;
-      background: rgba(255, 255, 255, 0.05);
-      border: 1px solid var(--border-red);
-      padding: 12px 20px;
-      border-radius: 12px;
-      text-decoration: none;
-      color: #fff;
-      font-weight: 600;
-      font-size: 0.98rem;
-      transition: background 0.2s;
-    }
-
-    .direct-email-badge:hover {
-      background: var(--primary);
-    }
-
-    /* ================= 9. FOOTER ================= */
-    footer {
-      border-top: 1px solid rgba(255, 255, 255, 0.1);
-      background: #050507;
-      padding: 30px 20px;
-      text-align: center;
-    }
-
-    .social-row {
-      display: flex;
-      justify-content: center;
-      gap: 16px;
-      margin-bottom: 12px;
-    }
-
-    .social-btn {
-      width: 40px;
-      height: 40px;
-      border-radius: 50%;
-      background: rgba(255, 255, 255, 0.08);
-      border: 1px solid var(--border-red);
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      color: #fff;
-      font-size: 1.1rem;
-      text-decoration: none;
-      transition: background 0.2s;
-    }
-
-    .social-btn:hover {
-      background: var(--primary);
-    }
-  </style>
-</head>
-<body>
-
-  <!-- ZERO-FREEZE INTRO SCREEN -->
-  <div id="universe-stage">
-    <div class="shock-ring"></div>
-    <div class="hud-title-wrap">
-      <p class="hud-sub">QUANTUM CORE INITIALIZED</p>
-      <h1 class="hud-title">SYSTUM - <span>UNIVERSE</span></h1>
-      <div class="hud-loader">
-        <div class="hud-loader-bar"></div>
-      </div>
-      <button type="button" class="skip-btn" onclick="document.getElementById('universe-stage').style.display='none';">
-        ENTER SYSTEM <i class="fa-solid fa-arrow-right"></i>
-      </button>
-    </div>
-  </div>
-
-  <!-- CHECKBOX FOR ZERO-BUG MENU -->
-  <input type="checkbox" id="menu-toggle">
-
-  <!-- NAVBAR -->
-  <header>
-    <nav class="navbar">
-      <a href="#" class="nav-logo">
-        <i class="fa-solid fa-atom" style="color:var(--primary); margin-right: 6px;"></i> SYSTUM<span>.</span>
-      </a>
-
-      <!-- 3-DOTS BUTTON -->
-      <label for="menu-toggle" class="dots-btn" title="Menu">
-        <i class="fa-solid fa-ellipsis-vertical"></i>
-      </label>
-    </nav>
-  </header>
-
-  <!-- SLIDE DRAWER PANEL -->
-  <label for="menu-toggle" class="drawer-overlay"></label>
-  <div class="side-drawer">
-    <div class="drawer-header">
-      <h3>OPTIONS MENU</h3>
-      <label for="menu-toggle" class="close-btn"><i class="fa-solid fa-xmark"></i></label>
+<!-- Signup / Login Modal -->
+<div id="authModal" class="auth-modal">
+  <div class="auth-box">
+    <div class="auth-header">
+      <h3>VERIFY MOBILE <span>OTP</span></h3>
+      <button class="close-auth" onclick="closeAuthModal()">&times;</button>
     </div>
 
-    <div class="drawer-heading">Social Links</div>
-    <!-- Direct Instagram Link -->
-    <a href="https://www.instagram.com/_avinash_meena1?stkn=bm1rZWxmeWdsam43" target="_blank" rel="noopener noreferrer" class="drawer-link">
-      <i class="fa-brands fa-instagram" style="color:#E1306C; font-size:1.2rem;"></i> Instagram
-    </a>
-    <!-- Direct YouTube Link -->
-    <a href="https://youtube.com/@xnaviff" target="_blank" rel="noopener noreferrer" class="drawer-link">
-      <i class="fa-brands fa-youtube" style="color:#FF0000; font-size:1.2rem;"></i> YouTube
-    </a>
-
-    <div class="drawer-heading" style="margin-top:20px;">Account</div>
-    <button type="button" class="drawer-link" style="border:none; width:100%; cursor:pointer;" onclick="alert('Login Portal');">
-      <i class="fa-solid fa-right-to-bracket" style="color:var(--primary); font-size:1.1rem;"></i> Login
-    </button>
-    <button type="button" class="drawer-link" style="border:none; width:100%; cursor:pointer;" onclick="alert('Logged Out');">
-      <i class="fa-solid fa-right-from-bracket" style="color:var(--primary); font-size:1.1rem;"></i> Logout
-    </button>
-  </div>
-
-  <div class="container">
-
-    <!-- HERO SECTION -->
-    <section class="hero">
-      <span class="badge">SYSTUM UNIVERSE ACTIVE</span>
-      <h1 class="hero-title">SYSTUM - <span>UNIVERSE</span></h1>
-      <p>Curated technical study vaults, roadmaps, and cheat-sheets maintained by Avinash Meena.</p>
-    </section>
-
-    <!-- GUARANTEED VISIBLE BIO SECTION -->
-    <section class="bio-card">
-      <div class="bio-flex">
-        <div class="avatar-wrapper">
-          <!-- Exact Teddy Vector Graphic -->
-          <svg viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg">
-            <defs>
-              <radialGradient id="redFur" cx="50%" cy="45%" r="55%">
-                <stop offset="0%" stop-color="#ff3333"/>
-                <stop offset="60%" stop-color="#b30000"/>
-                <stop offset="100%" stop-color="#330000"/>
-              </radialGradient>
-              <linearGradient id="lensGlow" x1="0%" y1="0%" x2="100%" y2="100%">
-                <stop offset="0%" stop-color="#00ffff" stop-opacity="0.85"/>
-                <stop offset="50%" stop-color="#8a2be2" stop-opacity="0.85"/>
-                <stop offset="100%" stop-color="#ff0055" stop-opacity="0.9"/>
-              </linearGradient>
-            </defs>
-            <rect width="200" height="200" fill="#070709"/>
-            <circle cx="50" cy="55" r="28" fill="#800000"/>
-            <circle cx="50" cy="55" r="17" fill="#4d0000"/>
-            <circle cx="150" cy="55" r="28" fill="#800000"/>
-            <circle cx="150" cy="55" r="17" fill="#4d0000"/>
-            <circle cx="100" cy="100" r="62" fill="url(#redFur)"/>
-            <ellipse cx="100" cy="116" rx="26" ry="20" fill="#ff4d4d"/>
-            <polygon points="100,108 90,118 110,118" fill="#200000"/>
-            <rect x="36" y="80" width="56" height="38" rx="8" fill="none" stroke="#150000" stroke-width="7"/>
-            <rect x="108" y="80" width="56" height="38" rx="8" fill="none" stroke="#150000" stroke-width="7"/>
-            <line x1="92" y1="96" x2="108" y2="96" stroke="#150000" stroke-width="7"/>
-            <rect x="40" y="84" width="48" height="30" rx="5" fill="url(#lensGlow)"/>
-            <rect x="112" y="84" width="48" height="30" rx="5" fill="url(#lensGlow)"/>
-          </svg>
-        </div>
-
-        <div>
-          <span class="owner-tag">OWNER : SYSTUM</span>
-          <h2 class="bio-name">Avinash Meena</h2>
-          <a href="https://www.instagram.com/_avinash_meena1?stkn=bm1rZWxmeWdsam43" target="_blank" rel="noopener noreferrer" class="insta-direct">
-            <i class="fa-brands fa-instagram" style="color:#E1306C;"></i> @_avinash_meena1
-          </a>
-          
-          <br>
-          <div class="systum-tagline">
-            meenaji ka systum hai ladle ❤️🌝
-          </div>
-
-          <p class="bio-desc">
-            Welcome to the command hub! I am <strong>Avinash Meena</strong>, owner of <strong>SYSTUM - UNIVERSE</strong>. This portal provides direct access to high-yield engineering notes, coding roadmaps, and computer science revision files.
-          </p>
-        </div>
+    <!-- Step 1: Mobile Number Input -->
+    <div id="step-phone">
+      <label>Enter 10-Digit Mobile Number</label>
+      <div class="input-wrap">
+        <span class="prefix">+91</span>
+        <input type="tel" id="userPhone" placeholder="9876543210" maxlength="10">
       </div>
-    </section>
+      <button class="auth-btn" onclick="requestOTP()">Send OTP</button>
+    </div>
 
-    <!-- STUDY MATERIAL CARDS -->
-    <section>
-      <div class="section-titl
+    <!-- Step 2: OTP Verification Box (Hidden pehle se) -->
+    <div id="step-otp" style="display: none;">
+      <p class="otp-sent-text">OTP sent to: <b id="displayPhone"></b></p>
+      <label>Enter 6-Digit OTP</label>
+      <input type="text" id="userOTP" placeholder="Enter OTP" maxlength="6" class="otp-input">
+      <button class="auth-btn" onclick="verifyOTP()">Verify & Login</button>
+      <button class="resend-btn" onclick="resetSteps()">Change Number</button>
+    </div>
+
+    <div id="authStatus" class="auth-status"></div>
+  </div>
+</div>
+
+<style>
+  /* Modal Background */
+  .auth-modal {
+    display: none;
+    position: fixed;
+    inset: 0;
+    background: rgba(0, 0, 0, 0.85);
+    backdrop-filter: blur(10px);
+    z-index: 100000;
+    align-items: center;
+    justify-content: center;
+  }
+  .auth-modal.open {
+    display: flex;
+  }
+  .auth-box {
+    background: #14141c;
+    border: 2px solid #FF0000;
+    border-radius: 18px;
+    padding: 25px;
+    width: 90%;
+    max-width: 380px;
+    box-shadow: 0 0 25px rgba(255, 0, 0, 0.4);
+    color: #fff;
+    text-align: center;
+  }
+  .auth-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+    padding-bottom: 10px;
+  }
+  .auth-header h3 {
+    font-size: 1.1rem;
+    color: #fff;
+  }
+  .auth-header span {
+    color: #FF0000;
+  }
+  .close-auth {
+    background: none;
+    border: none;
+    color: #fff;
+    font-size: 1.5rem;
+    cursor: pointer;
+  }
+  .input-wrap {
+    display: flex;
+    align-items: center;
+    background: #09090d;
+    border: 1px solid rgba(255, 255, 255, 0.15);
+    border-radius: 10px;
+    margin: 10px 0 18px;
+    padding: 0 12px;
+  }
+  .prefix {
+    color: #FF0000;
+    font-weight: 700;
+    margin-right: 8px;
+  }
+  .input-wrap input, .otp-input {
+    width: 100%;
+    background: transparent;
+    border: none;
+    padding: 12px;
+    color: #fff;
+    font-size: 1.05rem;
+    outline: none;
+  }
+  .otp-input {
+    background: #09090d;
+    border: 1px solid rgba(255, 255, 255, 0.15);
+    border-radius: 10px;
+    margin: 10px 0 18px;
+    text-align: center;
+    letter-spacing: 5px;
+    font-weight: 700;
+  }
+  .auth-btn {
+    width: 100%;
+    background: #FF0000;
+    border: none;
+    color: #fff;
+    padding: 12px;
+    border-radius: 10px;
+    font-weight: 700;
+    cursor: pointer;
+    box-shadow: 0 0 15px rgba(255, 0, 0, 0.4);
+    transition: background 0.2s;
+  }
+  .auth-btn:hover {
+    background: #cc0000;
+  }
+  .resend-btn {
+    background: none;
+    border: none;
+    color: #8e8e93;
+    font-size: 0.85rem;
+    margin-top: 10px;
+    cursor: pointer;
+    text-decoration: underline;
+  }
+  .otp-sent-text {
+    font-size: 0.9rem;
+    color: #8e8e93;
+    margin-bottom: 12px;
+  }
+  .auth-status {
+    margin-top: 15px;
+    font-size: 0.9rem;
+    font-weight: 600;
+  }
+</style>
+
+<script>
+  let serverOTP = null; // Backend ya service se aane wala actual code
+
+  function openAuthModal() {
+    document.getElementById('authModal').classList.add('open');
+    resetSteps();
+  }
+
+  function closeAuthModal() {
+    document.getElementById('authModal').classList.remove('open');
+  }
+
+  function resetSteps() {
+    document.getElementById('step-phone').style.display = 'block';
+    document.getElementById('step-otp').style.display = 'none';
+    document.getElementById('authStatus').innerText = '';
+    document.getElementById('userPhone').value = '';
+    document.getElementById('userOTP').value = '';
+  }
+
+  function requestOTP() {
+    const phone = document.getElementById('userPhone').value.trim();
+    const status = document.getElementById('authStatus');
+
+    if (phone.length !== 10 || isNaN(phone)) {
+      status.style.color = '#FF0000';
+      status.innerText = 'Kripya sahi 10-digit number dalein!';
+      return;
+    }
+
+    // Demo/Testing ke liye random 6 digit code
+    serverOTP = Math.floor(100000 + Math.random() * 900000);
+
+    // Screen change karke OTP box dikhana
+    document.getElementById('step-phone').style.display = 'none';
+    document.getElementById('step-otp').style.display = 'block';
+    document.getElementById('displayPhone').innerText = '+91 ' + phone;
+
+    // Real system me yaha Firebase/SMS gateway call hoti hai
+    alert('Testing ke liye aapka OTP hai: ' + serverOTP);
+    status.style.color = '#00ff88';
+    status.innerText = 'OTP bhej diya gaya hai!';
+  }
+
+  function verifyOTP() {
+    const enteredOTP = document.getElementById('userOTP').value.trim();
+    const status = document.getElementById('authStatus');
+
+    // Strict Verification check
+    if (enteredOTP === String(serverOTP)) {
+      status.style.color = '#00ff88';
+      status.innerText = 'OTP Verified! Login successful.';
+      
+      // User ko login mark karna
+      localStorage.setItem('userLoggedIn', 'true');
+
+      setTimeout(() => {
+        closeAuthModal();
+        alert('Welcome! Ab aap study material access kar sakte hain.');
+      }, 1000);
+    } else {
+      status.style.color = '#FF0000';
+      status.innerText = 'Galat OTP! Kripya dobara check karein.';
+    }
+  }
+</script>
