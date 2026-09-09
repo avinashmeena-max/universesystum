@@ -1,213 +1,758 @@
-<!-- Signup / Login Modal -->
-<div id="authModal" class="auth-modal">
-  <div class="auth-box">
-    <div class="auth-header">
-      <h3>VERIFY MOBILE <span>OTP</span></h3>
-      <button class="close-auth" onclick="closeAuthModal()">&times;</button>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>SYSTUM - UNIVERSE | Study Hub</title>
+  
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+
+  <style>
+    :root {
+      --primary: #FF0000;
+      --primary-glow: rgba(255, 0, 0, 0.7);
+      --primary-dim: rgba(255, 0, 0, 0.15);
+      --bg-dark: #08080a;
+      --bg-card: #13131c;
+      --text-main: #FFFFFF;
+      --text-muted: #8e8e93;
+      --border-red: rgba(255, 0, 0, 0.4);
+      --ios-font: -apple-system, BlinkMacSystemFont, "SF Pro Display", "SF Pro Text", "Helvetica Neue", sans-serif;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    body {
+      background-color: var(--bg-dark);
+      color: var(--text-main);
+      font-family: var(--ios-font);
+      font-size: 17px;
+      line-height: 1.5;
+      letter-spacing: -0.02em;
+      background-image: radial-gradient(circle at 50% 10%, #2b0000 0%, #08080a 75%);
+      background-attachment: fixed;
+      padding-top: 85px;
+      overflow-x: hidden;
+    }
+
+    /* ================= FIXED NAVBAR ================= */
+    .navbar {
+      position: fixed;
+      top: 10px;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 94%;
+      max-width: 1100px;
+      height: 62px;
+      background: rgba(18, 18, 24, 0.96);
+      border: 1px solid var(--border-red);
+      border-radius: 18px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0 20px;
+      z-index: 1000;
+      box-shadow: 0 8px 30px rgba(0, 0, 0, 0.8), 0 0 15px rgba(255, 0, 0, 0.2);
+    }
+
+    .nav-logo {
+      font-size: 1.25rem;
+      font-weight: 800;
+      color: #fff;
+      text-decoration: none;
+      letter-spacing: -0.03em;
+    }
+
+    .nav-logo span {
+      color: var(--primary);
+      text-shadow: 0 0 12px var(--primary-glow);
+    }
+
+    .dots-toggle-btn {
+      background: rgba(255, 255, 255, 0.1);
+      border: 1px solid var(--border-red);
+      color: #fff;
+      font-size: 1.3rem;
+      width: 42px;
+      height: 42px;
+      border-radius: 50%;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      user-select: none;
+      transition: background 0.2s;
+    }
+
+    .dots-toggle-btn:hover {
+      background: var(--primary);
+      box-shadow: 0 0 15px var(--primary-glow);
+    }
+
+    /* ================= PURE CSS SLIDE DRAWER (ZERO BUG) ================= */
+    #menu-switch {
+      display: none;
+    }
+
+    .drawer-overlay {
+      position: fixed;
+      inset: 0;
+      background: rgba(0, 0, 0, 0.8);
+      backdrop-filter: blur(8px);
+      -webkit-backdrop-filter: blur(8px);
+      z-index: 10000;
+      opacity: 0;
+      visibility: hidden;
+      transition: all 0.3s ease;
+    }
+
+    .side-drawer {
+      position: fixed;
+      top: 0;
+      right: -320px;
+      width: 300px;
+      height: 100vh;
+      background: #14141c;
+      border-left: 2px solid var(--primary);
+      box-shadow: -10px 0 35px rgba(0, 0, 0, 0.9), 0 0 25px var(--primary-glow);
+      z-index: 10001;
+      display: flex;
+      flex-direction: column;
+      padding: 25px 20px;
+      transition: right 0.3s cubic-bezier(0.1, 0.9, 0.2, 1);
+    }
+
+    #menu-switch:checked ~ .drawer-overlay {
+      opacity: 1;
+      visibility: visible;
+    }
+
+    #menu-switch:checked ~ .side-drawer {
+      right: 0;
+    }
+
+    .drawer-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 25px;
+      padding-bottom: 12px;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.12);
+    }
+
+    .drawer-header h3 {
+      font-size: 1.1rem;
+      color: var(--primary);
+      letter-spacing: 0.05em;
+      font-weight: 700;
+    }
+
+    .close-btn {
+      color: #fff;
+      font-size: 1.4rem;
+      cursor: pointer;
+    }
+
+    .drawer-section-title {
+      font-size: 0.78rem;
+      color: var(--text-muted);
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      margin-bottom: 8px;
+      font-weight: 600;
+    }
+
+    .drawer-link {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      color: #fff;
+      text-decoration: none;
+      font-size: 1rem;
+      font-weight: 600;
+      padding: 12px 14px;
+      border-radius: 10px;
+      background: rgba(255, 255, 255, 0.04);
+      margin-bottom: 10px;
+      border: 1px solid transparent;
+      transition: all 0.2s ease;
+      cursor: pointer;
+      width: 100%;
+      text-align: left;
+    }
+
+    .drawer-link:hover {
+      background: var(--primary);
+      box-shadow: 0 0 15px var(--primary-glow);
+      transform: translateX(4px);
+    }
+
+    /* ================= MAIN CONTAINER ================= */
+    .wrapper {
+      max-width: 950px;
+      margin: 0 auto;
+      padding: 15px;
+    }
+
+    /* ================= HERO WITH GLOWING TITLE ================= */
+    .hero {
+      text-align: center;
+      padding: 25px 10px 30px;
+    }
+
+    .badge {
+      display: inline-block;
+      padding: 4px 16px;
+      background: var(--primary-dim);
+      border: 1px solid var(--primary);
+      color: var(--primary);
+      border-radius: 999px;
+      font-size: 0.78rem;
+      font-weight: 700;
+      letter-spacing: 0.05em;
+      margin-bottom: 15px;
+      box-shadow: 0 0 10px var(--primary-glow);
+    }
+
+    .hero-title {
+      font-size: clamp(2.3rem, 6.5vw, 3.8rem);
+      font-weight: 800;
+      margin-bottom: 12px;
+      line-height: 1.1;
+      animation: heroGlow 2.5s infinite alternate ease-in-out;
+    }
+
+    .hero-title span {
+      color: var(--primary);
+      text-shadow: 0 0 25px var(--primary-glow);
+    }
+
+    @keyframes heroGlow {
+      0% { transform: scale(0.98); opacity: 0.95; }
+      100% { transform: scale(1); opacity: 1; }
+    }
+
+    .hero p {
+      color: var(--text-muted);
+      font-size: 1.05rem;
+      max-width: 650px;
+      margin: 0 auto 20px;
+    }
+
+    .btn-group {
+      display: flex;
+      justify-content: center;
+      gap: 15px;
+      flex-wrap: wrap;
+    }
+
+    .btn {
+      padding: 12px 28px;
+      border-radius: 10px;
+      font-size: 0.88rem;
+      font-weight: 700;
+      text-decoration: none;
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      border: none;
+      cursor: pointer;
+      transition: all 0.2s ease;
+    }
+
+    .btn-primary {
+      background: var(--primary);
+      color: #fff;
+      box-shadow: 0 0 20px var(--primary-glow);
+    }
+
+    .btn-primary:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 0 30px var(--primary);
+    }
+
+    .btn-glass {
+      background: rgba(255, 255, 255, 0.08);
+      color: #fff;
+      border: 1px solid var(--border-red);
+    }
+
+    .btn-glass:hover {
+      border-color: var(--primary);
+      transform: translateY(-2px);
+    }
+
+    /* ================= GUARANTEED VISIBLE BIO SECTION ================= */
+    .bio-card {
+      background: var(--bg-card);
+      border: 2px solid var(--primary);
+      border-radius: 22px;
+      padding: 30px 22px;
+      margin: 25px 0 35px;
+      box-shadow: 0 12px 35px rgba(0, 0, 0, 0.8), 0 0 25px rgba(255, 0, 0, 0.25);
+    }
+
+    .bio-flex {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      text-align: center;
+      gap: 22px;
+    }
+
+    @media (min-width: 768px) {
+      .bio-flex {
+        flex-direction: row;
+        text-align: left;
+      }
+    }
+
+    .avatar-box {
+      width: 140px;
+      height: 140px;
+      min-width: 140px;
+      border-radius: 50%;
+      border: 4px solid var(--primary);
+      box-shadow: 0 0 25px var(--primary-glow);
+      overflow: hidden;
+      background: #000;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .avatar-box svg {
+      width: 100%;
+      height: 100%;
+      display: block;
+    }
+
+    .owner-tag {
+      display: inline-block;
+      background: var(--primary);
+      color: #fff;
+      font-size: 0.78rem;
+      font-weight: 800;
+      padding: 4px 14px;
+      border-radius: 999px;
+      letter-spacing: 0.05em;
+      margin-bottom: 6px;
+    }
+
+    .bio-name {
+      font-size: 1.85rem;
+      font-weight: 800;
+      margin-bottom: 2px;
+      color: #fff;
+    }
+
+    .insta-direct {
+      color: #fff;
+      text-decoration: none;
+      font-weight: 600;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      font-size: 1.05rem;
+      margin-bottom: 12px;
+      transition: color 0.15s ease;
+    }
+
+    .insta-direct:hover {
+      color: var(--primary);
+      text-shadow: 0 0 8px var(--primary-glow);
+    }
+
+    .systum-tagline {
+      font-size: 1.25rem;
+      color: #fff;
+      font-weight: 700;
+      margin-bottom: 12px;
+      background: var(--primary-dim);
+      display: inline-block;
+      padding: 8px 16px;
+      border-radius: 10px;
+      border-left: 4px solid var(--primary);
+      box-shadow: 0 0 10px rgba(255, 0, 0, 0.15);
+    }
+
+    .bio-desc {
+      color: var(--text-muted);
+      font-size: 1.02rem;
+      line-height: 1.5;
+    }
+
+    /* ================= STUDY CARDS ================= */
+    .section-title {
+      text-align: center;
+      margin: 40px 0 20px;
+    }
+
+    .section-title h2 {
+      font-size: 1.9rem;
+      font-weight: 800;
+    }
+
+    .section-title span {
+      color: var(--primary);
+      text-shadow: 0 0 12px var(--primary-glow);
+    }
+
+    .materials-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+      gap: 18px;
+      margin-bottom: 35px;
+    }
+
+    .material-card {
+      background: var(--bg-card);
+      border: 1px solid var(--border-red);
+      border-radius: 18px;
+      padding: 24px;
+      transition: all 0.2s;
+    }
+
+    .material-card:hover {
+      border-color: var(--primary);
+      box-shadow: 0 0 20px rgba(255, 0, 0, 0.35);
+      transform: translateY(-3px);
+    }
+
+    .card-badge {
+      display: inline-block;
+      padding: 3px 8px;
+      background: var(--primary-dim);
+      border: 1px solid var(--primary);
+      color: #ff6666;
+      font-size: 0.72rem;
+      border-radius: 999px;
+      font-weight: 700;
+      margin-bottom: 10px;
+    }
+
+    .card-icon {
+      font-size: 2rem;
+      margin-bottom: 12px;
+      display: block;
+      color: var(--primary);
+      text-shadow: 0 0 10px var(--primary-glow);
+    }
+
+    .material-card h3 {
+      font-size: 1.2rem;
+      font-weight: 700;
+      margin-bottom: 6px;
+    }
+
+    .material-card p {
+      color: var(--text-muted);
+      font-size: 0.95rem;
+    }
+
+    /* ================= CONTACT ================= */
+    .contact-card {
+      background: var(--bg-card);
+      border: 1px solid var(--border-red);
+      padding: 26px 20px;
+      border-radius: 20px;
+      max-width: 600px;
+      margin: 0 auto 35px;
+      text-align: center;
+    }
+
+    .direct-email-badge {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+      background: rgba(255, 255, 255, 0.05);
+      border: 1px solid var(--border-red);
+      padding: 12px 20px;
+      border-radius: 12px;
+      text-decoration: none;
+      color: #fff;
+      font-weight: 600;
+      font-size: 0.98rem;
+      transition: background 0.2s;
+    }
+
+    .direct-email-badge:hover {
+      background: var(--primary);
+    }
+
+    /* ================= OTP MODAL ================= */
+    .auth-modal {
+      display: none;
+      position: fixed;
+      inset: 0;
+      background: rgba(0, 0, 0, 0.85);
+      backdrop-filter: blur(10px);
+      -webkit-backdrop-filter: blur(10px);
+      z-index: 100000;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .auth-modal.open {
+      display: flex;
+    }
+
+    .auth-box {
+      background: #14141c;
+      border: 2px solid var(--primary);
+      border-radius: 20px;
+      padding: 25px;
+      width: 90%;
+      max-width: 380px;
+      box-shadow: 0 0 30px rgba(255, 0, 0, 0.4);
+      color: #fff;
+      text-align: center;
+    }
+
+    .auth-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 20px;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+      padding-bottom: 10px;
+    }
+
+    .auth-header h3 {
+      font-size: 1.15rem;
+      color: #fff;
+    }
+
+    .close-auth {
+      background: none;
+      border: none;
+      color: #fff;
+      font-size: 1.5rem;
+      cursor: pointer;
+    }
+
+    .input-wrap {
+      display: flex;
+      align-items: center;
+      background: #09090d;
+      border: 1px solid rgba(255, 255, 255, 0.15);
+      border-radius: 10px;
+      margin: 10px 0 18px;
+      padding: 0 12px;
+    }
+
+    .prefix {
+      color: var(--primary);
+      font-weight: 700;
+      margin-right: 8px;
+    }
+
+    .input-wrap input, .otp-input {
+      width: 100%;
+      background: transparent;
+      border: none;
+      padding: 12px;
+      color: #fff;
+      font-size: 1.05rem;
+      outline: none;
+      font-family: var(--ios-font);
+    }
+
+    .otp-input {
+      background: #09090d;
+      border: 1px solid rgba(255, 255, 255, 0.15);
+      border-radius: 10px;
+      margin: 10px 0 18px;
+      text-align: center;
+      letter-spacing: 5px;
+      font-weight: 700;
+    }
+
+    .auth-btn {
+      width: 100%;
+      background: var(--primary);
+      border: none;
+      color: #fff;
+      padding: 12px;
+      border-radius: 10px;
+      font-weight: 700;
+      cursor: pointer;
+      box-shadow: 0 0 15px rgba(255, 0, 0, 0.4);
+      transition: background 0.2s;
+    }
+
+    .auth-btn:hover {
+      background: #cc0000;
+    }
+
+    .resend-btn {
+      background: none;
+      border: none;
+      color: var(--text-muted);
+      font-size: 0.85rem;
+      margin-top: 10px;
+      cursor: pointer;
+      text-decoration: underline;
+    }
+
+    .otp-sent-text {
+      font-size: 0.9rem;
+      color: var(--text-muted);
+      margin-bottom: 12px;
+    }
+
+    .auth-status {
+      margin-top: 15px;
+      font-size: 0.9rem;
+      font-weight: 600;
+    }
+
+    /* ================= FOOTER ================= */
+    footer {
+      border-top: 1px solid rgba(255, 255, 255, 0.1);
+      background: #050507;
+      padding: 30px 20px;
+      text-align: center;
+    }
+
+    .social-row {
+      display: flex;
+      justify-content: center;
+      gap: 16px;
+      margin-bottom: 12px;
+    }
+
+    .social-btn {
+      width: 42px;
+      height: 42px;
+      border-radius: 50%;
+      background: rgba(255, 255, 255, 0.08);
+      border: 1px solid var(--border-red);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: #fff;
+      font-size: 1.15rem;
+      text-decoration: none;
+      transition: all 0.2s;
+    }
+
+    .social-btn:hover {
+      background: var(--primary);
+      box-shadow: 0 0 15px var(--primary-glow);
+    }
+  </style>
+</head>
+<body>
+
+  <!-- CHECKBOX FOR ZERO-BUG DRAWER -->
+  <input type="checkbox" id="menu-switch">
+
+  <!-- NAVBAR -->
+  <header>
+    <nav class="navbar">
+      <a href="#" class="nav-logo">
+        <i class="fa-solid fa-atom" style="color:var(--primary); margin-right: 6px;"></i> SYSTUM<span>.</span>
+      </a>
+
+      <!-- 3-DOTS BUTTON -->
+      <label for="menu-switch" class="dots-toggle-btn" title="Options">
+        <i class="fa-solid fa-ellipsis-vertical"></i>
+      </label>
+    </nav>
+  </header>
+
+  <!-- SLIDE-OUT 3-DOTS DRAWER MENU -->
+  <label for="menu-switch" class="drawer-overlay"></label>
+  <div class="side-drawer">
+    <div class="drawer-header">
+      <h3>OPTIONS MENU</h3>
+      <label for="menu-switch" class="close-btn"><i class="fa-solid fa-xmark"></i></label>
     </div>
 
-    <!-- Step 1: Mobile Number Input -->
-    <div id="step-phone">
-      <label>Enter 10-Digit Mobile Number</label>
-      <div class="input-wrap">
-        <span class="prefix">+91</span>
-        <input type="tel" id="userPhone" placeholder="9876543210" maxlength="10">
-      </div>
-      <button class="auth-btn" onclick="requestOTP()">Send OTP</button>
-    </div>
+    <!-- Account Actions -->
+    <div class="drawer-section-title">Account</div>
+    <button type="button" class="drawer-link" onclick="openAuthModal();">
+      <i class="fa-solid fa-user-plus" style="color:var(--primary); font-size:1.1rem;"></i> Signup / Login
+    </button>
+    <button type="button" class="drawer-link" onclick="handleLogout();">
+      <i class="fa-solid fa-right-from-bracket" style="color:var(--primary); font-size:1.1rem;"></i> Logout
+    </button>
 
-    <!-- Step 2: OTP Verification Box (Hidden pehle se) -->
-    <div id="step-otp" style="display: none;">
-      <p class="otp-sent-text">OTP sent to: <b id="displayPhone"></b></p>
-      <label>Enter 6-Digit OTP</label>
-      <input type="text" id="userOTP" placeholder="Enter OTP" maxlength="6" class="otp-input">
-      <button class="auth-btn" onclick="verifyOTP()">Verify & Login</button>
-      <button class="resend-btn" onclick="resetSteps()">Change Number</button>
-    </div>
-
-    <div id="authStatus" class="auth-status"></div>
+    <!-- Social Links -->
+    <div class="drawer-section-title" style="margin-top:20px;">Social Links</div>
+    <a href="https://www.instagram.com/_avinash_meena1?stkn=bm1rZWxmeWdsam43" target="_blank" rel="noopener noreferrer" class="drawer-link">
+      <i class="fa-brands fa-instagram" style="color:#E1306C; font-size:1.2rem;"></i> Instagram
+    </a>
+    <a href="https://youtube.com/@xnaviff" target="_blank" rel="noopener noreferrer" class="drawer-link">
+      <i class="fa-brands fa-youtube" style="color:#FF0000; font-size:1.2rem;"></i> YouTube
+    </a>
   </div>
-</div>
 
-<style>
-  /* Modal Background */
-  .auth-modal {
-    display: none;
-    position: fixed;
-    inset: 0;
-    background: rgba(0, 0, 0, 0.85);
-    backdrop-filter: blur(10px);
-    z-index: 100000;
-    align-items: center;
-    justify-content: center;
-  }
-  .auth-modal.open {
-    display: flex;
-  }
-  .auth-box {
-    background: #14141c;
-    border: 2px solid #FF0000;
-    border-radius: 18px;
-    padding: 25px;
-    width: 90%;
-    max-width: 380px;
-    box-shadow: 0 0 25px rgba(255, 0, 0, 0.4);
-    color: #fff;
-    text-align: center;
-  }
-  .auth-header {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    margin-bottom: 20px;
-    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
-    padding-bottom: 10px;
-  }
-  .auth-header h3 {
-    font-size: 1.1rem;
-    color: #fff;
-  }
-  .auth-header span {
-    color: #FF0000;
-  }
-  .close-auth {
-    background: none;
-    border: none;
-    color: #fff;
-    font-size: 1.5rem;
-    cursor: pointer;
-  }
-  .input-wrap {
-    display: flex;
-    align-items: center;
-    background: #09090d;
-    border: 1px solid rgba(255, 255, 255, 0.15);
-    border-radius: 10px;
-    margin: 10px 0 18px;
-    padding: 0 12px;
-  }
-  .prefix {
-    color: #FF0000;
-    font-weight: 700;
-    margin-right: 8px;
-  }
-  .input-wrap input, .otp-input {
-    width: 100%;
-    background: transparent;
-    border: none;
-    padding: 12px;
-    color: #fff;
-    font-size: 1.05rem;
-    outline: none;
-  }
-  .otp-input {
-    background: #09090d;
-    border: 1px solid rgba(255, 255, 255, 0.15);
-    border-radius: 10px;
-    margin: 10px 0 18px;
-    text-align: center;
-    letter-spacing: 5px;
-    font-weight: 700;
-  }
-  .auth-btn {
-    width: 100%;
-    background: #FF0000;
-    border: none;
-    color: #fff;
-    padding: 12px;
-    border-radius: 10px;
-    font-weight: 700;
-    cursor: pointer;
-    box-shadow: 0 0 15px rgba(255, 0, 0, 0.4);
-    transition: background 0.2s;
-  }
-  .auth-btn:hover {
-    background: #cc0000;
-  }
-  .resend-btn {
-    background: none;
-    border: none;
-    color: #8e8e93;
-    font-size: 0.85rem;
-    margin-top: 10px;
-    cursor: pointer;
-    text-decoration: underline;
-  }
-  .otp-sent-text {
-    font-size: 0.9rem;
-    color: #8e8e93;
-    margin-bottom: 12px;
-  }
-  .auth-status {
-    margin-top: 15px;
-    font-size: 0.9rem;
-    font-weight: 600;
-  }
-</style>
+  <div class="wrapper">
 
-<script>
-  let serverOTP = null; // Backend ya service se aane wala actual code
+    <!-- HERO SECTION WITH SYSTUM - UNIVERSE -->
+    <section class="hero">
+      <span class="badge">SYSTUM UNIVERSE ACTIVE</span>
+      <h1 class="hero-title">SYSTUM - <span>UNIVERSE</span></h1>
+      <p>Curated technical study vaults, roadmaps, and cheat-sheets maintained by Avinash Meena.</p>
+      <div class="btn-group">
+        <a href="#materials" class="btn btn-primary"><i class="fa-solid fa-book-bookmark"></i> Access Notes</a>
+        <a href="https://www.instagram.com/_avinash_meena1?stkn=bm1rZWxmeWdsam43" target="_blank" rel="noopener noreferrer" class="btn btn-glass"><i class="fa-brands fa-instagram"></i> Follow Insta</a>
+      </div>
+    </section>
 
-  function openAuthModal() {
-    document.getElementById('authModal').classList.add('open');
-    resetSteps();
-  }
+    <!-- GUARANTEED VISIBLE OWNER & BIO SECTION -->
+    <section class="bio-card" id="about">
+      <div class="bio-flex">
+        <div class="avatar-box">
+          <!-- Exact Teddy Vector Graphic with Red Neon Fur and Cyber Shades -->
+          <svg viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg">
+            <defs>
+              <radialGradient id="redFur" cx="50%" cy="45%" r="55%">
+                <stop offset="0%" stop-color="#ff3333"/>
+                <stop offset="60%" stop-color="#b30000"/>
+                <stop offset="100%" stop-color="#330000"/>
+              </radialGradient>
+              <linearGradient id="lensGlow" x1="0%" y1="0%" x2="100%" y2="100%">
+                <stop offset="0%" stop-color="#00ffff" stop-opacity="0.85"/>
+                <stop offset="50%" stop-color="#8a2be2" stop-opacity="0.85"/>
+                <stop offset="100%" stop-color="#ff0055" stop-opacity="0.9"/>
+              </linearGradient>
+            </defs>
+            <rect width="200" height="200" fill="#070709"/>
+            <circle cx="50" cy="55" r="28" fill="#800000"/>
+            <circle cx="50" cy="55" r="17" fill="#4d0000"/>
+            <circle cx="150" cy="55" r="28" fill="#800000"/>
+            <circle cx="150" cy="55" r="17" fill="#4d0000"/>
+            <circle cx="100" cy="100" r="62" fill="url(#redFur)"/>
+            <ellipse cx="100" cy="116" rx="26" ry="20" fill="#ff4d4d"/>
+            <polygon points="100,108 90,118 110,118" fill="#200000"/>
+            <rect x="36" y="80" width="56" height="38" rx="8" fill="none" stroke="#150000" stroke-width="7"/>
+            <rect x="108" y="80" width="56" height="38" rx="8" fill="none" stroke="#150000" stroke-width="7"/>
+            <line x1="92" y1="96" x2="108" y2="96" stroke="#150000" stroke-width="7"/>
+            <rect x="40" y="84" width="48" height="30" rx="5" fill="url(#lensGlow)"/>
+            <rect x="112" y="84" width="48" height="30" rx="5" fill="url(#lensGlow)"/>
+          </svg>
+        </div>
 
-  function closeAuthModal() {
-    document.getElementById('authModal').classList.remove('open');
-  }
+        <div>
+          <span class="owner-tag">OWNER : SYSTUM</span>
+          <h2 class="bio-name">Avinash Meena</h2>
+          <a href="https://www.instagram.com/_avinash_meena1?stkn=bm1rZWxmeWdsam43" target="_blank" rel="noopener noreferrer" class="insta-direct">
+            <i class="fa-brands fa-instagram" style="color:#E1306C;"></i> @_avinash_meena1
+          </a>
+          
+          <br>
+          <div class="systum-tagline">
+            meenaji ka systum hai ladle ❤️🌝
+          </div>
 
-  function resetSteps() {
-    document.getElementById('step-phone').style.display = 'block';
-    document.getElementById('step-otp').style.display = 'none';
-    document.getElementById('authStatus').innerText = '';
-    document.getElementById('userPhone').value = '';
-    document.getElementById('userOTP').value = '';
-  }
-
-  function requestOTP() {
-    const phone = document.getElementById('userPhone').value.trim();
-    const status = document.getElementById('authStatus');
-
-    if (phone.length !== 10 || isNaN(phone)) {
-      status.style.color = '#FF0000';
-      status.innerText = 'Kripya sahi 10-digit number dalein!';
-      return;
-    }
-
-    // Demo/Testing ke liye random 6 digit code
-    serverOTP = Math.floor(100000 + Math.random() * 900000);
-
-    // Screen change karke OTP box dikhana
-    document.getElementById('step-phone').style.display = 'none';
-    document.getElementById('step-otp').style.display = 'block';
-    document.getElementById('displayPhone').innerText = '+91 ' + phone;
-
-    // Real system me yaha Firebase/SMS gateway call hoti hai
-    alert('Testing ke liye aapka OTP hai: ' + serverOTP);
-    status.style.color = '#00ff88';
-    status.innerText = 'OTP bhej diya gaya hai!';
-  }
-
-  function verifyOTP() {
-    const enteredOTP = document.getElementById('userOTP').value.trim();
-    const status = document.getElementById('authStatus');
-
-    // Strict Verification check
-    if (enteredOTP === String(serverOTP)) {
-      status.style.color = '#00ff88';
-      status.innerText = 'OTP Verified! Login successful.';
-      
-      // User ko login mark karna
-      localStorage.setItem('userLoggedIn', 'true');
-
-      setTimeout(() => {
-        closeAuthModal();
-        alert('Welcome! Ab aap study material access kar sakte hain.');
-      }, 1000);
-    } else {
-      status.style.color = '#FF0000';
-      status.innerText = 'Galat OTP! Kripya dobara check karein.';
-    }
-  }
-</script>
+          <p class="bio-desc">
+            Welcome to the command hub! I am <strong>Avinash Meena</strong>, owne
